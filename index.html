@@ -1,3649 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VidyaSetu | E-Learning for Government Schools</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSetu | E-Learning for Government Schools</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Segoe UI",Arial,sans-serif;
-}
+    <link rel="stylesheet" href="style.css">
 
-:root{
-    --primary:#2563eb;
-    --secondary:#4f46e5;
-    --bg:#f4f7fb;
-    --card:#ffffff;
-    --text:#172033;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --input:#ffffff;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-body{
-    background:var(--bg);
-    color:var(--text);
-    transition:.2s;
-}
-
-/* ================= DARK MODE ================= */
-
-body.dark{
-    --bg:#0f172a;
-    --card:#1e293b;
-    --text:#f8fafc;
-    --muted:#94a3b8;
-    --border:#334155;
-    --input:#1e293b;
-}
-
-body.dark .auth-screen{
-    background:#0f172a;
-}
-
-body.dark .auth-box{
-    background:#1e293b;
-}
-
-body.dark .auth-right{
-    background:#1e293b;
-}
-
-body.dark input,
-body.dark select{
-    background:#1e293b;
-    color:#f8fafc;
-    border-color:#475569;
-}
-
-body.dark input::placeholder{
-    color:#94a3b8;
-}
-
-body.dark .topbar,
-body.dark .card,
-body.dark .stat-card,
-body.dark .class-card,
-body.dark .lesson,
-body.dark .quiz-card,
-body.dark .profile-card,
-body.dark .course-card{
-    background:#1e293b;
-    color:#f8fafc;
-}
-
-body.dark .topbar{
-    border-color:#334155;
-}
-
-body.dark .icon-btn{
-    background:#1e293b;
-    color:white;
-    border-color:#475569;
-}
-
-body.dark .info-box{
-    background:#0f172a;
-}
-
-body.dark .quiz-option{
-    border-color:#475569;
-}
-
-body.dark .quiz-option:hover{
-    background:#172554;
-}
-
-body.dark .progress{
-    background:#334155;
-}
-
-body.dark .section-title button{
-    color:#60a5fa;
-}
-
-/* ================= LOGIN ================= */
-
-.auth-screen{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:25px;
-    background:
-        radial-gradient(circle at 10% 20%,#dbeafe 0,transparent 30%),
-        radial-gradient(circle at 90% 80%,#e0e7ff 0,transparent 30%),
-        #f8fafc;
-}
-
-.auth-box{
-    width:100%;
-    max-width:1000px;
-    min-height:600px;
-    background:white;
-    border-radius:24px;
-    overflow:hidden;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    box-shadow:0 25px 70px rgba(15,23,42,.13);
-}
-
-.auth-left{
-    padding:55px;
-    color:white;
-    background:linear-gradient(145deg,#1d4ed8,#4338ca);
-    position:relative;
-    overflow:hidden;
-}
-
-.auth-left:after{
-    content:"";
-    position:absolute;
-    width:350px;
-    height:350px;
-    border-radius:50%;
-    background:rgba(255,255,255,.08);
-    right:-130px;
-    bottom:-130px;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:25px;
-    font-weight:800;
-}
-
-.logo-icon{
-    width:45px;
-    height:45px;
-    border-radius:13px;
-    background:white;
-    color:#2563eb;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:23px;
-}
-
-.auth-left h1{
-    margin-top:80px;
-    font-size:40px;
-    line-height:1.15;
-}
-
-.auth-left p{
-    margin-top:20px;
-    line-height:1.7;
-    color:#dbeafe;
-    max-width:430px;
-}
-
-.feature-list{
-    margin-top:35px;
-    display:grid;
-    gap:15px;
-}
-
-.feature-list div{
-    display:flex;
-    gap:12px;
-    align-items:center;
-}
-
-.auth-right{
-    padding:45px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.language-select{
-    align-self:flex-end;
-    margin-bottom:25px;
-}
-
-select,input{
-    width:100%;
-    border:1px solid var(--border);
-    padding:13px 15px;
-    border-radius:10px;
-    outline:none;
-    font-size:15px;
-    background:var(--input);
-    color:var(--text);
-}
-
-input:focus,select:focus{
-    border-color:var(--primary);
-    box-shadow:0 0 0 3px rgba(37,99,235,.1);
-}
-
-.auth-right h2{
-    font-size:30px;
-}
-
-.auth-subtitle{
-    color:var(--muted);
-    margin:8px 0 25px;
-}
-
-.form-group{
-    margin-bottom:17px;
-}
-
-.form-group label{
-    display:block;
-    font-size:14px;
-    font-weight:600;
-    margin-bottom:7px;
-}
-
-.primary-btn{
-    width:100%;
-    border:0;
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    color:white;
-    padding:14px;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.primary-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:0 8px 20px rgba(37,99,235,.25);
-}
-
-.switch-auth{
-    text-align:center;
-    margin-top:20px;
-    color:var(--muted);
-}
-
-.switch-auth button{
-    border:0;
-    background:none;
-    color:var(--primary);
-    font-weight:700;
-    cursor:pointer;
-}
-
-.hidden{
-    display:none!important;
-}
-
-/* ================= APP ================= */
-
-.app{
-    display:none;
-    min-height:100vh;
-}
-
-.sidebar{
-    position:fixed;
-    left:0;
-    top:0;
-    bottom:0;
-    width:250px;
-    background:#111827;
-    color:white;
-    padding:22px 15px;
-    z-index:20;
-}
-
-.sidebar .logo{
-    padding:8px 10px 30px;
-}
-
-.sidebar .logo-icon{
-    width:40px;
-    height:40px;
-}
-
-.nav{
-    display:grid;
-    gap:6px;
-}
-
-.nav button{
-    border:0;
-    background:transparent;
-    color:#9ca3af;
-    padding:13px 15px;
-    border-radius:10px;
-    text-align:left;
-    font-size:15px;
-    cursor:pointer;
-    display:flex;
-    gap:13px;
-    align-items:center;
-}
-
-.nav button:hover,
-.nav button.active{
-    background:#1f2937;
-    color:white;
-}
-
-.sidebar-bottom{
-    position:absolute;
-    bottom:20px;
-    left:15px;
-    right:15px;
-}
-
-.sidebar-bottom button{
-    width:100%;
-    border:0;
-    background:#1f2937;
-    color:#fca5a5;
-    padding:12px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.main{
-    margin-left:250px;
-}
-
-.topbar{
-    height:75px;
-    background:var(--card);
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 30px;
-    position:sticky;
-    top:0;
-    z-index:10;
-}
-
-.search{
-    width:350px;
-    position:relative;
-}
-
-.search input{
-    background:var(--input);
-    padding-left:42px;
-}
-
-.search span{
-    position:absolute;
-    left:15px;
-    top:12px;
-}
-
-.top-actions{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.icon-btn{
-    width:40px;
-    height:40px;
-    border:1px solid var(--border);
-    background:var(--card);
-    color:var(--text);
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.profile{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.avatar{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    background:#dbeafe;
-    color:#1d4ed8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:800;
-}
-
-.content{
-    padding:30px;
-    max-width:1500px;
-    margin:auto;
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-.welcome{
-    background:linear-gradient(120deg,#2563eb,#4f46e5);
-    color:white;
-    border-radius:20px;
-    padding:30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    overflow:hidden;
-}
-
-.welcome h1{
-    font-size:30px;
-}
-
-.welcome p{
-    margin-top:8px;
-    color:#dbeafe;
-}
-
-.welcome-emoji{
-    font-size:90px;
-}
-
-.section-title{
-    margin:30px 0 17px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.section-title h2{
-    font-size:21px;
-}
-
-.section-title button{
-    border:0;
-    background:none;
-    color:var(--primary);
-    cursor:pointer;
-    font-weight:600;
-}
-
-/* ================= CARDS ================= */
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-    margin-top:22px;
-}
-
-.stat-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:20px;
-}
-
-.stat-top{
-    display:flex;
-    justify-content:space-between;
-}
-
-.stat-icon{
-    width:43px;
-    height:43px;
-    background:#eff6ff;
-    color:#2563eb;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:11px;
-}
-
-.stat-card h2{
-    margin-top:18px;
-    font-size:27px;
-}
-
-.stat-card p{
-    color:var(--muted);
-    font-size:13px;
-    margin-top:3px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:20px;
-}
-
-.subject-card{
-    cursor:pointer;
-    transition:.2s;
-}
-
-.subject-card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 12px 30px rgba(15,23,42,.08);
-}
-
-.subject-icon{
-    width:52px;
-    height:52px;
-    border-radius:14px;
-    background:#eff6ff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    margin-bottom:15px;
-}
-
-.subject-card h3{
-    font-size:17px;
-}
-
-.subject-card p{
-    color:var(--muted);
-    font-size:13px;
-    margin:7px 0 14px;
-}
-
-.progress{
-    height:7px;
-    background:#e5e7eb;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.progress div{
-    height:100%;
-    background:linear-gradient(90deg,#2563eb,#4f46e5);
-    border-radius:20px;
-}
-
-.progress-text{
-    font-size:12px;
-    color:var(--muted);
-    margin-top:7px;
-}
-
-/* ================= CLASSES ================= */
-
-.class-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.class-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:17px;
-    padding:25px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.class-card:hover{
-    border-color:#93c5fd;
-    transform:translateY(-3px);
-}
-
-.class-number{
-    width:55px;
-    height:55px;
-    background:#eff6ff;
-    color:#2563eb;
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:21px;
-    font-weight:800;
-    margin-bottom:15px;
-}
-
-.class-card p{
-    color:var(--muted);
-    font-size:13px;
-    margin-top:7px;
-}
-
-/* ================= LESSONS ================= */
-
-.lesson-list{
-    display:grid;
-    gap:13px;
-}
-
-.lesson{
-    background:var(--card);
-    border:1px solid var(--border);
-    padding:18px;
-    border-radius:13px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.lesson-left{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.lesson-icon{
-    width:45px;
-    height:45px;
-    border-radius:10px;
-    background:#eef2ff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.small-btn{
-    border:0;
-    background:#eff6ff;
-    color:#2563eb;
-    padding:9px 15px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-/* ================= QUIZ ================= */
-
-.quiz-card{
-    max-width:800px;
-    margin:auto;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:30px;
-}
-
-.quiz-option{
-    border:1px solid var(--border);
-    padding:15px;
-    border-radius:10px;
-    margin-top:12px;
-    cursor:pointer;
-}
-
-.quiz-option:hover{
-    border-color:#60a5fa;
-    background:#eff6ff;
-}
-
-.quiz-option.selected{
-    border-color:#2563eb;
-    background:#dbeafe;
-}
-
-.quiz-result{
-    margin-top:20px;
-    padding:15px;
-    border-radius:10px;
-    background:#f0fdf4;
-    color:#166534;
-}
-
-/* ================= COURSES ================= */
-
-.course-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:16px;
-    overflow:hidden;
-}
-
-.course-banner{
-    height:120px;
-    background:linear-gradient(135deg,#2563eb,#4f46e5);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:50px;
-}
-
-.course-body{
-    padding:20px;
-}
-
-.course-body p{
-    color:var(--muted);
-    font-size:13px;
-    margin:8px 0 17px;
-}
-
-/* ================= PROFILE ================= */
-
-.profile-card{
-    max-width:800px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:17px;
-    padding:30px;
-}
-
-.profile-header{
-    display:flex;
-    gap:18px;
-    align-items:center;
-    padding-bottom:25px;
-    border-bottom:1px solid var(--border);
-}
-
-.big-avatar{
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    background:#dbeafe;
-    color:#1d4ed8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:27px;
-    font-weight:800;
-}
-
-.info-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-    margin-top:25px;
-}
-
-.info-box{
-    background:#f8fafc;
-    padding:17px;
-    border-radius:10px;
-}
-
-.info-box small{
-    color:var(--muted);
-}
-
-/* ================= CONTENT MODAL ================= */
-
-.lesson-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.65);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:100;
-}
-
-.lesson-modal.show{
-    display:flex;
-}
-
-.lesson-content{
-    width:100%;
-    max-width:850px;
-    max-height:90vh;
-    overflow:auto;
-    background:var(--card);
-    color:var(--text);
-    border-radius:20px;
-    padding:30px;
-}
-
-.lesson-content h2{
-    margin-bottom:8px;
-}
-
-.lesson-content h3{
-    margin-top:22px;
-    margin-bottom:8px;
-}
-
-.lesson-content p{
-    color:var(--muted);
-    line-height:1.8;
-    margin-bottom:10px;
-}
-
-.lesson-content ul{
-    margin-left:20px;
-    color:var(--muted);
-    line-height:1.8;
-}
-
-.lesson-close{
-    float:right;
-    border:0;
-    background:#fee2e2;
-    color:#dc2626;
-    width:35px;
-    height:35px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.complete-btn{
-    margin-top:20px;
-}
-
-/* ================= MOBILE ================= */
-
-.mobile-menu{
-    display:none;
-}
-
-@media(max-width:900px){
-
-    .sidebar{
-        transform:translateX(-100%);
-        transition:.25s;
-    }
-
-    .sidebar.open{
-        transform:translateX(0);
-    }
-
-    .main{
-        margin-left:0;
-    }
-
-    .mobile-menu{
-        display:block;
-    }
-
-    .stats-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .grid,
-    .class-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .auth-box{
-        grid-template-columns:1fr;
-    }
-
-    .auth-left{
-        display:none;
-    }
-}
-
-@media(max-width:600px){
-
-    .content{
-        padding:18px;
-    }
-
-    .topbar{
-        padding:0 15px;
-    }
-
-    .search{
-        display:none;
-    }
-
-    .stats-grid,
-    .grid,
-    .class-grid{
-        grid-template-columns:1fr;
-    }
-
-    .welcome{
-        padding:22px;
-    }
-
-    .welcome-emoji{
-        font-size:55px;
-    }
-
-    .info-grid{
-        grid-template-columns:1fr;
-    }
-
-    .auth-right{
-        padding:30px 22px;
-    }
-
-    .profile{
-        display:none;
-    }
-}
-</style>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
 <!-- ================= LOGIN ================= -->
 
-<section class="auth-screen" id="authScreen">
+<section id="authPage" class="auth-page">
 
-<div class="auth-box">
+    <div class="auth-card">
 
-<div class="auth-left">
+        <div class="brand auth-brand">
+            <div class="brand-mark">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
 
-<div class="logo">
-<div class="logo-icon">📚</div>
-VidyaSetu
-</div>
+            <div>
+                <h2>EduSetu</h2>
+                <span data-i18n="brandSub">E-Learning for Government Schools</span>
+            </div>
+        </div>
 
-<h1 id="heroTitle">Learn. Explore. Grow.</h1>
+        <div class="auth-language">
+            <select id="authLanguage">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="mr">मराठी</option>
+            </select>
+        </div>
 
-<p id="heroText">
-A simple and powerful digital learning platform created especially for students of government schools.
-</p>
+        <!-- LOGIN -->
 
-<div class="feature-list">
-<div>✓ Free learning resources</div>
-<div>✓ Classes 5 to 10</div>
-<div>✓ English • हिंदी • मराठी</div>
-<div>✓ Interactive quizzes</div>
-<div>✓ Certificate courses</div>
-</div>
+        <div id="loginBox">
 
-</div>
+            <div class="auth-heading">
+                <h1 data-i18n="welcomeBack">Welcome Back</h1>
+                <p data-i18n="loginSubtitle">
+                    Login to continue your learning journey.
+                </p>
+            </div>
 
-<div class="auth-right">
+            <form id="loginForm">
 
-<div class="language-select">
-<select id="authLanguage" onchange="changeAuthLanguage()">
-<option value="en">English</option>
-<option value="hi">हिंदी</option>
-<option value="mr">मराठी</option>
-</select>
-</div>
+                <label data-i18n="username">Student Username</label>
 
-<!-- LOGIN -->
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input id="loginUsername"
+                           type="text"
+                           autocomplete="username"
+                           data-placeholder="usernamePlaceholder"
+                           placeholder="Enter your username"
+                           required>
+                </div>
 
-<div id="loginForm">
+                <label data-i18n="password">Password</label>
 
-<h2 id="loginTitle">Welcome Back 👋</h2>
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
 
-<p class="auth-subtitle" id="loginSubtitle">
-Login to continue your learning journey.
-</p>
+                    <input id="loginPassword"
+                           type="password"
+                           autocomplete="current-password"
+                           data-placeholder="passwordPlaceholder"
+                           placeholder="Enter your password"
+                           required>
 
-<div class="form-group">
-<label id="studentIdLabel">Student ID</label>
-<input id="loginId" placeholder="Enter your Student ID">
-</div>
+                    <button type="button"
+                            class="password-btn"
+                            id="loginPasswordToggle"
+                            aria-label="Show password">
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
+                </div>
 
-<div class="form-group">
-<label id="passwordLabel">Password</label>
-<input id="loginPassword" type="password" placeholder="Enter your password">
-</div>
+                <button class="primary-btn full-btn" type="submit">
+                    <span data-i18n="login">Login</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
 
-<button class="primary-btn" onclick="login()" id="loginButton">
-Login
-</button>
+            </form>
 
-<div class="switch-auth">
-<span id="noAccount">New student?</span>
-<button onclick="showSignup()" id="signupLink">
-Create Account
-</button>
-</div>
+            <div class="auth-switch">
+                <span data-i18n="noAccount">Don't have an account?</span>
+                <button id="showSignup" data-i18n="createAccount">
+                    Create Account
+                </button>
+            </div>
 
-</div>
+        </div>
 
-<!-- SIGNUP -->
 
-<div id="signupForm" class="hidden">
+        <!-- SIGN UP -->
 
-<h2 id="signupTitle">Create Student Account</h2>
+        <div id="signupBox" class="hidden">
 
-<p class="auth-subtitle" id="signupSubtitle">
-Create your account to start learning.
-</p>
+            <div class="auth-heading">
+                <h1 data-i18n="createAccountTitle">Create Student Account</h1>
+                <p data-i18n="signupSubtitle">
+                    Create your account to start learning.
+                </p>
+            </div>
 
-<div class="form-group">
-<label>Student Name</label>
-<input id="signupName" placeholder="Enter your full name">
-</div>
+            <form id="signupForm">
 
-<div class="form-group">
-<label>Student ID</label>
-<input id="signupId" placeholder="Create a Student ID">
-</div>
+                <label data-i18n="username">Student Username</label>
 
-<div class="form-group">
-<label>Class</label>
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
 
-<select id="signupClass">
-<option value="5">Class 5</option>
-<option value="6">Class 6</option>
-<option value="7">Class 7</option>
-<option value="8">Class 8</option>
-<option value="9">Class 9</option>
-<option value="10">Class 10</option>
-</select>
+                    <input id="signupUsername"
+                           type="text"
+                           data-placeholder="usernamePlaceholder"
+                           placeholder="Enter your username"
+                           required>
+                </div>
 
-</div>
+                <label data-i18n="class">Class / Standard</label>
 
-<div class="form-group">
-<label>Medium</label>
+                <div class="input-box">
+                    <i class="fa-solid fa-school"></i>
 
-<select id="signupMedium">
-<option>English</option>
-<option>हिंदी</option>
-<option>मराठी</option>
-</select>
+                    <select id="signupClass" required>
+                        <option value="" data-i18n="selectClass">
+                            Select Class
+                        </option>
+                        <option value="5">Class 5</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                    </select>
+                </div>
 
-</div>
+                <label data-i18n="medium">Medium</label>
 
-<div class="form-group">
-<label>Password</label>
-<input id="signupPassword" type="password" placeholder="Create password">
-</div>
+                <div class="input-box">
+                    <i class="fa-solid fa-language"></i>
 
-<button class="primary-btn" onclick="signup()">
-Create Account
-</button>
+                    <select id="signupMedium">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="mr">मराठी</option>
+                    </select>
+                </div>
 
-<div class="switch-auth">
-Already have an account?
-<button onclick="showLogin()">Login</button>
-</div>
+                <label data-i18n="password">Password</label>
 
-</div>
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
 
-</div>
-</div>
+                    <input id="signupPassword"
+                           type="password"
+                           data-placeholder="passwordPlaceholder"
+                           placeholder="Create a password"
+                           minlength="4"
+                           required>
+
+                    <button type="button"
+                            class="password-btn"
+                            id="signupPasswordToggle">
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
+                </div>
+
+                <button class="primary-btn full-btn" type="submit">
+                    <span data-i18n="signUp">Sign Up</span>
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
+
+            </form>
+
+            <div class="auth-switch">
+                <span data-i18n="alreadyAccount">
+                    Already have an account?
+                </span>
+
+                <button id="showLogin" data-i18n="login">
+                    Login
+                </button>
+            </div>
+
+        </div>
+
+        <div id="authMessage" class="auth-message"></div>
+
+    </div>
+
 </section>
 
 
 <!-- ================= APP ================= -->
 
-<div class="app" id="app">
+<section id="appPage" class="app-page hidden">
 
-<aside class="sidebar" id="sidebar">
+    <!-- SIDEBAR -->
 
-<div class="logo">
-<div class="logo-icon">📚</div>
-VidyaSetu
-</div>
+    <aside class="sidebar" id="sidebar">
 
-<nav class="nav">
+        <div class="sidebar-brand">
 
-<button class="active" onclick="showPage('dashboard',this)">
-🏠 <span>Dashboard</span>
-</button>
-
-<button onclick="showPage('classes',this)">
-📖 <span>My Classes</span>
-</button>
-
-<button onclick="showPage('lessons',this)">
-📝 <span>Lessons</span>
-</button>
-
-<button onclick="showPage('quizzes',this)">
-🧠 <span>Quizzes</span>
-</button>
-
-<button onclick="showPage('courses',this)">
-🏆 <span>Certificate Courses</span>
-</button>
-
-<button onclick="showPage('progress',this)">
-📊 <span>My Progress</span>
-</button>
-
-<button onclick="showPage('profile',this)">
-👤 <span>Profile</span>
-</button>
-
-</nav>
-
-<div class="sidebar-bottom">
-<button onclick="logout()">🚪 Logout</button>
-</div>
-
-</aside>
-
-<main class="main">
-
-<header class="topbar">
-
-<button class="icon-btn mobile-menu" onclick="toggleSidebar()">☰</button>
-
-<div class="search">
-<span>🔍</span>
-<input id="searchInput"
-placeholder="Search lessons, subjects..."
-oninput="searchContent()">
-</div>
-
-<div class="top-actions">
-
-<select onchange="changeAppLanguage(this.value)" style="width:130px">
-<option value="English">English</option>
-<option value="हिंदी">हिंदी</option>
-<option value="मराठी">मराठी</option>
-</select>
-
-<button class="icon-btn" onclick="toggleDarkMode()" id="darkButton">🌙</button>
-
-<div class="profile">
-<div class="avatar" id="topAvatar">S</div>
-
-<div>
-<strong id="topName">Student</strong>
-<br>
-<small id="topClass">Class 5</small>
-</div>
-
-</div>
-
-</div>
-</header>
-
-<div class="content">
-
-<!-- ================= DASHBOARD ================= -->
-
-<section class="page active" id="dashboard">
-
-<div class="welcome">
-
-<div>
-<h1 id="welcomeText">Welcome, Student! 👋</h1>
-<p>Ready to learn something new today?</p>
-</div>
-
-<div class="welcome-emoji">🎓</div>
-
-</div>
-
-<div class="stats-grid">
-
-<div class="stat-card">
-
-<div class="stat-top">
-<span>Lessons Completed</span>
-<div class="stat-icon">📚</div>
-</div>
-
-<h2 id="lessonStat">0</h2>
-<p>Keep learning every day</p>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-top">
-<span>Quiz Score</span>
-<div class="stat-icon">🧠</div>
-</div>
-
-<h2 id="quizStat">0%</h2>
-<p>Complete quizzes to improve</p>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-top">
-<span>Learning Streak</span>
-<div class="stat-icon">🔥</div>
-</div>
-
-<h2 id="streakStat">0 Days</h2>
-<p>Keep your learning streak alive</p>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-top">
-<span>Certificates</span>
-<div class="stat-icon">🏆</div>
-</div>
-
-<h2 id="certificateStat">0</h2>
-<p>Courses completed</p>
-
-</div>
-
-</div>
-
-
-<div class="section-title">
-<h2>Continue Learning</h2>
-<button onclick="showPage('lessons')">View All</button>
-</div>
-
-<div class="grid">
-
-<div class="card subject-card" onclick="openLesson('Mathematics')">
-
-<div class="subject-icon">🔢</div>
-
-<h3>Mathematics</h3>
-
-<p>
-Numbers, geometry, fractions, algebra and problem solving.
-</p>
-
-<div class="progress">
-<div id="mathProgress" style="width:0%"></div>
-</div>
-
-<div class="progress-text" id="mathText">
-0% completed
-</div>
-
-</div>
-
-
-<div class="card subject-card" onclick="openLesson('Science')">
-
-<div class="subject-icon">🔬</div>
-
-<h3>Science</h3>
-
-<p>
-Explore living things, matter, energy and our environment.
-</p>
-
-<div class="progress">
-<div id="scienceProgress" style="width:0%"></div>
-</div>
-
-<div class="progress-text" id="scienceText">
-0% completed
-</div>
-
-</div>
-
-
-<div class="card subject-card" onclick="openLesson('Social Science')">
-
-<div class="subject-icon">🌍</div>
-
-<h3>Social Science</h3>
-
-<p>
-History, geography, civics and our society.
-</p>
-
-<div class="progress">
-<div id="socialProgress" style="width:0%"></div>
-</div>
-
-<div class="progress-text" id="socialText">
-0% completed
-</div>
-
-</div>
-
-</div>
-
-
-<div class="section-title">
-<h2>Quick Activities</h2>
-</div>
-
-<div class="grid">
-
-<div class="card subject-card" onclick="showPage('quizzes')">
-
-<div class="subject-icon">🧠</div>
-
-<h3>Take a Quiz</h3>
-
-<p>
-Test your knowledge with short interactive quizzes.
-</p>
-
-<button class="small-btn">
-Start Quiz
-</button>
-
-</div>
-
-
-<div class="card subject-card" onclick="showPage('courses')">
-
-<div class="subject-icon">🏆</div>
-
-<h3>Learn a New Skill</h3>
-
-<p>
-Complete a course and earn a certificate.
-</p>
-
-<button class="small-btn">
-Explore Courses
-</button>
-
-</div>
-
-
-<div class="card subject-card" onclick="showPage('progress')">
-
-<div class="subject-icon">📈</div>
-
-<h3>Check Progress</h3>
-
-<p>
-See your learning activity and achievements.
-</p>
-
-<button class="small-btn">
-View Progress
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= CLASSES ================= -->
-
-<section class="page" id="classes">
-
-<div class="section-title">
-<h2>Classes 5 – 10</h2>
-</div>
-
-<div class="class-grid">
-
-<div class="class-card" onclick="selectClass(5)">
-<div class="class-number">05</div>
-<h3>Class 5</h3>
-<p>Build strong foundations in every subject.</p>
-</div>
-
-<div class="class-card" onclick="selectClass(6)">
-<div class="class-number">06</div>
-<h3>Class 6</h3>
-<p>Discover new concepts through examples.</p>
-</div>
-
-<div class="class-card" onclick="selectClass(7)">
-<div class="class-number">07</div>
-<h3>Class 7</h3>
-<p>Strengthen concepts with practice.</p>
-</div>
-
-<div class="class-card" onclick="selectClass(8)">
-<div class="class-number">08</div>
-<h3>Class 8</h3>
-<p>Learn deeper concepts and applications.</p>
-</div>
-
-<div class="class-card" onclick="selectClass(9)">
-<div class="class-number">09</div>
-<h3>Class 9</h3>
-<p>Prepare for higher-level learning.</p>
-</div>
-
-<div class="class-card" onclick="selectClass(10)">
-<div class="class-number">10</div>
-<h3>Class 10</h3>
-<p>Build exam confidence and strong concepts.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= LESSONS ================= -->
-
-<section class="page" id="lessons">
-
-<div class="section-title">
-
-<h2>Lessons</h2>
-
-<select id="subjectSelect"
-onchange="loadLessons()"
-style="width:200px">
-
-<option>Mathematics</option>
-<option>Science</option>
-<option>Social Science</option>
-<option>English</option>
-<option>Hindi</option>
-<option>Marathi</option>
-
-</select>
-
-</div>
-
-<div class="lesson-list" id="lessonList"></div>
-
-</section>
-
-
-<!-- ================= QUIZZES ================= -->
-
-<section class="page" id="quizzes">
-
-<div class="section-title">
-<h2>Interactive Quizzes</h2>
-</div>
-
-<div class="quiz-card">
-
-<div id="quizArea">
-
-<h2 id="questionText"></h2>
-
-<div id="options"></div>
-
-<button class="primary-btn"
-style="margin-top:20px"
-onclick="nextQuestion()">
-
-Next Question
-
-</button>
-
-</div>
-
-<div id="quizFinished" class="hidden">
-
-<h2>🎉 Quiz Completed!</h2>
-
-<p id="finalScore" style="margin:15px 0"></p>
-
-<button class="primary-btn"
-onclick="startQuiz()">
-
-Try Again
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= COURSES ================= -->
-
-<section class="page" id="courses">
-
-<div class="section-title">
-<h2>Certificate Courses</h2>
-</div>
-
-<div class="grid">
-
-<div class="course-card">
-
-<div class="course-banner">💻</div>
-
-<div class="course-body">
-
-<h3>Introduction to Computer Skills</h3>
-
-<p>
-Learn computer basics, files, folders, internet safety and digital skills.
-</p>
-
-<div class="progress">
-<div style="width:0%"></div>
-</div>
-
-<br>
-
-<button class="small-btn"
-onclick="courseStart('Computer Skills')">
-
-Start Course
-
-</button>
-
-</div>
-</div>
-
-
-<div class="course-card">
-
-<div class="course-banner">🌱</div>
-
-<div class="course-body">
-
-<h3>Environmental Awareness</h3>
-
-<p>
-Understand nature, pollution, conservation and sustainable living.
-</p>
-
-<div class="progress">
-<div style="width:0%"></div>
-</div>
-
-<br>
-
-<button class="small-btn"
-onclick="courseStart('Environmental Awareness')">
-
-Start Course
-
-</button>
-
-</div>
-</div>
-
-
-<div class="course-card">
-
-<div class="course-banner">🧠</div>
-
-<div class="course-body">
-
-<h3>Study & Learning Skills</h3>
-
-<p>
-Improve concentration, note-making, time management and revision.
-</p>
-
-<div class="progress">
-<div style="width:0%"></div>
-</div>
-
-<br>
-
-<button class="small-btn"
-onclick="courseStart('Study Skills')">
-
-Start Course
-
-</button>
-
-</div>
-</div>
-
-
-<div class="course-card">
-
-<div class="course-banner">🔐</div>
-
-<div class="course-body">
-
-<h3>Digital Safety</h3>
-
-<p>
-Learn passwords, privacy, cyber safety and responsible internet use.
-</p>
-
-<div class="progress">
-<div style="width:0%"></div>
-</div>
-
-<br>
-
-<button class="small-btn"
-onclick="courseStart('Digital Safety')">
-
-Start Course
-
-</button>
-
-</div>
-</div>
-
-
-<div class="course-card">
-
-<div class="course-banner">🎨</div>
-
-<div class="course-body">
-
-<h3>Creative Thinking</h3>
-
-<p>
-Develop imagination, problem solving and creative thinking skills.
-</p>
-
-<div class="progress">
-<div style="width:0%"></div>
-</div>
-
-<br>
-
-<button class="small-btn"
-onclick="courseStart('Creative Thinking')">
-
-Start Course
-
-</button>
-
-</div>
-</div>
-
-
-<div class="course-card">
-
-<div class="course-banner">🌍</div>
-
-<div class="course-body">
-
-<h3>General Knowledge</h3>
-
-<p>
-Explore India, science, technology, environment and world knowledge.
-</p>
-
-<div class="progress">
-<div style="width:0%"></div>
-</div>
-
-<br>
-
-<button class="small-btn"
-onclick="courseStart('General Knowledge')">
-
-Start Course
-
-</button>
-
-</div>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= PROGRESS ================= -->
-
-<section class="page" id="progress">
-
-<div class="section-title">
-<h2>My Learning Progress</h2>
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Overall Progress</h3>
-
-<h1 style="margin:15px 0"
-id="overallProgress">
-0%
-</h1>
-
-<div class="progress">
-<div id="overallProgressBar" style="width:0%"></div>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>Quiz Performance</h3>
-
-<h1 style="margin:15px 0"
-id="progressQuiz">
-0%
-</h1>
-
-<div class="progress">
-<div id="quizProgressBar" style="width:0%"></div>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>Learning Streak</h3>
-
-<h1 style="margin:15px 0"
-id="progressStreak">
-🔥 0 Days
-</h1>
-
-<p style="color:var(--muted)">
-Keep learning every day!
-</p>
-
-</div>
-
-</div>
-
-
-<div class="section-title">
-<h2>Achievements</h2>
-</div>
-
-<div class="grid">
-
-<div class="card">
-<h2>🥇</h2>
-<h3 style="margin-top:10px">First Quiz</h3>
-<p style="color:var(--muted);margin-top:5px">
-Complete your first quiz.
-</p>
-</div>
-
-<div class="card">
-<h2>🔥</h2>
-<h3 style="margin-top:10px">Learning Streak</h3>
-<p style="color:var(--muted);margin-top:5px">
-Learn consistently every day.
-</p>
-</div>
-
-<div class="card">
-<h2>🏆</h2>
-<h3 style="margin-top:10px">Course Starter</h3>
-<p style="color:var(--muted);margin-top:5px">
-Start your first certificate course.
-</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= PROFILE ================= -->
-
-<section class="page" id="profile">
-
-<div class="section-title">
-<h2>Student Profile</h2>
-</div>
-
-<div class="profile-card">
-
-<div class="profile-header">
-
-<div class="big-avatar" id="profileAvatar">
-S
-</div>
-
-<div>
-<h2 id="profileName">Student</h2>
-<p style="color:var(--muted)">
-Student Account
-</p>
-</div>
-
-</div>
-
-<div class="info-grid">
-
-<div class="info-box">
-<small>Student ID</small>
-<h3 id="profileId">STU1001</h3>
-</div>
-
-<div class="info-box">
-<small>Class</small>
-<h3 id="profileClass">Class 5</h3>
-</div>
-
-<div class="info-box">
-<small>Medium</small>
-<h3 id="profileMedium">English</h3>
-</div>
-
-<div class="info-box">
-<small>Certificates</small>
-<h3 id="profileCertificates">0 Completed</h3>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-</main>
-
-</div>
-
-
-<!-- ================= LESSON MODAL ================= -->
-
-<div class="lesson-modal" id="lessonModal">
-
-<div class="lesson-content">
-
-<button class="lesson-close"
-onclick="closeLesson()">
-✕
-</button>
-
-<div id="lessonContent"></div>
-
-</div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   LESSON CONTENT
-========================================================= */
-
-const lessonsData = {
-
-"Mathematics":[
-
-{
-title:"Number System",
-description:"Understanding natural numbers, whole numbers and place value.",
-content:`
-<h3>What is a Number System?</h3>
-
-<p>
-Numbers help us count, measure, compare and describe quantities.
-The number system gives us different groups of numbers that are used in mathematics.
-</p>
-
-<h3>Natural Numbers</h3>
-
-<p>
-Natural numbers are counting numbers such as 1, 2, 3, 4, 5 and so on.
-They are used when we count objects.
-</p>
-
-<h3>Whole Numbers</h3>
-
-<p>
-Whole numbers include all natural numbers as well as zero.
-For example: 0, 1, 2, 3, 4, 5...
-</p>
-
-<h3>Place Value</h3>
-
-<p>
-The value of a digit depends on its position in a number.
-For example, in 4,582:
-</p>
-
-<ul>
-<li>4 is in the thousands place.</li>
-<li>5 is in the hundreds place.</li>
-<li>8 is in the tens place.</li>
-<li>2 is in the ones place.</li>
-</ul>
-
-<h3>Try It Yourself</h3>
-
-<p>
-Write the place value of 7 in the number 3,742.
-</p>
-`
-},
-
-{
-title:"Fractions Around Us",
-description:"Learn fractions using everyday examples such as food, money and measurements.",
-content:`
-<h3>What is a Fraction?</h3>
-
-<p>
-A fraction represents a part of a whole. It is written using two numbers:
-a numerator and a denominator.
-</p>
-
-<p>
-For example, in 3/4, the number 3 is the numerator and 4 is the denominator.
-</p>
-
-<h3>Everyday Examples</h3>
-
-<ul>
-<li>Half of a pizza = 1/2</li>
-<li>One quarter of a kilogram = 1/4 kg</li>
-<li>Three parts out of five = 3/5</li>
-</ul>
-
-<h3>Equivalent Fractions</h3>
-
-<p>
-Fractions can have different numbers but represent the same quantity.
-For example, 1/2 and 2/4 are equivalent fractions.
-</p>
-
-<h3>Practice</h3>
-
-<p>
-If a cake is divided into 8 equal pieces and you eat 3 pieces,
-what fraction of the cake did you eat?
-</p>
-`
-},
-
-{
-title:"Geometry Basics",
-description:"Explore lines, angles, shapes and their properties.",
-content:`
-<h3>Introduction to Geometry</h3>
-
-<p>
-Geometry is the branch of mathematics that studies shapes, sizes,
-positions and properties of objects.
-</p>
-
-<h3>Lines and Line Segments</h3>
-
-<p>
-A line continues endlessly in both directions.
-A line segment has two fixed endpoints.
-</p>
-
-<h3>Angles</h3>
-
-<ul>
-<li>Acute angle: less than 90°</li>
-<li>Right angle: exactly 90°</li>
-<li>Obtuse angle: greater than 90° but less than 180°</li>
-<li>Straight angle: exactly 180°</li>
-</ul>
-
-<h3>Shapes</h3>
-
-<p>
-A triangle has three sides. A rectangle has four sides and four right angles.
-A circle is a curved shape with every point on its boundary equally distant from its centre.
-</p>
-`
-}
-
-],
-
-"Science":[
-
-{
-title:"Living and Non-Living Things",
-description:"Understand the basic characteristics that separate living things from non-living things.",
-content:`
-<h3>Living Things</h3>
-
-<p>
-Living things carry out important life processes. They need energy,
-grow, reproduce and respond to their surroundings.
-</p>
-
-<h3>Characteristics of Living Things</h3>
-
-<ul>
-<li>They need food or energy.</li>
-<li>They grow.</li>
-<li>They reproduce.</li>
-<li>They respond to changes around them.</li>
-<li>They eventually die.</li>
-</ul>
-
-<h3>Non-Living Things</h3>
-
-<p>
-Objects such as stones, tables and pencils do not carry out life processes.
-They do not grow or reproduce on their own.
-</p>
-
-<h3>Think About It</h3>
-
-<p>
-A seed may look inactive, but under suitable conditions it can germinate
-and grow into a plant. This is an example of a living organism beginning its growth.
-</p>
-`
-},
-
-{
-title:"States of Matter",
-description:"Learn about solids, liquids and gases and how matter changes from one state to another.",
-content:`
-<h3>What is Matter?</h3>
-
-<p>
-Anything that has mass and occupies space is called matter.
-Matter commonly exists as solids, liquids and gases.
-</p>
-
-<h3>Solids</h3>
-
-<p>
-Solids have a fixed shape and fixed volume. Examples include a book,
-stone, pencil and chair.
-</p>
-
-<h3>Liquids</h3>
-
-<p>
-Liquids have a fixed volume but take the shape of their container.
-Water and milk are examples.
-</p>
-
-<h3>Gases</h3>
-
-<p>
-Gases do not have a fixed shape or fixed volume.
-Air and water vapour are examples.
-</p>
-
-<h3>Changes of State</h3>
-
-<ul>
-<li>Melting: solid → liquid</li>
-<li>Freezing: liquid → solid</li>
-<li>Evaporation: liquid → gas</li>
-<li>Condensation: gas → liquid</li>
-</ul>
-`
-},
-
-{
-title:"Our Environment",
-description:"Discover food chains, natural resources and ways to protect our environment.",
-content:`
-<h3>What is an Environment?</h3>
-
-<p>
-Our environment includes living organisms and non-living things around us.
-Air, water, soil, plants, animals and humans are all connected.
-</p>
-
-<h3>Natural Resources</h3>
-
-<p>
-Water, forests, soil, minerals and sunlight are important natural resources.
-We should use them carefully.
-</p>
-
-<h3>Food Chains</h3>
-
-<p>
-A food chain shows how energy moves from one organism to another.
-For example:
-</p>
-
-<p>
-Grass → Grasshopper → Frog → Snake → Eagle
-</p>
-
-<h3>Protecting Nature</h3>
-
-<ul>
-<li>Save water.</li>
-<li>Plant and protect trees.</li>
-<li>Reduce unnecessary plastic use.</li>
-<li>Keep surroundings clean.</li>
-<li>Protect animals and their habitats.</li>
-</ul>
-`
-}
-
-],
-
-"Social Science":[
-
-{
-title:"Understanding Our Constitution",
-description:"Learn why India has a Constitution and how it guides the country.",
-content:`
-<h3>What is a Constitution?</h3>
-
-<p>
-A Constitution is a set of fundamental rules and principles according to which
-a country is governed.
-</p>
-
-<h3>India's Constitution</h3>
-
-<p>
-The Constitution of India explains the structure and powers of government
-and protects important rights of citizens.
-</p>
-
-<h3>Why is it Important?</h3>
-
-<ul>
-<li>It establishes rules for government.</li>
-<li>It protects citizens' rights.</li>
-<li>It explains responsibilities of institutions.</li>
-<li>It supports equality and justice.</li>
-</ul>
-
-<h3>Our Responsibility</h3>
-
-<p>
-Citizens should respect the Constitution, follow laws and contribute positively
-to society.
-</p>
-`
-},
-
-{
-title:"Maps and Directions",
-description:"Understand maps, symbols, directions and scale.",
-content:`
-<h3>What is a Map?</h3>
-
-<p>
-A map is a representation of a place or area on a flat surface.
-Maps help us understand locations and distances.
-</p>
-
-<h3>Directions</h3>
-
-<p>
-The four main directions are North, South, East and West.
-North-East, North-West, South-East and South-West are intermediate directions.
-</p>
-
-<h3>Map Symbols</h3>
-
-<p>
-Maps use symbols to represent roads, rivers, railway lines, buildings,
-mountains and other features.
-</p>
-
-<h3>Scale</h3>
-
-<p>
-A map scale shows the relationship between distance on a map and actual distance
-on the ground.
-</p>
-`
-},
-
-{
-title:"Early Indian Civilizations",
-description:"Explore important developments of early civilizations in India.",
-content:`
-<h3>Early Settlements</h3>
-
-<p>
-People began forming permanent settlements when agriculture became more common.
-Rivers provided water and fertile land for farming.
-</p>
-
-<h3>Indus Valley Civilization</h3>
-
-<p>
-The Indus Valley Civilization developed in parts of the Indian subcontinent.
-Important cities included Harappa and Mohenjo-daro.
-</p>
-
-<h3>Town Planning</h3>
-
-<p>
-Archaeological evidence shows planned streets, drainage systems,
-buildings and craft activities.
-</p>
-
-<h3>Why Study History?</h3>
-
-<p>
-Studying the past helps us understand how people lived,
-how societies developed and how ideas changed over time.
-</p>
-`
-}
-
-],
-
-"English":[
-
-{
-title:"Reading Skills",
-description:"Learn how to understand the main idea, supporting details and new vocabulary.",
-content:`
-<h3>Reading with Understanding</h3>
-
-<p>
-Good reading is not only about reading words. It also means understanding
-what the writer is trying to communicate.
-</p>
-
-<h3>Main Idea</h3>
-
-<p>
-The main idea is the most important point of a paragraph or passage.
-</p>
-
-<h3>Supporting Details</h3>
-
-<p>
-Supporting details explain or provide evidence for the main idea.
-</p>
-
-<h3>New Vocabulary</h3>
-
-<p>
-When you find an unfamiliar word, try to understand its meaning from
-the surrounding sentences before looking it up.
-</p>
-
-<h3>Practice</h3>
-
-<p>
-Read a short paragraph and write one sentence explaining its main idea.
-</p>
-`
-},
-
-{
-title:"Parts of Speech",
-description:"Explore nouns, pronouns, verbs, adjectives and other important grammar concepts.",
-content:`
-<h3>What are Parts of Speech?</h3>
-
-<p>
-Parts of speech describe the role words play in sentences.
-</p>
-
-<ul>
-<li>Noun – names a person, place, animal or thing.</li>
-<li>Pronoun – replaces a noun.</li>
-<li>Verb – shows an action or state.</li>
-<li>Adjective – describes a noun.</li>
-<li>Adverb – gives more information about a verb.</li>
-</ul>
-
-<h3>Example</h3>
-
-<p>
-"The clever student solved the difficult problem quickly."
-</p>
-
-<p>
-Here, "student" and "problem" are nouns, "clever" and "difficult"
-are adjectives, and "solved" is a verb.
-</p>
-`
-},
-
-{
-title:"Creative Writing",
-description:"Learn how to plan and write a clear and interesting paragraph.",
-content:`
-<h3>What is Creative Writing?</h3>
-
-<p>
-Creative writing allows you to express ideas, experiences and imagination
-using interesting language.
-</p>
-
-<h3>Plan Before Writing</h3>
-
-<ul>
-<li>Choose your topic.</li>
-<li>Think of three or four main points.</li>
-<li>Arrange the ideas in a logical order.</li>
-<li>Write a beginning, middle and ending.</li>
-<li>Check spelling and punctuation.</li>
-</ul>
-
-<h3>Writing Tip</h3>
-
-<p>
-Use descriptive words and examples to make your writing clearer and more engaging.
-</p>
-`
-}
-
-],
-
-"Hindi":[
-
-{
-title:"संज्ञा और उसके प्रकार",
-description:"संज्ञा की पहचान और उसके विभिन्न प्रकारों को उदाहरणों के साथ समझें।",
-content:`
-<h3>संज्ञा क्या है?</h3>
-
-<p>
-किसी व्यक्ति, स्थान, वस्तु, प्राणी या भाव के नाम को संज्ञा कहते हैं।
-</p>
-
-<h3>उदाहरण</h3>
-
-<ul>
-<li>व्यक्ति – राम, सीता</li>
-<li>स्थान – मुंबई, दिल्ली</li>
-<li>वस्तु – पुस्तक, मेज</li>
-<li>प्राणी – गाय, घोड़ा</li>
-<li>भाव – खुशी, दुख</li>
-</ul>
-
-<h3>अभ्यास</h3>
-
-<p>
-वाक्य "मोहन विद्यालय गया।" में संज्ञा शब्द पहचानिए।
-</p>
-`
-},
-
-{
-title:"पठन कौशल",
-description:"गद्यांश पढ़कर मुख्य विचार और महत्वपूर्ण जानकारी पहचानना सीखें।",
-content:`
-<h3>पठन कौशल</h3>
-
-<p>
-पठन का अर्थ केवल शब्दों को पढ़ना नहीं है, बल्कि उनके अर्थ को समझना भी है।
-</p>
-
-<h3>मुख्य विचार</h3>
-
-<p>
-किसी गद्यांश में लेखक जिस मुख्य बात को बताना चाहता है,
-उसे मुख्य विचार कहते हैं।
-</p>
-
-<h3>महत्वपूर्ण जानकारी</h3>
-
-<p>
-पढ़ते समय व्यक्ति, स्थान, समय और घटना से संबंधित महत्वपूर्ण जानकारी पर ध्यान दें।
-</p>
-
-<h3>अभ्यास</h3>
-
-<p>
-एक छोटा गद्यांश पढ़कर उसका मुख्य विचार एक वाक्य में लिखें।
-</p>
-`
-},
-
-{
-title:"रचनात्मक लेखन",
-description:"विचारों को व्यवस्थित करके सुंदर और स्पष्ट लेख लिखना सीखें।",
-content:`
-<h3>रचनात्मक लेखन</h3>
-
-<p>
-रचनात्मक लेखन में हम अपने विचारों और कल्पनाओं को रोचक तरीके से लिखते हैं।
-</p>
-
-<h3>लेखन के चरण</h3>
-
-<ul>
-<li>विषय चुनें।</li>
-<li>मुख्य विचार लिखें।</li>
-<li>विचारों को क्रम में रखें।</li>
-<li>शुरुआत, मध्य और अंत तैयार करें।</li>
-<li>वर्तनी और विराम चिह्नों की जाँच करें।</li>
-</ul>
-`
-}
-
-],
-
-"Marathi":[
-
-{
-title:"नाम व नामाचे प्रकार",
-description:"नाम म्हणजे काय आणि त्याचे विविध प्रकार उदाहरणांसह समजून घ्या.",
-content:`
-<h3>नाम म्हणजे काय?</h3>
-
-<p>
-व्यक्ती, प्राणी, वस्तू, ठिकाण किंवा भावनेच्या नावाला नाम म्हणतात.
-</p>
-
-<h3>उदाहरणे</h3>
-
-<ul>
-<li>व्यक्ती – राहुल, सीमा</li>
-<li>ठिकाण – मुंबई, पुणे</li>
-<li>वस्तू – पुस्तक, खुर्ची</li>
-<li>प्राणी – गाय, घोडा</li>
-<li>भावना – आनंद, दुःख</li>
-</ul>
-
-<h3>सराव</h3>
-
-<p>
-"सोनाली शाळेत गेली." या वाक्यातील नाम ओळखा.
-</p>
-`
-},
-
-{
-title:"वाचन कौशल्य",
-description:"उतारा वाचून मुख्य कल्पना आणि महत्त्वाची माहिती शोधायला शिका.",
-content:`
-<h3>वाचन कौशल्य</h3>
-
-<p>
-वाचन म्हणजे केवळ शब्द ओळखणे नव्हे, तर वाचलेल्या मजकुराचा अर्थ समजून घेणे होय.
-</p>
-
-<h3>मुख्य कल्पना</h3>
-
-<p>
-उताऱ्यामध्ये लेखकाला सांगायची असलेली महत्त्वाची गोष्ट म्हणजे मुख्य कल्पना.
-</p>
-
-<h3>महत्त्वाची माहिती</h3>
-
-<p>
-वाचन करताना व्यक्ती, ठिकाण, वेळ आणि घटनांशी संबंधित माहिती लक्षात ठेवा.
-</p>
-
-<h3>सराव</h3>
-
-<p>
-एक छोटा उतारा वाचा आणि त्याची मुख्य कल्पना एका वाक्यात लिहा.
-</p>
-`
-},
-
-{
-title:"लेखन कौशल्य",
-description:"विचार व्यवस्थित मांडून प्रभावी लेखन करण्याचा सराव करा.",
-content:`
-<h3>लेखन कौशल्य</h3>
-
-<p>
-आपले विचार स्पष्ट, क्रमबद्ध आणि प्रभावीपणे मांडणे म्हणजे चांगले लेखन.
-</p>
-
-<h3>लेखनाचे टप्पे</h3>
-
-<ul>
-<li>विषय निवडा.</li>
-<li>मुख्य मुद्दे ठरवा.</li>
-<li>मुद्दे योग्य क्रमाने मांडा.</li>
-<li>सुरुवात, मध्य आणि शेवट लिहा.</li>
-<li>शुद्धलेखन तपासा.</li>
-</ul>
-`
-}
-
-]
-
-};
-
-
-/* =========================================================
-   STUDENT DATA
-========================================================= */
-
-let currentStudent=null;
-let studentProgress=null;
-
-function createNewProgress(){
-
-    return {
-        lessonsCompleted:0,
-        completedLessons:[],
-        quizScore:0,
-        quizAttempts:0,
-        streak:0,
-        certificates:0,
-        coursesStarted:[],
-        subjectProgress:{
-            Mathematics:0,
-            Science:0,
-            "Social Science":0,
-            English:0,
-            Hindi:0,
-            Marathi:0
-        }
-    };
-
-}
-
-
-function getProgressKey(id){
-
-    return "vidyasetu_progress_"+id;
-
-}
-
-
-function loadStudentProgress(){
-
-    const key=getProgressKey(currentStudent.id);
-
-    const saved=localStorage.getItem(key);
-
-    if(saved){
-
-        studentProgress=JSON.parse(saved);
-
-    }else{
-
-        studentProgress=createNewProgress();
-
-        saveStudentProgress();
-
-    }
-
-    updateProgressUI();
-
-}
-
-
-function saveStudentProgress(){
-
-    localStorage.setItem(
-        getProgressKey(currentStudent.id),
-        JSON.stringify(studentProgress)
-    );
-
-}
-
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-function showSignup(){
-
-    document.getElementById("loginForm").classList.add("hidden");
-
-    document.getElementById("signupForm").classList.remove("hidden");
-
-}
-
-
-function showLogin(){
-
-    document.getElementById("signupForm").classList.add("hidden");
-
-    document.getElementById("loginForm").classList.remove("hidden");
-
-}
-
-
-function login(){
-
-    const id=document.getElementById("loginId").value.trim();
-
-    const pass=document.getElementById("loginPassword").value.trim();
-
-    if(!id || !pass){
-
-        alert("Please enter your Student ID and password.");
-
-        return;
-
-    }
-
-
-    /*
-       Demo student.
-
-       IMPORTANT:
-       Demo student also starts at ZERO.
-       Its progress is saved separately.
-    */
-
-    if(id==="STU1001" && pass==="1234"){
-
-        currentStudent={
-            name:"Demo Student",
-            id:"STU1001",
-            class:"5",
-            medium:"English"
-        };
-
-        enterApp();
-
-        return;
-
-    }
-
-
-    const saved=JSON.parse(localStorage.getItem("student_"+id));
-
-    if(saved && saved.password===pass){
-
-        currentStudent={
-            name:saved.name,
-            id:saved.id,
-            class:saved.class,
-            medium:saved.medium
-        };
-
-        enterApp();
-
-    }else{
-
-        alert(
-            "Invalid Student ID or password.\n\n"+
-            "Demo Login:\n"+
-            "Student ID: STU1001\n"+
-            "Password: 1234"
-        );
-
-    }
-
-}
-
-
-function signup(){
-
-    const name=document.getElementById("signupName").value.trim();
-
-    const id=document.getElementById("signupId").value.trim();
-
-    const studentClass=document.getElementById("signupClass").value;
-
-    const medium=document.getElementById("signupMedium").value;
-
-    const password=document.getElementById("signupPassword").value;
-
-
-    if(!name || !id || !password){
-
-        alert("Please fill all required fields.");
-
-        return;
-
-    }
-
-
-    if(id==="STU1001"){
-
-        alert("This Student ID is reserved for the demo account.");
-
-        return;
-
-    }
-
-
-    if(localStorage.getItem("student_"+id)){
-
-        alert("This Student ID already exists. Please choose another one.");
-
-        return;
-
-    }
-
-
-    const student={
-        name:name,
-        id:id,
-        class:studentClass,
-        medium:medium,
-        password:password
-    };
-
-
-    localStorage.setItem(
-        "student_"+id,
-        JSON.stringify(student)
-    );
-
-
-    /*
-       Create ZERO progress for the new student.
-    */
-
-    localStorage.setItem(
-        getProgressKey(id),
-        JSON.stringify(createNewProgress())
-    );
-
-
-    alert(
-        "Account created successfully!\n\n"+
-        "Your learning progress starts at 0%."
-    );
-
-
-    document.getElementById("loginId").value=id;
-
-    document.getElementById("loginPassword").value="";
-
-    showLogin();
-
-}
-
-
-function enterApp(){
-
-    document.getElementById("authScreen").style.display="none";
-
-    document.getElementById("app").style.display="block";
-
-
-    loadStudentProgress();
-
-    updateStudentUI();
-
-    loadLessons();
-
-    startQuiz();
-
-}
-
-
-/* =========================================================
-   STUDENT UI
-========================================================= */
-
-function updateStudentUI(){
-
-    const initials=currentStudent.name.charAt(0).toUpperCase();
-
-
-    document.getElementById("topName").textContent=
-        currentStudent.name;
-
-    document.getElementById("topClass").textContent=
-        "Class "+currentStudent.class;
-
-    document.getElementById("topAvatar").textContent=
-        initials;
-
-
-    document.getElementById("profileAvatar").textContent=
-        initials;
-
-    document.getElementById("profileName").textContent=
-        currentStudent.name;
-
-    document.getElementById("profileId").textContent=
-        currentStudent.id;
-
-    document.getElementById("profileClass").textContent=
-        "Class "+currentStudent.class;
-
-    document.getElementById("profileMedium").textContent=
-        currentStudent.medium;
-
-
-    document.getElementById("welcomeText").textContent=
-        "Welcome, "+currentStudent.name+"! 👋";
-
-}
-
-
-/* =========================================================
-   PROGRESS UI
-========================================================= */
-
-function updateProgressUI(){
-
-    if(!studentProgress) return;
-
-
-    document.getElementById("lessonStat").textContent=
-        studentProgress.lessonsCompleted;
-
-
-    document.getElementById("quizStat").textContent=
-        studentProgress.quizAttempts>0
-        ? Math.round(studentProgress.quizScore)+"%"
-        : "0%";
-
-
-    document.getElementById("streakStat").textContent=
-        studentProgress.streak+" Days";
-
-
-    document.getElementById("certificateStat").textContent=
-        studentProgress.certificates;
-
-
-    document.getElementById("progressQuiz").textContent=
-        studentProgress.quizAttempts>0
-        ? Math.round(studentProgress.quizScore)+"%"
-        : "0%";
-
-
-    document.getElementById("quizProgressBar").style.width=
-        (studentProgress.quizAttempts>0
-        ? Math.min(studentProgress.quizScore,100)
-        : 0)+"%";
-
-
-    document.getElementById("progressStreak").textContent=
-        "🔥 "+studentProgress.streak+" Days";
-
-
-    document.getElementById("profileCertificates").textContent=
-        studentProgress.certificates+" Completed";
-
-
-    updateSubjectProgress(
-        "Mathematics",
-        "mathProgress",
-        "mathText"
-    );
-
-
-    updateSubjectProgress(
-        "Science",
-        "scienceProgress",
-        "scienceText"
-    );
-
-
-    updateSubjectProgress(
-        "Social Science",
-        "socialProgress",
-        "socialText"
-    );
-
-
-    /*
-       Overall progress:
-       60% lessons + 40% quiz.
-    */
-
-    const lessonPercent=Math.min(
-        (studentProgress.lessonsCompleted/18)*100,
-        100
-    );
-
-
-    const quizPercent=
-        studentProgress.quizAttempts>0
-        ? studentProgress.quizScore
-        : 0;
-
-
-    const overall=Math.round(
-        (lessonPercent*0.6)+(quizPercent*0.4)
-    );
-
-
-    document.getElementById("overallProgress").textContent=
-        overall+"%";
-
-
-    document.getElementById("overallProgressBar").style.width=
-        overall+"%";
-
-}
-
-
-function updateSubjectProgress(subject,barId,textId){
-
-    const value=
-        studentProgress.subjectProgress[subject] || 0;
-
-
-    document.getElementById(barId).style.width=
-        value+"%";
-
-
-    document.getElementById(textId).textContent=
-        value+"% completed";
-
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function showPage(page,button){
-
-    document.querySelectorAll(".page").forEach(p=>{
-        p.classList.remove("active");
-    });
-
-
-    document.getElementById(page).classList.add("active");
-
-
-    if(button){
-
-        document.querySelectorAll(".nav button")
-        .forEach(b=>{
-            b.classList.remove("active");
-        });
-
-
-        button.classList.add("active");
-
-    }
-
-
-    document.getElementById("sidebar")
-    .classList.remove("open");
-
-}
-
-
-function toggleSidebar(){
-
-    document.getElementById("sidebar")
-    .classList.toggle("open");
-
-}
-
-
-/* =========================================================
-   LESSON LIST
-========================================================= */
-
-function loadLessons(){
-
-    const subject=
-        document.getElementById("subjectSelect").value;
-
-
-    const list=
-        document.getElementById("lessonList");
-
-
-    list.innerHTML="";
-
-
-    lessonsData[subject].forEach((lesson,index)=>{
-
-        const completed=
-            studentProgress &&
-            studentProgress.completedLessons.includes(
-                subject+"_"+index
-            );
-
-
-        const div=document.createElement("div");
-
-        div.className="lesson";
-
-
-        div.innerHTML=`
-
-        <div class="lesson-left">
-
-            <div class="lesson-icon">
-            ${completed ? "✅":"📘"}
+            <div class="brand-mark">
+                <i class="fa-solid fa-graduation-cap"></i>
             </div>
 
             <div>
+                <strong>EduSetu</strong>
+                <small>E-Learning</small>
+            </div>
 
-                <strong>
-                Lesson ${index+1}: ${lesson.title}
-                </strong>
+        </div>
 
-                <p style="
-                color:var(--muted);
-                font-size:13px;
-                margin-top:5px">
+        <nav class="sidebar-nav">
 
-                ${lesson.description}
+            <button class="nav-item active" data-page="dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span data-i18n="dashboard">Dashboard</span>
+            </button>
 
-                </p>
+            <button class="nav-item" data-page="subjects">
+                <i class="fa-solid fa-book-open"></i>
+                <span data-i18n="subjects">Subjects</span>
+            </button>
+
+            <button class="nav-item" data-page="quizzes">
+                <i class="fa-solid fa-circle-question"></i>
+                <span data-i18n="quizzes">Quizzes</span>
+            </button>
+
+            <button class="nav-item" data-page="certificates">
+                <i class="fa-solid fa-award"></i>
+                <span data-i18n="certificates">Certificate Courses</span>
+            </button>
+
+            <button class="nav-item" data-page="progress">
+                <i class="fa-solid fa-chart-line"></i>
+                <span data-i18n="progress">My Progress</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button class="nav-item" id="darkModeBtn">
+                <i class="fa-solid fa-moon"></i>
+                <span data-i18n="darkMode">Dark Mode</span>
+            </button>
+
+            <button class="nav-item logout-item" id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span data-i18n="logout">Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <button id="menuBtn" class="icon-btn mobile-menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="top-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input id="searchInput"
+                       type="search"
+                       data-placeholder="searchPlaceholder"
+                       placeholder="Search lessons, subjects or courses...">
+
+                <div id="searchResults" class="search-results hidden"></div>
+
+            </div>
+
+            <div class="top-actions">
+
+                <select id="appLanguage" class="language-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="mr">मराठी</option>
+                </select>
+
+                <button class="icon-btn" id="notificationBtn">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+                <div class="student-profile">
+
+                    <div class="avatar" id="avatar">
+                        S
+                    </div>
+
+                    <div class="profile-text">
+                        <strong id="profileUsername">Student</strong>
+                        <small id="profileClass">Class 5</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE AREA -->
+
+        <div id="pageArea">
+
+            <!-- DASHBOARD -->
+
+            <section id="dashboardPage" class="content-page">
+
+                <div class="hero-section">
+
+                    <div>
+
+                        <span class="eyebrow" data-i18n="learningPortal">
+                            GOVERNMENT SCHOOL LEARNING PORTAL
+                        </span>
+
+                        <h1>
+                            <span data-i18n="hello">Hello</span>,
+                            <span id="welcomeUsername">Student</span> 👋
+                        </h1>
+
+                        <p data-i18n="dashboardIntro">
+                            Learn at your own pace with lessons, quizzes and skill courses.
+                        </p>
+
+                        <button class="primary-btn" id="continueLearningBtn">
+                            <span data-i18n="continueLearning">
+                                Continue Learning
+                            </span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="hero-illustration">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+
+                </div>
+
+
+                <!-- STAT CARDS -->
+
+                <div class="stat-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+
+                        <div>
+                            <span data-i18n="availableSubjects">
+                                Available Subjects
+                            </span>
+
+                            <strong id="subjectCount">6</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                        <div>
+                            <span data-i18n="lessonsCompleted">
+                                Lessons Completed
+                            </span>
+
+                            <strong id="completedLessons">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+
+                        <div>
+                            <span data-i18n="overallProgress">
+                                Overall Progress
+                            </span>
+
+                            <strong id="overallProgress">0%</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+
+                        <div>
+                            <span data-i18n="certificatesEarned">
+                                Certificates
+                            </span>
+
+                            <strong id="certificateCount">0</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACCESS -->
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2 data-i18n="quickLearning">Quick Learning</h2>
+                        <p data-i18n="quickLearningSub">
+                            Pick something to learn today.
+                        </p>
+                    </div>
+
+                    <button class="text-btn" data-page-link="subjects">
+                        <span data-i18n="viewAll">View All</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+
+                <div class="subject-grid" id="dashboardSubjects"></div>
+
+
+                <!-- DAILY LEARNING -->
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2 data-i18n="dailyGoal">Daily Learning Goal</h2>
+                        <p data-i18n="dailyGoalSub">
+                            Complete lessons regularly and build your skills.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="goal-card">
+
+                    <div class="goal-circle">
+                        <span id="dailyPercent">0%</span>
+                    </div>
+
+                    <div class="goal-content">
+
+                        <h3 data-i18n="keepLearning">
+                            Keep Learning Every Day
+                        </h3>
+
+                        <p data-i18n="goalText">
+                            Complete at least one lesson today to move forward.
+                        </p>
+
+                        <div class="progress-track">
+                            <div id="dailyProgressBar" class="progress-fill"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SUBJECTS -->
+
+            <section id="subjectsPage" class="content-page hidden">
+
+                <div class="page-title">
+
+                    <div>
+                        <span class="eyebrow" data-i18n="learning">LEARNING</span>
+
+                        <h1 data-i18n="subjectsTitle">
+                            Subjects & Lessons
+                        </h1>
+
+                        <p data-i18n="subjectsIntro">
+                            Explore your class curriculum and learn through interactive lessons.
+                        </p>
+                    </div>
+
+                    <div class="class-badge">
+                        <i class="fa-solid fa-school"></i>
+                        <span data-i18n="class">Class</span>
+                        <strong id="subjectClass">5</strong>
+                    </div>
+
+                </div>
+
+                <div class="subject-grid large-grid" id="subjectsGrid"></div>
+
+            </section>
+
+
+            <!-- LESSON -->
+
+            <section id="lessonPage" class="content-page hidden">
+
+                <button class="back-btn" id="backFromLesson">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span data-i18n="back">Back</span>
+                </button>
+
+                <div id="lessonContent"></div>
+
+            </section>
+
+
+            <!-- QUIZZES -->
+
+            <section id="quizzesPage" class="content-page hidden">
+
+                <div class="page-title">
+
+                    <div>
+                        <span class="eyebrow" data-i18n="testYourKnowledge">
+                            TEST YOUR KNOWLEDGE
+                        </span>
+
+                        <h1 data-i18n="quizTitle">
+                            Quizzes
+                        </h1>
+
+                        <p data-i18n="quizIntro">
+                            Test what you have learned from your lessons.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="quizList" class="quiz-grid"></div>
+
+            </section>
+
+
+            <!-- QUIZ PLAYER -->
+
+            <section id="quizPlayerPage" class="content-page hidden">
+
+                <button class="back-btn" id="backFromQuiz">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span data-i18n="backToQuizzes">Back to Quizzes</span>
+                </button>
+
+                <div id="quizContent"></div>
+
+            </section>
+
+
+            <!-- CERTIFICATES -->
+
+            <section id="certificatesPage" class="content-page hidden">
+
+                <div class="page-title">
+
+                    <div>
+                        <span class="eyebrow" data-i18n="skillDevelopment">
+                            SKILL DEVELOPMENT
+                        </span>
+
+                        <h1 data-i18n="certificateTitle">
+                            Certificate Courses
+                        </h1>
+
+                        <p data-i18n="certificateIntro">
+                            Learn useful skills and earn certificates after completing courses.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div id="certificateGrid" class="certificate-grid"></div>
+
+            </section>
+
+
+            <!-- CERTIFICATE COURSE -->
+
+            <section id="certificateCoursePage" class="content-page hidden">
+
+                <button class="back-btn" id="backFromCertificate">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span data-i18n="backToCourses">Back to Courses</span>
+                </button>
+
+                <div id="certificateCourseContent"></div>
+
+            </section>
+
+
+            <!-- PROGRESS -->
+
+            <section id="progressPage" class="content-page hidden">
+
+                <div class="page-title">
+
+                    <div>
+                        <span class="eyebrow" data-i18n="yourJourney">
+                            YOUR LEARNING JOURNEY
+                        </span>
+
+                        <h1 data-i18n="progressTitle">
+                            My Progress
+                        </h1>
+
+                        <p data-i18n="progressIntro">
+                            Track the lessons and courses you have completed.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="progress-overview">
+
+                    <div class="big-progress-card">
+
+                        <div class="big-progress-circle">
+                            <span id="bigProgress">0%</span>
+                        </div>
+
+                        <div>
+                            <h2 data-i18n="overallProgress">
+                                Overall Progress
+                            </h2>
+
+                            <p id="progressSummary">
+                                0 lessons completed
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="progress-list" id="progressList"></div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- NOTIFICATION -->
+
+<div id="notificationToast" class="toast">
+    <i class="fa-solid fa-circle-info"></i>
+    <span id="toastText">Notification</span>
+</div>
+
+
+<!-- CERTIFICATE PRINT AREA -->
+
+<div id="printCertificate" class="print-certificate">
+
+    <div class="certificate-border">
+
+        <div class="certificate-inner">
+
+            <div class="certificate-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+
+            <p class="certificate-small">
+                ED USETU • E-LEARNING PLATFORM
+            </p>
+
+            <h1>Certificate of Completion</h1>
+
+            <p class="certificate-label">
+                This certificate is proudly presented to
+            </p>
+
+            <h2 id="certificateStudentName">Student</h2>
+
+            <p class="certificate-text">
+                for successfully completing the course
+            </p>
+
+            <h3 id="certificateCourseName">Course Name</h3>
+
+            <div class="certificate-footer">
+
+                <div>
+                    <strong id="certificateDate"></strong>
+                    <span>Date</span>
+                </div>
+
+                <div class="certificate-seal">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+
+                <div>
+                    <strong>EduSetu</strong>
+                    <span>Learning Platform</span>
+                </div>
 
             </div>
 
         </div>
 
-        <button class="small-btn"
-        onclick="readLesson('${subject}',${index})">
+    </div>
 
-        ${completed ? "Review":"Start"}
+</div>
 
-        </button>
 
-        `;
-
-
-        list.appendChild(div);
-
-    });
-
-}
-
-
-function openLesson(subject){
-
-    document.getElementById("subjectSelect").value=
-        subject;
-
-    showPage("lessons");
-
-    loadLessons();
-
-}
-
-
-function readLesson(subject,index){
-
-    const lesson=
-        lessonsData[subject][index];
-
-
-    document.getElementById("lessonContent").innerHTML=`
-
-        <h2>📖 ${lesson.title}</h2>
-
-        <p>
-        ${lesson.description}
-        </p>
-
-        ${lesson.content}
-
-        <button
-        class="primary-btn complete-btn"
-        onclick="completeLesson('${subject}',${index})">
-
-        ✓ Mark Lesson as Completed
-
-        </button>
-
-    `;
-
-
-    document.getElementById("lessonModal")
-    .classList.add("show");
-
-}
-
-
-function closeLesson(){
-
-    document.getElementById("lessonModal")
-    .classList.remove("show");
-
-}
-
-
-function completeLesson(subject,index){
-
-    const lessonId=
-        subject+"_"+index;
-
-
-    if(!studentProgress.completedLessons.includes(lessonId)){
-
-        studentProgress.completedLessons.push(lessonId);
-
-        studentProgress.lessonsCompleted++;
-
-
-        const total=
-            lessonsData[subject].length;
-
-
-        const completed=
-            studentProgress.completedLessons
-            .filter(id=>id.startsWith(subject+"_"))
-            .length;
-
-
-        studentProgress.subjectProgress[subject]=
-            Math.round((completed/total)*100);
-
-
-        /*
-           Small learning streak.
-           Each first lesson completion increases it.
-        */
-
-        studentProgress.streak++;
-
-
-        saveStudentProgress();
-
-        updateProgressUI();
-
-    }
-
-
-    closeLesson();
-
-    loadLessons();
-
-
-    alert(
-        "Lesson completed! 🎉\n\n"+
-        "Your progress has been saved."
-    );
-
-}
-
-
-/* =========================================================
-   CLASS
-========================================================= */
-
-function selectClass(number){
-
-    currentStudent.class=
-        String(number);
-
-
-    /*
-       Save the changed class.
-    */
-
-    const saved=
-        JSON.parse(
-            localStorage.getItem(
-                "student_"+currentStudent.id
-            )
-        );
-
-
-    if(saved){
-
-        saved.class=String(number);
-
-        localStorage.setItem(
-            "student_"+currentStudent.id,
-            JSON.stringify(saved)
-        );
-
-    }
-
-
-    updateStudentUI();
-
-
-    alert(
-        "Class "+number+
-        " selected successfully!"
-    );
-
-
-    showPage("lessons");
-
-}
-
-
-/* =========================================================
-   QUIZ
-========================================================= */
-
-const quizQuestions=[
-
-{
-q:"Which planet is known as the Red Planet?",
-options:["Earth","Mars","Jupiter","Venus"],
-answer:1
-},
-
-{
-q:"What is 12 × 5?",
-options:["50","55","60","65"],
-answer:2
-},
-
-{
-q:"Which gas do plants mainly use for photosynthesis?",
-options:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],
-answer:2
-},
-
-{
-q:"What is the capital of India?",
-options:["Mumbai","New Delhi","Kolkata","Chennai"],
-answer:1
-},
-
-{
-q:"Which is the largest ocean on Earth?",
-options:["Atlantic Ocean","Indian Ocean","Pacific Ocean","Arctic Ocean"],
-answer:2
-}
-
-];
-
-
-let quizIndex=0;
-let quizCorrect=0;
-let selectedAnswer=null;
-
-
-function startQuiz(){
-
-    quizIndex=0;
-
-    quizCorrect=0;
-
-    selectedAnswer=null;
-
-
-    document.getElementById("quizArea")
-    .classList.remove("hidden");
-
-
-    document.getElementById("quizFinished")
-    .classList.add("hidden");
-
-
-    showQuestion();
-
-}
-
-
-function showQuestion(){
-
-    selectedAnswer=null;
-
-
-    const q=
-        quizQuestions[quizIndex];
-
-
-    document.getElementById("questionText")
-    .textContent=
-        (quizIndex+1)+". "+q.q;
-
-
-    const options=
-        document.getElementById("options");
-
-
-    options.innerHTML="";
-
-
-    q.options.forEach((option,index)=>{
-
-        const div=
-            document.createElement("div");
-
-
-        div.className="quiz-option";
-
-
-        div.textContent=option;
-
-
-        div.onclick=()=>{
-
-            selectedAnswer=index;
-
-
-            document.querySelectorAll(".quiz-option")
-            .forEach(o=>{
-                o.classList.remove("selected");
-            });
-
-
-            div.classList.add("selected");
-
-        };
-
-
-        options.appendChild(div);
-
-    });
-
-}
-
-
-function nextQuestion(){
-
-    if(selectedAnswer===null){
-
-        alert("Please select an answer first.");
-
-        return;
-
-    }
-
-
-    if(
-        selectedAnswer===
-        quizQuestions[quizIndex].answer
-    ){
-
-        quizCorrect++;
-
-    }
-
-
-    quizIndex++;
-
-
-    if(quizIndex<quizQuestions.length){
-
-        showQuestion();
-
-    }else{
-
-        finishQuiz();
-
-    }
-
-}
-
-
-function finishQuiz(){
-
-    const score=
-        Math.round(
-            (quizCorrect/
-            quizQuestions.length)*100
-        );
-
-
-    /*
-       Save the latest quiz score.
-    */
-
-    studentProgress.quizScore=score;
-
-    studentProgress.quizAttempts++;
-
-
-    saveStudentProgress();
-
-    updateProgressUI();
-
-
-    document.getElementById("quizArea")
-    .classList.add("hidden");
-
-
-    document.getElementById("quizFinished")
-    .classList.remove("hidden");
-
-
-    document.getElementById("finalScore")
-    .textContent=
-        "You scored "+
-        quizCorrect+
-        " out of "+
-        quizQuestions.length+
-        " ("+score+"%). "+
-        "Your score has been saved.";
-
-}
-
-
-/* =========================================================
-   COURSES
-========================================================= */
-
-function courseStart(name){
-
-    if(
-        !studentProgress.coursesStarted.includes(name)
-    ){
-
-        studentProgress.coursesStarted.push(name);
-
-        saveStudentProgress();
-
-    }
-
-
-    alert(
-        "🎓 "+name+
-        "\n\nCourse started!\n\n"+
-        "Complete the lessons, activities and final assessment to earn your certificate."
-    );
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function searchContent(){
-
-    const term=
-        document.getElementById("searchInput")
-        .value.toLowerCase();
-
-
-    if(term.length<2){
-
-        return;
-
-    }
-
-
-    const found=
-        Object.keys(lessonsData).some(subject=>{
-
-            return lessonsData[subject].some(lesson=>
-
-                (
-                    lesson.title+
-                    " "+
-                    lesson.description+
-                    " "+
-                    lesson.content
-                )
-                .toLowerCase()
-                .includes(term)
-
-            );
-
-        });
-
-
-    if(found){
-
-        showPage("lessons");
-
-    }
-
-}
-
-
-/* =========================================================
-   DARK MODE
-========================================================= */
-
-function toggleDarkMode(){
-
-    document.body.classList.toggle("dark");
-
-
-    const dark=
-        document.body.classList.contains("dark");
-
-
-    localStorage.setItem(
-        "vidyasetu_dark_mode",
-        dark ? "on":"off"
-    );
-
-
-    document.getElementById("darkButton")
-    .textContent=
-        dark ? "☀️":"🌙";
-
-}
-
-
-function loadDarkMode(){
-
-    const saved=
-        localStorage.getItem("vidyasetu_dark_mode");
-
-
-    if(saved==="on"){
-
-        document.body.classList.add("dark");
-
-        document.getElementById("darkButton")
-        .textContent="☀️";
-
-    }
-
-}
-
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
-
-const authTranslations={
-
-en:{
-login:"Welcome Back 👋",
-subtitle:"Login to continue your learning journey.",
-student:"Student ID",
-password:"Password",
-button:"Login",
-newstudent:"New student?",
-create:"Create Account",
-hero:"Learn. Explore. Grow.",
-herotext:"A simple and powerful digital learning platform created especially for students of government schools."
-},
-
-hi:{
-login:"वापसी पर स्वागत है 👋",
-subtitle:"अपनी सीखने की यात्रा जारी रखने के लिए लॉगिन करें।",
-student:"विद्यार्थी आईडी",
-password:"पासवर्ड",
-button:"लॉगिन",
-newstudent:"नए विद्यार्थी हैं?",
-create:"खाता बनाएँ",
-hero:"सीखें। खोजें। आगे बढ़ें।",
-herotext:"सरकारी स्कूलों के विद्यार्थियों के लिए बनाया गया सरल और उपयोगी डिजिटल लर्निंग प्लेटफॉर्म।"
-},
-
-mr:{
-login:"पुन्हा स्वागत आहे 👋",
-subtitle:"तुमचा शिकण्याचा प्रवास सुरू ठेवण्यासाठी लॉगिन करा.",
-student:"विद्यार्थी आयडी",
-password:"पासवर्ड",
-button:"लॉगिन",
-newstudent:"नवीन विद्यार्थी आहात?",
-create:"खाते तयार करा",
-hero:"शिका. शोधा. प्रगती करा.",
-herotext:"सरकारी शाळेतील विद्यार्थ्यांसाठी तयार केलेले सोपे आणि उपयुक्त डिजिटल शिक्षण व्यासपीठ."
-}
-
-};
-
-
-function changeAuthLanguage(){
-
-    const lang=
-        document.getElementById("authLanguage")
-        .value;
-
-
-    const t=
-        authTranslations[lang];
-
-
-    document.getElementById("loginTitle")
-    .textContent=t.login;
-
-
-    document.getElementById("loginSubtitle")
-    .textContent=t.subtitle;
-
-
-    document.getElementById("studentIdLabel")
-    .textContent=t.student;
-
-
-    document.getElementById("passwordLabel")
-    .textContent=t.password;
-
-
-    document.getElementById("loginButton")
-    .textContent=t.button;
-
-
-    document.getElementById("noAccount")
-    .textContent=t.newstudent;
-
-
-    document.getElementById("signupLink")
-    .textContent=t.create;
-
-
-    document.getElementById("heroTitle")
-    .textContent=t.hero;
-
-
-    document.getElementById("heroText")
-    .textContent=t.herotext;
-
-}
-
-
-function changeAppLanguage(lang){
-
-    if(lang==="हिंदी"){
-
-        alert(
-            "हिंदी इंटरफ़ेस चुना गया है। विषयों की सामग्री अपने निर्धारित माध्यम में ही रहेगी।"
-        );
-
-    }
-
-    else if(lang==="मराठी"){
-
-        alert(
-            "मराठी इंटरफेस निवडला आहे. विषयांची सामग्री त्यांच्या निर्धारित माध्यमातच राहील."
-        );
-
-    }
-
-    else{
-
-        alert("English interface selected.");
-
-    }
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-function logout(){
-
-    document.getElementById("app")
-    .style.display="none";
-
-
-    document.getElementById("authScreen")
-    .style.display="flex";
-
-
-    document.getElementById("loginId").value="";
-
-    document.getElementById("loginPassword").value="";
-
-
-    showLogin();
-
-}
-
-
-/* =========================================================
-   STARTUP
-========================================================= */
-
-window.onload=function(){
-
-    loadDarkMode();
-
-};
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
