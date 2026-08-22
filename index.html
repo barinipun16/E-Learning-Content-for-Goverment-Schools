@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduSetu | E-Learning for Government Schools</title>
+    <title>EduBridge | E-Learning Content for Government Schools</title>
 
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -21,86 +18,80 @@
 
 <section id="authPage" class="auth-page">
 
+    <div class="auth-decoration decoration-one"></div>
+    <div class="auth-decoration decoration-two"></div>
+
     <div class="auth-card">
 
         <div class="brand auth-brand">
-            <div class="brand-mark">
-                <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-
+            <div class="brand-mark">E</div>
             <div>
-                <h2>EduSetu</h2>
-                <span data-i18n="brandSub">E-Learning for Government Schools</span>
+                <strong>EduBridge</strong>
+                <span>E-Learning Content</span>
             </div>
         </div>
 
         <div class="auth-language">
+            <label for="authLanguage">Language</label>
+
+            <!-- Language names intentionally remain unchanged -->
             <select id="authLanguage">
                 <option value="en">English</option>
-                <option value="hi">हिन्दी</option>
-                <option value="mr">मराठी</option>
+                <option value="hi">Hindi</option>
+                <option value="mr">Marathi</option>
             </select>
         </div>
-
-        <!-- LOGIN -->
 
         <div id="loginBox">
 
             <div class="auth-heading">
-                <h1 data-i18n="welcomeBack">Welcome Back</h1>
-                <p data-i18n="loginSubtitle">
-                    Login to continue your learning journey.
-                </p>
+                <h1 id="loginTitle">Welcome back</h1>
+                <p id="loginSubtitle">Sign in to continue your learning journey.</p>
             </div>
 
             <form id="loginForm">
 
-                <label data-i18n="username">Student Username</label>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-user"></i>
-                    <input id="loginUsername"
-                           type="text"
-                           autocomplete="username"
-                           data-placeholder="usernamePlaceholder"
-                           placeholder="Enter your username"
-                           required>
+                <div class="input-group">
+                    <label id="usernameLabel">Student Username</label>
+                    <input
+                        type="text"
+                        id="loginUsername"
+                        placeholder="Enter your username"
+                        required
+                        autocomplete="username"
+                    >
                 </div>
 
-                <label data-i18n="password">Password</label>
+                <div class="input-group">
+                    <label id="passwordLabel">Password</label>
 
-                <div class="input-box">
-                    <i class="fa-solid fa-lock"></i>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
 
-                    <input id="loginPassword"
-                           type="password"
-                           autocomplete="current-password"
-                           data-placeholder="passwordPlaceholder"
-                           placeholder="Enter your password"
-                           required>
-
-                    <button type="button"
-                            class="password-btn"
-                            id="loginPasswordToggle"
-                            aria-label="Show password">
-                        <i class="fa-regular fa-eye"></i>
-                    </button>
+                        <button type="button" class="password-toggle" id="loginPasswordToggle">
+                            Show
+                        </button>
+                    </div>
                 </div>
 
-                <button class="primary-btn full-btn" type="submit">
-                    <span data-i18n="login">Login</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                <button class="primary-btn auth-btn" type="submit" id="loginButton">
+                    Login
                 </button>
 
             </form>
 
-            <div class="auth-switch">
-                <span data-i18n="noAccount">Don't have an account?</span>
-                <button id="showSignup" data-i18n="createAccount">
-                    Create Account
-                </button>
-            </div>
+            <p class="auth-switch">
+                <span id="newStudentText">New student?</span>
+                <button type="button" id="showSignup">Create account</button>
+            </p>
 
+            <div id="loginMessage" class="form-message"></div>
         </div>
 
 
@@ -109,35 +100,27 @@
         <div id="signupBox" class="hidden">
 
             <div class="auth-heading">
-                <h1 data-i18n="createAccountTitle">Create Student Account</h1>
-                <p data-i18n="signupSubtitle">
-                    Create your account to start learning.
-                </p>
+                <h1 id="signupTitle">Create student account</h1>
+                <p id="signupSubtitle">Create your account to save your learning progress.</p>
             </div>
 
             <form id="signupForm">
 
-                <label data-i18n="username">Student Username</label>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-user"></i>
-
-                    <input id="signupUsername"
-                           type="text"
-                           data-placeholder="usernamePlaceholder"
-                           placeholder="Enter your username"
-                           required>
+                <div class="input-group">
+                    <label id="signupUsernameLabel">Student Username</label>
+                    <input
+                        type="text"
+                        id="signupUsername"
+                        placeholder="Choose a username"
+                        required
+                    >
                 </div>
 
-                <label data-i18n="class">Class / Standard</label>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-school"></i>
+                <div class="input-group">
+                    <label id="signupClassLabel">Select Class</label>
 
                     <select id="signupClass" required>
-                        <option value="" data-i18n="selectClass">
-                            Select Class
-                        </option>
+                        <option value="">Select your class</option>
                         <option value="5">Class 5</option>
                         <option value="6">Class 6</option>
                         <option value="7">Class 7</option>
@@ -147,108 +130,100 @@
                     </select>
                 </div>
 
-                <label data-i18n="medium">Medium</label>
+                <div class="input-group">
+                    <label id="signupPasswordLabel">Password</label>
 
-                <div class="input-box">
-                    <i class="fa-solid fa-language"></i>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="signupPassword"
+                            placeholder="Create a password"
+                            required
+                        >
 
-                    <select id="signupMedium">
-                        <option value="en">English</option>
-                        <option value="hi">हिन्दी</option>
-                        <option value="mr">मराठी</option>
-                    </select>
+                        <button type="button" class="password-toggle" id="signupPasswordToggle">
+                            Show
+                        </button>
+                    </div>
                 </div>
 
-                <label data-i18n="password">Password</label>
+                <div class="input-group">
+                    <label id="confirmPasswordLabel">Confirm Password</label>
 
-                <div class="input-box">
-                    <i class="fa-solid fa-lock"></i>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="signupConfirmPassword"
+                            placeholder="Confirm your password"
+                            required
+                        >
 
-                    <input id="signupPassword"
-                           type="password"
-                           data-placeholder="passwordPlaceholder"
-                           placeholder="Create a password"
-                           minlength="4"
-                           required>
-
-                    <button type="button"
-                            class="password-btn"
-                            id="signupPasswordToggle">
-                        <i class="fa-regular fa-eye"></i>
-                    </button>
+                        <button type="button" class="password-toggle" id="signupConfirmToggle">
+                            Show
+                        </button>
+                    </div>
                 </div>
 
-                <button class="primary-btn full-btn" type="submit">
-                    <span data-i18n="signUp">Sign Up</span>
-                    <i class="fa-solid fa-user-plus"></i>
+                <button class="primary-btn auth-btn" type="submit" id="signupButton">
+                    Create Account
                 </button>
 
             </form>
 
-            <div class="auth-switch">
-                <span data-i18n="alreadyAccount">
-                    Already have an account?
-                </span>
+            <p class="auth-switch">
+                <span id="alreadyStudentText">Already have an account?</span>
+                <button type="button" id="showLogin">Login</button>
+            </p>
 
-                <button id="showLogin" data-i18n="login">
-                    Login
-                </button>
-            </div>
+            <div id="signupMessage" class="form-message"></div>
 
         </div>
 
-        <div id="authMessage" class="auth-message"></div>
-
     </div>
-
 </section>
 
 
 <!-- ================= APP ================= -->
 
-<section id="appPage" class="app-page hidden">
+<div id="app" class="app hidden">
 
     <!-- SIDEBAR -->
 
     <aside class="sidebar" id="sidebar">
 
-        <div class="sidebar-brand">
+        <div class="sidebar-brand brand">
+            <div class="brand-mark">E</div>
 
-            <div class="brand-mark">
-                <i class="fa-solid fa-graduation-cap"></i>
+            <div class="brand-text">
+                <strong>EduBridge</strong>
+                <span>E-Learning</span>
             </div>
-
-            <div>
-                <strong>EduSetu</strong>
-                <small>E-Learning</small>
-            </div>
-
         </div>
 
         <nav class="sidebar-nav">
 
             <button class="nav-item active" data-page="dashboard">
-                <i class="fa-solid fa-house"></i>
+                <span class="nav-icon">⌂</span>
                 <span data-i18n="dashboard">Dashboard</span>
             </button>
 
             <button class="nav-item" data-page="subjects">
-                <i class="fa-solid fa-book-open"></i>
+                <span class="nav-icon">▣</span>
                 <span data-i18n="subjects">Subjects</span>
             </button>
 
-            <button class="nav-item" data-page="quizzes">
-                <i class="fa-solid fa-circle-question"></i>
-                <span data-i18n="quizzes">Quizzes</span>
+            <button class="nav-item" data-page="quiz">
+                <span class="nav-icon">?</span>
+                <span data-i18n="quiz">Quizzes</span>
             </button>
 
-            <button class="nav-item" data-page="certificates">
-                <i class="fa-solid fa-award"></i>
-                <span data-i18n="certificates">Certificate Courses</span>
+            <button class="nav-item" data-page="courses">
+                <span class="nav-icon">◆</span>
+                <span data-i18n="courses">Certificate Courses</span>
             </button>
 
             <button class="nav-item" data-page="progress">
-                <i class="fa-solid fa-chart-line"></i>
+                <span class="nav-icon">↗</span>
                 <span data-i18n="progress">My Progress</span>
             </button>
 
@@ -256,13 +231,13 @@
 
         <div class="sidebar-bottom">
 
-            <button class="nav-item" id="darkModeBtn">
-                <i class="fa-solid fa-moon"></i>
-                <span data-i18n="darkMode">Dark Mode</span>
+            <button class="nav-item" data-page="settings">
+                <span class="nav-icon">⚙</span>
+                <span data-i18n="settings">Settings</span>
             </button>
 
             <button class="nav-item logout-item" id="logoutBtn">
-                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="nav-icon">↪</span>
                 <span data-i18n="logout">Logout</span>
             </button>
 
@@ -279,44 +254,43 @@
 
         <header class="topbar">
 
-            <button id="menuBtn" class="icon-btn mobile-menu">
-                <i class="fa-solid fa-bars"></i>
+            <button class="mobile-menu" id="mobileMenu">
+                ☰
             </button>
 
-            <div class="top-search">
+            <div class="topbar-search">
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>⌕</span>
 
-                <input id="searchInput"
-                       type="search"
-                       data-placeholder="searchPlaceholder"
-                       placeholder="Search lessons, subjects or courses...">
-
-                <div id="searchResults" class="search-results hidden"></div>
+                <input
+                    type="search"
+                    id="globalSearch"
+                    placeholder="Search lessons, subjects or courses..."
+                >
 
             </div>
 
-            <div class="top-actions">
+            <div class="topbar-actions">
 
-                <select id="appLanguage" class="language-select">
+                <select id="dashboardLanguage" class="language-select">
                     <option value="en">English</option>
-                    <option value="hi">हिन्दी</option>
-                    <option value="mr">मराठी</option>
+                    <option value="hi">Hindi</option>
+                    <option value="mr">Marathi</option>
                 </select>
 
-                <button class="icon-btn" id="notificationBtn">
-                    <i class="fa-regular fa-bell"></i>
+                <button class="icon-btn" id="themeToggle" title="Toggle theme">
+                    ◐
                 </button>
 
-                <div class="student-profile">
+                <div class="user-mini">
 
-                    <div class="avatar" id="avatar">
+                    <div class="avatar" id="userAvatar">
                         S
                     </div>
 
-                    <div class="profile-text">
-                        <strong id="profileUsername">Student</strong>
-                        <small id="profileClass">Class 5</small>
+                    <div>
+                        <strong id="topUsername">Student</strong>
+                        <small id="topClass">Class 5</small>
                     </div>
 
                 </div>
@@ -326,114 +300,86 @@
         </header>
 
 
-        <!-- PAGE AREA -->
+        <!-- PAGE CONTAINER -->
 
-        <div id="pageArea">
+        <div class="page-container">
 
-            <!-- DASHBOARD -->
 
-            <section id="dashboardPage" class="content-page">
+            <!-- ================= DASHBOARD ================= -->
 
-                <div class="hero-section">
+            <section id="dashboardPage" class="page active-page">
+
+                <div class="welcome-banner">
 
                     <div>
 
                         <span class="eyebrow" data-i18n="learningPortal">
-                            GOVERNMENT SCHOOL LEARNING PORTAL
+                            STUDENT LEARNING PORTAL
                         </span>
 
                         <h1>
-                            <span data-i18n="hello">Hello</span>,
-                            <span id="welcomeUsername">Student</span> 👋
+                            <span data-i18n="welcome">Welcome back</span>,
+                            <span id="welcomeUsername">Student</span>
                         </h1>
 
                         <p data-i18n="dashboardIntro">
-                            Learn at your own pace with lessons, quizzes and skill courses.
+                            Continue learning, practise your skills and discover something new today.
                         </p>
 
-                        <button class="primary-btn" id="continueLearningBtn">
-                            <span data-i18n="continueLearning">
-                                Continue Learning
-                            </span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-
                     </div>
 
-                    <div class="hero-illustration">
-                        <i class="fa-solid fa-book-open-reader"></i>
+                    <div class="class-badge">
+                        <span data-i18n="class">Class</span>
+                        <strong id="welcomeClass">5</strong>
                     </div>
 
                 </div>
 
 
-                <!-- STAT CARDS -->
+                <!-- STATS -->
 
-                <div class="stat-grid">
+                <div class="stats-grid">
 
                     <div class="stat-card">
 
-                        <div class="stat-icon blue">
-                            <i class="fa-solid fa-book"></i>
-                        </div>
+                        <div class="stat-icon">▣</div>
 
                         <div>
-                            <span data-i18n="availableSubjects">
-                                Available Subjects
-                            </span>
-
-                            <strong id="subjectCount">6</strong>
+                            <span data-i18n="subjects">Subjects</span>
+                            <strong id="statSubjects">5</strong>
                         </div>
 
                     </div>
 
-
                     <div class="stat-card">
 
-                        <div class="stat-icon green">
-                            <i class="fa-solid fa-circle-check"></i>
-                        </div>
+                        <div class="stat-icon">✓</div>
 
                         <div>
-                            <span data-i18n="lessonsCompleted">
-                                Lessons Completed
-                            </span>
-
-                            <strong id="completedLessons">0</strong>
+                            <span data-i18n="lessonsCompleted">Lessons Completed</span>
+                            <strong id="statLessons">0</strong>
                         </div>
 
                     </div>
 
-
                     <div class="stat-card">
 
-                        <div class="stat-icon purple">
-                            <i class="fa-solid fa-chart-simple"></i>
-                        </div>
+                        <div class="stat-icon">%</div>
 
                         <div>
-                            <span data-i18n="overallProgress">
-                                Overall Progress
-                            </span>
-
-                            <strong id="overallProgress">0%</strong>
+                            <span data-i18n="overallProgress">Overall Progress</span>
+                            <strong id="statProgress">0%</strong>
                         </div>
 
                     </div>
 
-
                     <div class="stat-card">
 
-                        <div class="stat-icon orange">
-                            <i class="fa-solid fa-award"></i>
-                        </div>
+                        <div class="stat-icon">★</div>
 
                         <div>
-                            <span data-i18n="certificatesEarned">
-                                Certificates
-                            </span>
-
-                            <strong id="certificateCount">0</strong>
+                            <span data-i18n="quizScore">Best Quiz Score</span>
+                            <strong id="statQuiz">0%</strong>
                         </div>
 
                     </div>
@@ -441,106 +387,179 @@
                 </div>
 
 
-                <!-- QUICK ACCESS -->
+                <div class="dashboard-grid">
 
-                <div class="section-heading">
+                    <div class="content-card continue-card">
+
+                        <div class="section-header">
+
+                            <div>
+                                <span class="section-label" data-i18n="continueLearning">
+                                    CONTINUE LEARNING
+                                </span>
+
+                                <h2 id="continueTitle">Start your first lesson</h2>
+                            </div>
+
+                            <button class="text-btn" id="viewSubjectsBtn" data-i18n="viewAll">
+                                View all
+                            </button>
+
+                        </div>
+
+                        <div class="continue-content">
+
+                            <div class="lesson-illustration">
+                                <span>📖</span>
+                            </div>
+
+                            <div class="continue-info">
+
+                                <span class="subject-pill" id="continueSubject">
+                                    Mathematics
+                                </span>
+
+                                <h3 id="continueLesson">
+                                    Choose a lesson to begin
+                                </h3>
+
+                                <p id="continueDescription">
+                                    Your completed lessons will appear here.
+                                </p>
+
+                                <div class="progress-row">
+
+                                    <div class="progress-bar">
+                                        <div id="continueProgress" style="width:0%"></div>
+                                    </div>
+
+                                    <span id="continueProgressText">0%</span>
+
+                                </div>
+
+                                <button class="primary-btn small-btn" id="continueBtn">
+                                    Start Learning
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="content-card daily-card">
+
+                        <div class="section-header">
+
+                            <div>
+                                <span class="section-label" data-i18n="dailyGoal">
+                                    DAILY LEARNING
+                                </span>
+
+                                <h2 data-i18n="studyToday">Study today</h2>
+                            </div>
+
+                            <span class="goal-icon">◎</span>
+
+                        </div>
+
+                        <p data-i18n="dailyText">
+                            Complete lessons regularly to build a strong learning habit.
+                        </p>
+
+                        <div class="daily-progress">
+
+                            <div class="circle-progress" id="dailyCircle">
+                                <strong id="dailyPercent">0%</strong>
+                                <span data-i18n="complete">complete</span>
+                            </div>
+
+                            <div>
+                                <strong id="dailyLessons">0 / 3</strong>
+                                <span data-i18n="lessonsToday">lessons today</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBJECTS -->
+
+                <div class="section-header large-header">
 
                     <div>
-                        <h2 data-i18n="quickLearning">Quick Learning</h2>
-                        <p data-i18n="quickLearningSub">
-                            Pick something to learn today.
-                        </p>
+                        <span class="section-label" data-i18n="yourSubjects">
+                            YOUR SUBJECTS
+                        </span>
+
+                        <h2 data-i18n="learnBySubject">Learn by subject</h2>
                     </div>
 
-                    <button class="text-btn" data-page-link="subjects">
-                        <span data-i18n="viewAll">View All</span>
-                        <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+                <div id="dashboardSubjects" class="subject-grid"></div>
+
+
+                <!-- FEATURED COURSES -->
+
+                <div class="section-header large-header">
+
+                    <div>
+                        <span class="section-label" data-i18n="skillBuilding">
+                            SKILL BUILDING
+                        </span>
+
+                        <h2 data-i18n="featuredCourses">Featured courses</h2>
+                    </div>
+
+                    <button class="text-btn" id="viewCoursesBtn" data-i18n="viewAll">
+                        View all
                     </button>
 
                 </div>
 
-
-                <div class="subject-grid" id="dashboardSubjects"></div>
-
-
-                <!-- DAILY LEARNING -->
-
-                <div class="section-heading">
-
-                    <div>
-                        <h2 data-i18n="dailyGoal">Daily Learning Goal</h2>
-                        <p data-i18n="dailyGoalSub">
-                            Complete lessons regularly and build your skills.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="goal-card">
-
-                    <div class="goal-circle">
-                        <span id="dailyPercent">0%</span>
-                    </div>
-
-                    <div class="goal-content">
-
-                        <h3 data-i18n="keepLearning">
-                            Keep Learning Every Day
-                        </h3>
-
-                        <p data-i18n="goalText">
-                            Complete at least one lesson today to move forward.
-                        </p>
-
-                        <div class="progress-track">
-                            <div id="dailyProgressBar" class="progress-fill"></div>
-                        </div>
-
-                    </div>
-
-                </div>
+                <div id="featuredCourses" class="course-grid"></div>
 
             </section>
 
 
-            <!-- SUBJECTS -->
+            <!-- ================= SUBJECTS PAGE ================= -->
 
-            <section id="subjectsPage" class="content-page hidden">
+            <section id="subjectsPage" class="page">
 
-                <div class="page-title">
+                <div class="page-heading">
 
                     <div>
-                        <span class="eyebrow" data-i18n="learning">LEARNING</span>
+                        <span class="section-label" data-i18n="curriculum">
+                            CURRICULUM
+                        </span>
 
-                        <h1 data-i18n="subjectsTitle">
-                            Subjects & Lessons
-                        </h1>
+                        <h1 data-i18n="subjectsTitle">Subjects & Lessons</h1>
 
                         <p data-i18n="subjectsIntro">
-                            Explore your class curriculum and learn through interactive lessons.
+                            Explore your class curriculum and learn at your own pace.
                         </p>
                     </div>
 
-                    <div class="class-badge">
-                        <i class="fa-solid fa-school"></i>
-                        <span data-i18n="class">Class</span>
-                        <strong id="subjectClass">5</strong>
-                    </div>
+                    <select id="subjectFilter" class="filter-select"></select>
 
                 </div>
 
-                <div class="subject-grid large-grid" id="subjectsGrid"></div>
+                <div id="subjectsFullGrid"></div>
 
             </section>
 
 
-            <!-- LESSON -->
+            <!-- ================= LESSON PAGE ================= -->
 
-            <section id="lessonPage" class="content-page hidden">
+            <section id="lessonPage" class="page">
 
-                <button class="back-btn" id="backFromLesson">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span data-i18n="back">Back</span>
+                <button class="back-btn" id="lessonBack">
+                    ← <span data-i18n="back">Back</span>
                 </button>
 
                 <div id="lessonContent"></div>
@@ -548,105 +567,75 @@
             </section>
 
 
-            <!-- QUIZZES -->
+            <!-- ================= QUIZ PAGE ================= -->
 
-            <section id="quizzesPage" class="content-page hidden">
+            <section id="quizPage" class="page">
 
-                <div class="page-title">
+                <div class="page-heading">
 
                     <div>
-                        <span class="eyebrow" data-i18n="testYourKnowledge">
-                            TEST YOUR KNOWLEDGE
+                        <span class="section-label" data-i18n="practice">
+                            PRACTICE
                         </span>
 
-                        <h1 data-i18n="quizTitle">
-                            Quizzes
-                        </h1>
+                        <h1 data-i18n="quizTitle">Quizzes</h1>
 
                         <p data-i18n="quizIntro">
-                            Test what you have learned from your lessons.
+                            Test what you have learned and improve your understanding.
                         </p>
                     </div>
 
                 </div>
 
-                <div id="quizList" class="quiz-grid"></div>
+                <div id="quizSubjectGrid" class="quiz-grid"></div>
+
+                <div id="quizRunner" class="quiz-runner hidden"></div>
 
             </section>
 
 
-            <!-- QUIZ PLAYER -->
+            <!-- ================= COURSES PAGE ================= -->
 
-            <section id="quizPlayerPage" class="content-page hidden">
+            <section id="coursesPage" class="page">
 
-                <button class="back-btn" id="backFromQuiz">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span data-i18n="backToQuizzes">Back to Quizzes</span>
-                </button>
-
-                <div id="quizContent"></div>
-
-            </section>
-
-
-            <!-- CERTIFICATES -->
-
-            <section id="certificatesPage" class="content-page hidden">
-
-                <div class="page-title">
+                <div class="page-heading">
 
                     <div>
-                        <span class="eyebrow" data-i18n="skillDevelopment">
-                            SKILL DEVELOPMENT
+                        <span class="section-label" data-i18n="certification">
+                            CERTIFICATION
                         </span>
 
-                        <h1 data-i18n="certificateTitle">
-                            Certificate Courses
-                        </h1>
+                        <h1 data-i18n="coursesTitle">Certificate Courses</h1>
 
-                        <p data-i18n="certificateIntro">
-                            Learn useful skills and earn certificates after completing courses.
+                        <p data-i18n="coursesIntro">
+                            Build useful skills through short guided courses.
                         </p>
                     </div>
 
                 </div>
 
-                <div id="certificateGrid" class="certificate-grid"></div>
+                <div id="courseFullGrid" class="course-grid"></div>
+
+                <div id="courseViewer" class="course-viewer hidden"></div>
 
             </section>
 
 
-            <!-- CERTIFICATE COURSE -->
+            <!-- ================= PROGRESS ================= -->
 
-            <section id="certificateCoursePage" class="content-page hidden">
+            <section id="progressPage" class="page">
 
-                <button class="back-btn" id="backFromCertificate">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span data-i18n="backToCourses">Back to Courses</span>
-                </button>
-
-                <div id="certificateCourseContent"></div>
-
-            </section>
-
-
-            <!-- PROGRESS -->
-
-            <section id="progressPage" class="content-page hidden">
-
-                <div class="page-title">
+                <div class="page-heading">
 
                     <div>
-                        <span class="eyebrow" data-i18n="yourJourney">
-                            YOUR LEARNING JOURNEY
+                        <span class="section-label" data-i18n="yourJourney">
+                            YOUR JOURNEY
                         </span>
 
-                        <h1 data-i18n="progressTitle">
-                            My Progress
-                        </h1>
+                        <h1 data-i18n="progressTitle">My Progress</h1>
 
                         <p data-i18n="progressIntro">
-                            Track the lessons and courses you have completed.
+                            Your learning record is saved on this device.
                         </p>
 
                     </div>
@@ -657,25 +646,126 @@
 
                     <div class="big-progress-card">
 
-                        <div class="big-progress-circle">
-                            <span id="bigProgress">0%</span>
+                        <div class="circle-progress large" id="overallCircle">
+                            <strong id="overallCircleText">0%</strong>
+                            <span data-i18n="overall">overall</span>
                         </div>
 
                         <div>
-                            <h2 data-i18n="overallProgress">
-                                Overall Progress
-                            </h2>
-
-                            <p id="progressSummary">
-                                0 lessons completed
+                            <h2 data-i18n="keepGoing">Keep going!</h2>
+                            <p data-i18n="progressMessage">
+                                Every completed lesson moves you one step forward.
                             </p>
                         </div>
 
                     </div>
 
+                    <div class="progress-list-card">
+
+                        <h2 data-i18n="subjectProgress">Subject Progress</h2>
+
+                        <div id="subjectProgressList"></div>
+
+                    </div>
+
                 </div>
 
-                <div class="progress-list" id="progressList"></div>
+            </section>
+
+
+            <!-- ================= SETTINGS ================= -->
+
+            <section id="settingsPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <span class="section-label" data-i18n="preferences">
+                            PREFERENCES
+                        </span>
+
+                        <h1 data-i18n="settingsTitle">Settings</h1>
+
+                        <p data-i18n="settingsIntro">
+                            Personalise your learning experience.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="settings-card">
+
+                    <div class="setting-row">
+
+                        <div>
+                            <h3 data-i18n="languageSetting">Learning Language</h3>
+                            <p data-i18n="languageSettingText">
+                                Choose the language used for learning content.
+                            </p>
+                        </div>
+
+                        <select id="settingsLanguage" class="filter-select">
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="mr">Marathi</option>
+                        </select>
+
+                    </div>
+
+                    <div class="setting-row">
+
+                        <div>
+                            <h3 data-i18n="appearance">Appearance</h3>
+                            <p data-i18n="appearanceText">
+                                Switch between light and dark mode.
+                            </p>
+                        </div>
+
+                        <button id="settingsThemeBtn" class="secondary-btn">
+                            Toggle Theme
+                        </button>
+
+                    </div>
+
+                    <div class="setting-row">
+
+                        <div>
+                            <h3 data-i18n="studentAccount">Student Account</h3>
+                            <p id="settingsUsername">Student</p>
+                        </div>
+
+                        <span class="account-badge" data-i18n="studentAccountBadge">
+                            Student Account
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SEARCH ================= -->
+
+            <section id="searchPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <span class="section-label" data-i18n="SEARCH">
+                            SEARCH
+                        </span>
+
+                        <h1 data-i18n="searchResults">Search Results</h1>
+
+                        <p id="searchSummary"></p>
+
+                    </div>
+
+                </div>
+
+                <div id="searchResults" class="search-results"></div>
 
             </section>
 
@@ -683,70 +773,12 @@
 
     </main>
 
-</section>
-
-
-<!-- NOTIFICATION -->
-
-<div id="notificationToast" class="toast">
-    <i class="fa-solid fa-circle-info"></i>
-    <span id="toastText">Notification</span>
 </div>
 
 
-<!-- CERTIFICATE PRINT AREA -->
+<!-- TOAST -->
 
-<div id="printCertificate" class="print-certificate">
-
-    <div class="certificate-border">
-
-        <div class="certificate-inner">
-
-            <div class="certificate-logo">
-                <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-
-            <p class="certificate-small">
-                ED USETU • E-LEARNING PLATFORM
-            </p>
-
-            <h1>Certificate of Completion</h1>
-
-            <p class="certificate-label">
-                This certificate is proudly presented to
-            </p>
-
-            <h2 id="certificateStudentName">Student</h2>
-
-            <p class="certificate-text">
-                for successfully completing the course
-            </p>
-
-            <h3 id="certificateCourseName">Course Name</h3>
-
-            <div class="certificate-footer">
-
-                <div>
-                    <strong id="certificateDate"></strong>
-                    <span>Date</span>
-                </div>
-
-                <div class="certificate-seal">
-                    <i class="fa-solid fa-award"></i>
-                </div>
-
-                <div>
-                    <strong>EduSetu</strong>
-                    <span>Learning Platform</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+<div id="toast" class="toast"></div>
 
 
 <script src="script.js"></script>
