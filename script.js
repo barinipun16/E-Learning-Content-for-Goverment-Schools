@@ -2749,6 +2749,8 @@ function printCertificate(
     `);
 
     certificateWindow.document.close();
+
+    certificateWindow.focus();
 }
 
 

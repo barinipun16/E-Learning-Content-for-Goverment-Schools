@@ -6,6 +6,8 @@
 
 <title>EduBridge | Government School Learning Portal</title>
 
+<link rel="stylesheet" href="style.css">
+
 <style>
 *{
     margin:0;
@@ -2338,6 +2340,86 @@ body.modal-open{
                 Download certificate
             </button>
         </div>
+
+    </div>
+
+</div>
+
+<div
+    id="certificateModal"
+    class="certificate-modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="certificatePreviewTitle">
+
+    <div class="certificate-modal-panel">
+
+        <div class="certificate-modal-actions">
+            <button
+                id="closeCertificateButton"
+                class="course-close"
+                type="button">
+                ×
+            </button>
+        </div>
+
+        <article id="certificatePrintArea" class="certificate-print-area">
+
+            <header class="certificate-header">
+                <div class="certificate-logo">E</div>
+                <div>
+                    <h2>EduBridge</h2>
+                    <p>Digital Learning Platform</p>
+                </div>
+            </header>
+
+            <p id="certificatePreviewTitle" class="certificate-label">
+                CERTIFICATE OF COMPLETION
+            </p>
+
+            <div class="certificate-line"></div>
+
+            <p id="certificatePresentedText" class="certificate-presented">
+                This certificate is proudly presented to
+            </p>
+
+            <h1 id="certificateStudentName">Student Name</h1>
+            <p id="certificateCompletedText" class="certificate-description">
+                has successfully completed the certificate course
+            </p>
+            <h2 id="certificateCourseName">Course Name</h2>
+            <p id="certificateLearnerText" class="certificate-description">
+                Government school learning programme learner
+            </p>
+
+            <footer class="certificate-footer">
+                <div class="certificate-footer-item">
+                    <strong id="certificateCompletionDate"></strong>
+                    <span id="certificateDateLabel">Date</span>
+                </div>
+                <div class="certificate-seal">✓</div>
+                <div class="certificate-footer-item">
+                    <strong id="certificateIdValue"></strong>
+                    <span id="certificateIdLabel">Certificate ID</span>
+                </div>
+            </footer>
+
+        </article>
+
+        <button
+            id="printCertificateButton"
+            class="certificate-print-button"
+            type="button">
+            Print / Save as PDF
+        </button>
+
+        <a
+            id="saveCertificateFileButton"
+            class="certificate-file-button"
+            href="#"
+            download>
+            Download certificate file
+        </a>
 
     </div>
 
@@ -7578,6 +7660,64 @@ function downloadCertificate(){
     const certificateId =
         `EDU-${currentUser.username.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,8)}-${activeCourseId.toUpperCase()}`;
 
+    document.getElementById("certificateStudentName").textContent =
+        currentUser.username;
+
+    document.getElementById("certificateCourseName").textContent =
+        course.title[currentLanguage] || course.title.en;
+
+    document.getElementById("certificateCompletionDate").textContent =
+        completionDate;
+
+    document.getElementById("certificateIdValue").textContent =
+        certificateId;
+
+    document.getElementById("certificatePreviewTitle").textContent =
+        certificateLabels.eyebrow;
+
+    document.getElementById("certificatePresentedText").textContent =
+        currentLanguage === "hi"
+            ? "यह प्रमाणपत्र गर्व से प्रस्तुत किया जाता है"
+            : currentLanguage === "mr"
+                ? "हे प्रमाणपत्र अभिमानाने सादर करण्यात येत आहे"
+                : "This certificate is proudly presented to";
+
+    document.getElementById("certificateCompletedText").textContent =
+        certificateLabels.completed;
+
+    document.getElementById("certificateLearnerText").textContent =
+        `${className} | ${certificateLabels.learner}`;
+
+    document.getElementById("certificateDateLabel").textContent =
+        certificateLabels.issued;
+
+    document.getElementById("certificateIdLabel").textContent =
+        certificateLabels.id;
+
+    document.getElementById("printCertificateButton").textContent =
+        currentLanguage === "hi"
+            ? "प्रिंट करें / PDF के रूप में सेव करें"
+            : currentLanguage === "mr"
+                ? "प्रिंट करा / PDF म्हणून जतन करा"
+                : "Print / Save as PDF";
+
+    document.getElementById("certificateModal").classList.remove("hidden");
+    document.body.classList.add("modal-open");
+
+    showToast(
+        currentLanguage === "hi"
+            ? "प्रमाणपत्र तैयार है। PDF के रूप में सेव करने के लिए प्रिंट करें।"
+            : currentLanguage === "mr"
+                ? "प्रमाणपत्र तयार आहे. PDF म्हणून जतन करण्यासाठी प्रिंट करा."
+                : "Certificate ready. Print it and choose Save as PDF."
+    );
+
+    setTimeout(() => {
+
+        window.print();
+
+    },250);
+
     const certificateHtml = `<!doctype html>
 <html lang="en">
 <head>
@@ -7590,14 +7730,21 @@ body{margin:0;background:#eef5f3;color:#173042;font-family:Georgia,serif;display
 h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 24px}p{font-size:18px;line-height:1.6}.meta{margin:34px auto 0;display:flex;justify-content:space-between;gap:20px;font:14px Arial,sans-serif;color:#617482;border-top:1px solid #d9e4e7;padding-top:18px}@media(max-width:600px){.certificate{padding:45px 22px;border-width:7px}h1{font-size:36px}h2{font-size:24px}.meta{display:block;line-height:2}}
 </style></head><body><main class="certificate"><div class="brand">${certificateLabels.brand}</div><div class="eyebrow">${certificateLabels.eyebrow}</div><h1>${studentName}</h1><p>${certificateLabels.completed}</p><h2>${courseTitle}</h2><p>${className} | ${certificateLabels.learner}</p><div class="meta"><span>${certificateLabels.issued}: ${completionDate}</span><span>${certificateLabels.id}: ${certificateId}</span></div></main></body></html>`;
 
-    const blob =
-        new Blob(
-            [certificateHtml],
-            {type:"text/html"}
-        );
-
     const url =
-        URL.createObjectURL(blob);
+        `data:text/html;charset=utf-8,${encodeURIComponent(certificateHtml)}`;
+
+    const fileButton =
+        document.getElementById("saveCertificateFileButton");
+
+    fileButton.href = url;
+    fileButton.download =
+        `EduBridge-${activeCourseId}-certificate.html`;
+    fileButton.textContent =
+        currentLanguage === "hi"
+            ? "प्रमाणपत्र फ़ाइल डाउनलोड करें"
+            : currentLanguage === "mr"
+                ? "प्रमाणपत्र फाइल डाउनलोड करा"
+                : "Download certificate file";
 
     const certificateWindow =
         window.open(url,"_blank");
@@ -7620,12 +7767,7 @@ h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 
     document.body.appendChild(link);
     link.click();
 
-    setTimeout(() => {
-
-        link.remove();
-        URL.revokeObjectURL(url);
-
-    },10000);
+    setTimeout(() => link.remove(),2000);
 
     showToast(
         currentLanguage === "hi"
@@ -7784,6 +7926,26 @@ function setupCourseModal(){
         .addEventListener(
             "click",
             downloadCertificate
+        );
+
+    document
+        .getElementById("closeCertificateButton")
+        .addEventListener(
+            "click",
+            () => {
+                document
+                    .getElementById("certificateModal")
+                    .classList.add("hidden");
+
+                document.body.classList.remove("modal-open");
+            }
+        );
+
+    document
+        .getElementById("printCertificateButton")
+        .addEventListener(
+            "click",
+            () => window.print()
         );
 
     document

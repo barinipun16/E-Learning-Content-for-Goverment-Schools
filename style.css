@@ -58,6 +58,247 @@ button {
     display: none !important;
 }
 
+.certificate-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    overflow: auto;
+    padding: 24px;
+    background: rgba(15, 23, 42, .72);
+}
+
+.certificate-modal-panel {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.certificate-modal-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.certificate-print-area {
+    width: 100%;
+    min-height: 620px;
+    padding: 55px;
+    position: relative;
+    text-align: center;
+    color: #1f2937;
+    background: #fff;
+    border: 12px solid #1e3a8a;
+    outline: 3px solid #d4af37;
+    outline-offset: -22px;
+}
+
+.certificate-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.certificate-logo {
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.certificate-header h2 {
+    margin: 0;
+    color: #1e3a8a;
+    font-size: 28px;
+}
+
+.certificate-header p {
+    margin: 3px 0;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.certificate-label {
+    margin: 0;
+    color: #1e3a8a;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.certificate-line {
+    width: 120px;
+    height: 3px;
+    margin: 15px auto 25px;
+    background: #d4af37;
+}
+
+.certificate-presented,
+.certificate-description {
+    color: #64748b;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+#certificateStudentName {
+    margin: 15px 0;
+    color: #111827;
+    font-family: Georgia, serif;
+    font-size: 42px;
+}
+
+#certificateCourseName {
+    margin: 18px 0;
+    color: #1e3a8a;
+    font-size: 27px;
+}
+
+.certificate-footer {
+    position: absolute;
+    right: 70px;
+    bottom: 45px;
+    left: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.certificate-footer-item {
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.certificate-footer-item strong {
+    color: #1f2937;
+    font-size: 14px;
+}
+
+.certificate-footer-item span {
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 11px;
+}
+
+.certificate-seal {
+    width: 65px;
+    height: 65px;
+    display: grid;
+    place-items: center;
+    border: 3px solid #d4af37;
+    border-radius: 50%;
+    color: #d4af37;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.certificate-print-button {
+    padding: 13px 25px;
+    border: 0;
+    border-radius: 10px;
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.certificate-file-button {
+    padding: 13px 25px;
+    border: 1px solid #1e3a8a;
+    border-radius: 10px;
+    color: #1e3a8a;
+    background: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+@media (max-width: 600px) {
+    .certificate-modal {
+        padding: 10px;
+    }
+
+    .certificate-print-area {
+        min-height: 600px;
+        padding: 35px 20px;
+        border-width: 8px;
+    }
+
+    .certificate-label {
+        font-size: 21px;
+        letter-spacing: 1px;
+    }
+
+    #certificateStudentName {
+        font-size: 30px;
+    }
+
+    #certificateCourseName {
+        font-size: 21px;
+    }
+
+    .certificate-footer {
+        right: 30px;
+        bottom: 35px;
+        left: 30px;
+    }
+
+    .certificate-footer-item {
+        min-width: 0;
+    }
+
+    .certificate-seal {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+
+    #certificateModal,
+    #certificatePrintArea,
+    #certificatePrintArea * {
+        visibility: visible !important;
+    }
+
+    #certificateModal {
+        position: static;
+        padding: 0;
+        background: #fff;
+    }
+
+    .certificate-modal-panel {
+        width: 100%;
+    }
+
+    .certificate-modal-actions,
+    .certificate-print-button,
+    .certificate-file-button {
+        display: none !important;
+    }
+
+    .certificate-print-area {
+        width: 1123px;
+        height: 794px;
+        max-width: none;
+        margin: 0;
+    }
+}
+
 
 /* ================= AUTH ================= */
 
