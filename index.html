@@ -6394,11 +6394,7 @@ function createCourseCard(course){
     const progress =
         currentUser &&
         currentUser.courseProgress
-            ? (
-                currentUser.courseProgress[
-                    course.id
-                ] || 0
-            )
+            ? currentUser.courseProgress[course.id] || 0
             : 0;
 
 
@@ -7505,11 +7501,25 @@ function downloadCertificate(){
             item => item.id === activeCourseId
         );
 
-    if(
-        !course ||
-        currentUser.courseProgress[activeCourseId] < 100 ||
-        (currentUser.courseExamScores?.[activeCourseId] || 0) < 70
-    ){
+    const moduleCount =
+        getCourseModules(activeCourseId).length;
+
+    const modulesComplete =
+        getCompletedCourseModules(activeCourseId).length >= moduleCount;
+
+    const examPassed =
+        (currentUser.courseExamScores?.[activeCourseId] || 0) >= 70;
+
+    if(!course || !modulesComplete || !examPassed){
+
+        showToast(
+            currentLanguage === "hi"
+                ? "पहले सभी मॉड्यूल पूरे करके परीक्षा पास करें।"
+                : currentLanguage === "mr"
+                    ? "आधी सर्व मॉड्यूल पूर्ण करून परीक्षा उत्तीर्ण करा."
+                    : "Complete all modules and pass the exam first."
+        );
+
         return;
     }
 
@@ -7600,7 +7610,19 @@ h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 
     link.click();
     link.remove();
 
-    URL.revokeObjectURL(url);
+    setTimeout(() => {
+
+        URL.revokeObjectURL(url);
+
+    },1000);
+
+    showToast(
+        currentLanguage === "hi"
+            ? "प्रमाणपत्र डाउनलोड हो रहा है।"
+            : currentLanguage === "mr"
+                ? "प्रमाणपत्र डाउनलोड होत आहे."
+                : "Certificate download started."
+    );
 
 }
 
