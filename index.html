@@ -7599,6 +7599,15 @@ h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 
     const url =
         URL.createObjectURL(blob);
 
+    const certificateWindow =
+        window.open(url,"_blank");
+
+    if(certificateWindow){
+
+        certificateWindow.focus();
+
+    }
+
     const link =
         document.createElement("a");
 
@@ -7616,7 +7625,7 @@ h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 
         link.remove();
         URL.revokeObjectURL(url);
 
-    },2000);
+    },10000);
 
     showToast(
         currentLanguage === "hi"
