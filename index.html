@@ -12,22 +12,21 @@
     padding:0;
     box-sizing:border-box;
 }
-
 :root{
-    --primary:#2563eb;
-    --primary-dark:#1d4ed8;
-    --secondary:#7c3aed;
-    --success:#16a34a;
+    --primary:#0f5c8d;
+    --primary-dark:#0a4267;
+    --secondary:#e08a2e;
+    --success:#19734a;
     --danger:#dc2626;
     --warning:#f59e0b;
-    --bg:#f5f7fb;
+    --bg:#f3f7f6;
     --card:#ffffff;
-    --text:#172033;
-    --muted:#64748b;
-    --border:#e2e8f0;
-    --sidebar:#111827;
-    --sidebar-text:#dbeafe;
-    --shadow:0 10px 30px rgba(15,23,42,.08);
+    --text:#173042;
+    --muted:#617482;
+    --border:#d9e4e7;
+    --sidebar:#103746;
+    --sidebar-text:#dceff2;
+    --shadow:0 12px 28px rgba(19,54,67,.08);
 }
 
 body.dark{
@@ -44,11 +43,14 @@ html{
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--bg);
+    font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
+    background:
+        linear-gradient(135deg,rgba(224,241,238,.42),transparent 42%),
+        var(--bg);
     color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
+    line-height:1.55;
 }
 
 button,
@@ -59,6 +61,13 @@ select{
 
 button{
     cursor:pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{
+    outline:3px solid rgba(224,138,46,.35);
+    outline-offset:2px;
 }
 
 .hidden{
@@ -76,9 +85,24 @@ button{
     justify-content:center;
     padding:20px;
     background:
-        radial-gradient(circle at top left,#dbeafe,transparent 35%),
-        radial-gradient(circle at bottom right,#ede9fe,transparent 35%),
+        linear-gradient(135deg,rgba(224,241,238,.6),transparent 42%),
+        radial-gradient(circle at bottom right,#d9f0e8,transparent 35%),
         var(--bg);
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+}
+
+#authPage::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(243,247,246,.35),rgba(243,247,246,.35)),
+    url("images/student-background.jpg");
+    background-position:center;
+    background-size:cover;
+    opacity:.82;
 }
 
 .auth-wrapper{
@@ -87,15 +111,17 @@ button{
     display:grid;
     grid-template-columns:1.1fr .9fr;
     background:var(--card);
-    border-radius:24px;
+    border-radius:16px;
     overflow:hidden;
     box-shadow:var(--shadow);
     border:1px solid var(--border);
+    position:relative;
+    z-index:1;
 }
 
 .auth-brand{
     padding:55px;
-    background:linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed);
+    background:linear-gradient(135deg,#0f5c8d,#167a78);
     color:white;
     display:flex;
     flex-direction:column;
@@ -147,6 +173,7 @@ button{
 
 .auth-card{
     padding:45px;
+    background:var(--card);
 }
 
 .auth-card h2{
@@ -213,7 +240,7 @@ button{
     background:var(--primary);
     color:white;
     padding:14px 18px;
-    border-radius:10px;
+    border-radius:8px;
     font-weight:800;
     transition:.2s;
 }
@@ -279,6 +306,7 @@ button{
     z-index:1000;
     padding:20px 14px;
     overflow-y:auto;
+    box-shadow:8px 0 24px rgba(16,55,70,.08);
 }
 
 .sidebar-brand{
@@ -297,7 +325,7 @@ button{
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#2563eb;
+    background:#e08a2e;
 }
 
 .nav-list{
@@ -321,7 +349,7 @@ button{
 
 .nav-item:hover,
 .nav-item.active{
-    background:#1e40af;
+    background:#17627a;
     color:white;
 }
 
@@ -337,7 +365,20 @@ button{
 }
 
 .logout-btn{
-    color:#fecaca;
+    color:#ff6b6b;
+    border:1px solid transparent;
+}
+
+.logout-btn .nav-icon{
+    color:#ef4444;
+    font-size:21px;
+    font-weight:900;
+}
+
+.logout-btn:hover{
+    background:rgba(239,68,68,.14);
+    color:#fca5a5;
+    border-color:rgba(239,68,68,.22);
 }
 
 /* =========================
@@ -361,7 +402,7 @@ button{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 28px;
+    padding:0 clamp(18px,3vw,38px);
 }
 
 body.dark .topbar{
@@ -387,6 +428,12 @@ body.dark .topbar{
     padding:10px 13px;
     background:var(--card);
     color:var(--text);
+    transition:.2s;
+}
+
+.search-box input:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(15,92,141,.1);
 }
 
 .user-area{
@@ -421,7 +468,10 @@ body.dark .topbar{
 ========================= */
 
 .content{
-    padding:30px;
+    width:100%;
+    max-width:1440px;
+    margin:0 auto;
+    padding:clamp(22px,3vw,38px);
 }
 
 .page{
@@ -430,6 +480,12 @@ body.dark .topbar{
 
 .page.active-page{
     display:block;
+    animation:page-enter .3s ease both;
+}
+
+@keyframes page-enter{
+    from{opacity:0;transform:translateY(6px)}
+    to{opacity:1;transform:translateY(0)}
 }
 
 .page-header{
@@ -460,15 +516,28 @@ body.dark .topbar{
 ========================= */
 
 .hero{
-    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    background:linear-gradient(135deg,#0f5c8d,#167a78);
     color:white;
     border-radius:20px;
-    padding:30px;
+    padding:clamp(26px,4vw,42px);
     display:flex;
     justify-content:space-between;
     gap:20px;
     margin-bottom:25px;
     box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:50%;
+    right:-70px;
+    bottom:-100px;
 }
 
 .hero h1{
@@ -490,6 +559,15 @@ body.dark .topbar{
     font-weight:900;
     align-self:center;
     white-space:nowrap;
+    transition:.2s;
+    position:relative;
+    z-index:1;
+}
+
+.hero-button:hover{
+    color:var(--primary-dark);
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(4,40,55,.18);
 }
 
 .stats-grid{
@@ -505,6 +583,12 @@ body.dark .topbar{
     border-radius:16px;
     padding:20px;
     box-shadow:var(--shadow);
+    transition:.2s;
+}
+
+.stat-card:hover{
+    transform:translateY(-2px);
+    border-color:#b9d3d5;
 }
 
 .stat-icon{
@@ -536,6 +620,7 @@ body.dark .topbar{
 
 .section-title h2{
     font-size:21px;
+    letter-spacing:.2px;
 }
 
 .grid{
@@ -550,6 +635,12 @@ body.dark .topbar{
     border-radius:16px;
     padding:20px;
     box-shadow:var(--shadow);
+    transition:.2s ease;
+}
+
+.card:hover{
+    border-color:#bed7d8;
+    box-shadow:0 16px 32px rgba(19,54,67,.11);
 }
 
 .subject-card{
@@ -565,8 +656,8 @@ body.dark .topbar{
     width:52px;
     height:52px;
     border-radius:14px;
-    background:#dbeafe;
-    color:#1d4ed8;
+    background:#e0f1ee;
+    color:#0f5c8d;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -598,6 +689,12 @@ body.dark .topbar{
     padding:9px 12px;
     font-size:13px;
     font-weight:800;
+    transition:.2s;
+}
+
+.small-btn:hover{
+    background:var(--primary-dark);
+    transform:translateY(-1px);
 }
 
 .outline-btn{
@@ -628,14 +725,21 @@ body.dark .topbar{
     justify-content:space-between;
     align-items:center;
     gap:20px;
+    transition:.2s ease;
+}
+
+.lesson-card:hover{
+    border-color:#b9d3d5;
+    box-shadow:0 12px 24px rgba(19,54,67,.08);
+    transform:translateY(-2px);
 }
 
 .lesson-number{
     width:42px;
     height:42px;
     flex:none;
-    background:#dbeafe;
-    color:#1d4ed8;
+    background:#e0f1ee;
+    color:#0f5c8d;
     border-radius:10px;
     display:flex;
     align-items:center;
@@ -690,6 +794,8 @@ body.dark .topbar{
     border-radius:18px;
     padding:30px;
     box-shadow:var(--shadow);
+    max-width:860px;
+    margin:0 auto;
 }
 
 .lesson-content h1{
@@ -717,7 +823,7 @@ body.dark .topbar{
     margin:20px 0;
     padding:15px;
     border-left:4px solid var(--primary);
-    background:#eff6ff;
+    background:#edf7f4;
     border-radius:8px;
 }
 
@@ -806,6 +912,136 @@ body.dark .topbar{
 
 .course-progress{
     margin-top:16px;
+}
+
+.course-modal{
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(10,38,49,.62);
+    backdrop-filter:blur(6px);
+}
+
+.course-modal-panel{
+    width:min(780px,100%);
+    max-height:min(760px,calc(100vh - 40px));
+    overflow:auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:clamp(22px,4vw,36px);
+    box-shadow:0 24px 70px rgba(7,31,42,.25);
+    animation:page-enter .25s ease both;
+}
+
+.course-modal-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:22px;
+}
+
+.course-modal-header h2{
+    margin-bottom:7px;
+}
+
+.course-modal-header p{
+    color:var(--muted);
+}
+
+.course-overview{
+    margin:20px 0 4px;
+    padding:14px;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.course-overview-top{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.course-overview .progress-bar{
+    margin-top:9px;
+}
+
+.course-close{
+    width:38px;
+    height:38px;
+    flex:none;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:transparent;
+    color:var(--text);
+    font-size:22px;
+    line-height:1;
+}
+
+.course-close:hover{
+    background:var(--bg);
+}
+
+.course-module{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    padding:16px 0;
+    border-top:1px solid var(--border);
+}
+
+.course-module-number{
+    width:32px;
+    height:32px;
+    flex:none;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:#e0f1ee;
+    color:var(--primary-dark);
+    font-weight:900;
+}
+
+.course-module h3{
+    margin-bottom:4px;
+}
+
+.course-module p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.course-modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:22px;
+}
+
+.certificate-btn{
+    border:1px solid var(--secondary);
+    background:#fff8ed;
+    color:#9a5a0e;
+    border-radius:10px;
+    padding:12px 16px;
+    font-weight:800;
+}
+
+.certificate-btn:hover{
+    background:#ffefd5;
+}
+
+body.modal-open{
+    overflow:hidden;
 }
 
 /* =========================
@@ -980,6 +1216,21 @@ body.dark .topbar{
         width:100%;
     }
 
+    .course-modal{
+        align-items:flex-end;
+        padding:0;
+    }
+
+    .course-modal-panel{
+        max-height:92vh;
+        border-radius:18px 18px 0 0;
+        padding:22px 18px;
+    }
+
+    .course-modal-actions .primary-btn{
+        width:100%;
+    }
+
 }
 </style>
 </head>
@@ -995,15 +1246,14 @@ body.dark .topbar{
     <div class="auth-wrapper">
 
         <div class="auth-brand">
-
             <div class="logo">
                 <div class="logo-icon">🎓</div>
                 <span>EduBridge</span>
             </div>
 
-            <h1>Learning Without Limits</h1>
+            <h1 data-i18n="brandTagline">Learning Without Limits</h1>
 
-            <p>
+            <p data-i18n="brandDescription">
                 A digital learning platform designed to provide
                 quality educational content for government school
                 students.
@@ -1013,22 +1263,22 @@ body.dark .topbar{
 
                 <div class="auth-feature">
                     <span>✓</span>
-                    <span>Class 5 to Class 8 learning content</span>
+                    <span data-i18n="featureClasses">Class 5 to Class 8 learning content</span>
                 </div>
 
                 <div class="auth-feature">
                     <span>✓</span>
-                    <span>English, Hindi and Marathi</span>
+                    <span data-i18n="featureLanguages">English, Hindi and Marathi</span>
                 </div>
 
                 <div class="auth-feature">
                     <span>✓</span>
-                    <span>Lessons, quizzes and courses</span>
+                    <span data-i18n="featureLessons">Lessons, quizzes and courses</span>
                 </div>
 
                 <div class="auth-feature">
                     <span>✓</span>
-                    <span>Track your learning progress</span>
+                    <span data-i18n="featureProgress">Track your learning progress</span>
                 </div>
 
             </div>
@@ -1075,6 +1325,7 @@ body.dark .topbar{
                             id="loginUsername"
                             type="text"
                             autocomplete="username"
+                            placeholder="Enter your username"
                             required
                         >
 
@@ -1093,6 +1344,7 @@ body.dark .topbar{
                                 id="loginPassword"
                                 type="password"
                                 autocomplete="current-password"
+                                placeholder="Enter your password"
                                 required
                             >
 
@@ -1167,6 +1419,8 @@ body.dark .topbar{
                         <input
                             id="signupUsername"
                             type="text"
+                            autocomplete="username"
+                            placeholder="Choose a username"
                             required
                         >
 
@@ -1206,6 +1460,8 @@ body.dark .topbar{
                             <input
                                 id="signupPassword"
                                 type="password"
+                                autocomplete="new-password"
+                                placeholder="Create a password"
                                 required
                             >
 
@@ -1232,6 +1488,8 @@ body.dark .topbar{
                             <input
                                 id="confirmPassword"
                                 type="password"
+                                autocomplete="new-password"
+                                placeholder="Repeat your password"
                                 required
                             >
 
@@ -1381,7 +1639,7 @@ body.dark .topbar{
                     class="nav-item logout-btn"
                     id="logoutButton">
 
-                    <span class="nav-icon">🚪</span>
+                    <span class="nav-icon">⏻</span>
                     <span data-i18n="logout">Logout</span>
 
                 </button>
@@ -1462,7 +1720,8 @@ body.dark .topbar{
                         <div>
 
                             <div
-                                style="font-size:12px;font-weight:900;letter-spacing:1px;margin-bottom:8px;">
+                                style="font-size:12px;font-weight:900;letter-spacing:1px;margin-bottom:8px;"
+                                data-i18n="learningPortal">
                                 STUDENT LEARNING PORTAL
                             </div>
 
@@ -1475,9 +1734,8 @@ body.dark .topbar{
                                 </span>!
                             </h1>
 
-                            <p>
-                                Continue learning, practise your skills
-                                and discover something new today.
+                            <p data-i18n="dashboardIntro">
+                                Continue learning, practise your skills and discover something new today.
                             </p>
 
                         </div>
@@ -1485,7 +1743,8 @@ body.dark .topbar{
 
                         <button
                             class="hero-button"
-                            id="continueBtn">
+                            id="continueBtn"
+                            data-i18n="continueLearning">
                             CONTINUE LEARNING
                         </button>
 
@@ -1955,6 +2214,62 @@ body.dark .topbar{
     class="toast">
 </div>
 
+<div
+    id="courseModal"
+    class="course-modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="courseModalTitle">
+
+    <div class="course-modal-panel">
+
+        <div class="course-modal-header">
+
+            <div>
+                <span class="eyebrow">CERTIFICATE COURSE</span>
+                <h2 id="courseModalTitle">Course</h2>
+                <p id="courseModalDescription"></p>
+            </div>
+
+            <button
+                id="closeCourseModal"
+                class="course-close"
+                aria-label="Close course">
+                ×
+            </button>
+
+        </div>
+
+        <div id="courseModules"></div>
+
+        <div class="course-overview">
+            <div class="course-overview-top">
+                <span id="courseProgressLabel">0% complete</span>
+                <span id="courseModuleCount">0 modules</span>
+            </div>
+            <div class="progress-bar">
+                <div id="courseProgressFill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="course-modal-actions">
+            <button
+                id="completeCourseButton"
+                class="primary-btn">
+                Mark course complete
+            </button>
+
+            <button
+                id="downloadCertificateButton"
+                class="certificate-btn hidden">
+                Download certificate
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
 
 <script>
 
@@ -2009,6 +2324,12 @@ const translations = {
 
         loginTitle:"Welcome back",
         loginSubtitle:"Sign in to continue your learning journey.",
+        brandTagline:"Learning Without Limits",
+        brandDescription:"A digital learning platform designed to provide quality educational content for government school students.",
+        featureClasses:"Class 5 to Class 8 learning content",
+        featureLanguages:"English, Hindi and Marathi",
+        featureLessons:"Lessons, quizzes and courses",
+        featureProgress:"Track your learning progress",
         usernameLabel:"Student Username",
         passwordLabel:"Password",
         loginButton:"Login",
@@ -2087,6 +2408,12 @@ const translations = {
 
         loginTitle:"वापसी पर स्वागत है",
         loginSubtitle:"अपनी पढ़ाई जारी रखने के लिए लॉगिन करें।",
+        brandTagline:"सीखने की कोई सीमा नहीं",
+        brandDescription:"सरकारी स्कूल के विद्यार्थियों के लिए गुणवत्तापूर्ण शैक्षणिक सामग्री देने वाला डिजिटल अध्ययन मंच।",
+        featureClasses:"कक्षा 5 से कक्षा 8 तक की अध्ययन सामग्री",
+        featureLanguages:"अंग्रेज़ी, हिंदी और मराठी",
+        featureLessons:"पाठ, प्रश्नोत्तरी और पाठ्यक्रम",
+        featureProgress:"अपनी अध्ययन प्रगति देखें",
         usernameLabel:"विद्यार्थी यूज़रनेम",
         passwordLabel:"पासवर्ड",
         loginButton:"लॉगिन",
@@ -2165,6 +2492,12 @@ const translations = {
 
         loginTitle:"पुन्हा स्वागत आहे",
         loginSubtitle:"तुमचा अभ्यास सुरू ठेवण्यासाठी लॉगिन करा.",
+        brandTagline:"शिकण्याला सीमा नाही",
+        brandDescription:"सरकारी शाळेतील विद्यार्थ्यांसाठी दर्जेदार शैक्षणिक सामग्री देणारे डिजिटल अध्ययन व्यासपीठ.",
+        featureClasses:"इयत्ता 5 ते इयत्ता 8 साठी अभ्यास सामग्री",
+        featureLanguages:"इंग्रजी, हिंदी आणि मराठी",
+        featureLessons:"धडे, प्रश्नमंजुषा आणि अभ्यासक्रम",
+        featureProgress:"तुमची अभ्यासाची प्रगती पाहा",
         usernameLabel:"विद्यार्थी यूज़रनेम",
         passwordLabel:"पासवर्ड",
         loginButton:"लॉगिन",
@@ -2238,12 +2571,32 @@ const subjects = [
     },
 
     {
-        id:"language",
+        id:"englishLanguage",
+        icon:"A",
+        names:{
+            en:"English",
+            hi:"English",
+            mr:"English"
+        }
+    },
+
+    {
+        id:"hindiLanguage",
         icon:"अ",
         names:{
-            en:"Language",
-            hi:"भाषा",
-            mr:"भाषा"
+            en:"हिंदी",
+            hi:"हिंदी",
+            mr:"हिंदी"
+        }
+    },
+
+    {
+        id:"marathiLanguage",
+        icon:"अ",
+        names:{
+            en:"मराठी",
+            hi:"मराठी",
+            mr:"मराठी"
         }
     },
 
@@ -3354,6 +3707,471 @@ computer:[]
 
 
 /* =====================================================
+   EXPANDED CLASS-SPECIFIC LESSONS
+===================================================== */
+
+const additionalLessons = {
+
+    5:{
+        math:[
+            ["Addition and Subtraction Strategies","Use place value and mental maths to solve larger calculations."],
+            ["Multiplication Patterns","Find multiplication patterns and use them to calculate quickly."],
+            ["Division in Equal Groups","Share quantities equally and check division using multiplication."],
+            ["Factors and Multiples","Identify factors and multiples in everyday number problems."],
+            ["Measuring Length","Measure and compare length using standard units."],
+            ["Time and Timetables","Read clocks, calendars and simple timetables."],
+            ["Shapes and Symmetry","Recognise common shapes, lines of symmetry and repeating designs."],
+            ["Money and Budgeting","Add prices, calculate change and plan a simple budget."]
+        ],
+        science:[
+            ["Human Body and Health","Identify important body systems and habits that keep us healthy."],
+            ["Animal Habitats","Compare habitats and explain how animals survive in them."],
+            ["Seeds and Germination","Observe how seeds grow and describe the stages of germination."],
+            ["States of Matter","Compare solids, liquids and gases using daily examples."],
+            ["Changes Around Us","Recognise reversible and irreversible changes in materials."],
+            ["Sound and Vibrations","Explore how vibrations produce sound and how sound travels."],
+            ["The Solar System","Identify the Sun, planets and the movement of Earth."],
+            ["Clean Water and Sanitation","Explain why clean water and sanitation are important for health."]
+        ],
+        social:[
+            ["Families and Neighbours","Understand how families and neighbours support one another."],
+            ["Rules and Responsibilities","Explain why homes, schools and communities need rules."],
+            ["Directions and Symbols","Use simple directions, signs and map symbols."],
+            ["Landforms of India","Identify mountains, plains, plateaus, deserts and coasts."],
+            ["Festivals and Traditions","Respect the traditions and celebrations of different communities."],
+            ["People Who Help Us","Learn how public workers and services help our community."],
+            ["Saving Natural Resources","Use water, electricity and materials responsibly."],
+            ["Our Local History","Discover stories and places that make a neighbourhood special."]
+        ],
+        language:[
+            ["Nouns in Sentences","Identify common, proper and collective nouns in sentences."],
+            ["Pronouns and Agreement","Use pronouns clearly and match them with the correct nouns."],
+            ["Action Words","Use strong verbs to describe people, animals and events."],
+            ["Adjectives and Description","Choose adjectives that make descriptions precise and interesting."],
+            ["Punctuation Practice","Use full stops, commas, question marks and quotation marks correctly."],
+            ["Writing a Friendly Letter","Organise a friendly letter with a greeting, message and closing."],
+            ["Poems and Rhyming Words","Notice rhythm, rhyme and images in short poems."],
+            ["Speaking and Listening","Share ideas clearly and listen respectfully to others."]
+        ],
+        computer:[
+            ["Computer Input and Output","Tell the difference between input, output and storage devices."],
+            ["Desktop and Windows","Open, close and arrange windows on a computer screen."],
+            ["Typing Practice","Use correct fingers, spacing and punctuation while typing."],
+            ["Drawing with Shapes","Create a simple digital picture using shapes and colours."],
+            ["Using a Word Processor","Type, edit and format a short document."],
+            ["Searching Safely","Use simple search words and identify trustworthy information."],
+            ["Passwords and Privacy","Protect personal information with strong, private passwords."],
+            ["Making a Digital Story","Plan a short story using text, pictures and page order."]
+        ]
+    },
+
+    6:{
+        math:[
+            ["Whole Number Operations","Apply the four operations to solve multi-step problems."],
+            ["Factors and Multiples","Use prime factors, common factors and common multiples."],
+            ["Fractions and Decimals","Convert and compare fractions and decimals in practical problems."],
+            ["Ratio in Daily Life","Use ratios to compare quantities and describe recipes."],
+            ["Basic Geometry","Classify angles and triangles using their properties."],
+            ["Integers and Number Lines","Add and subtract integers using a number line."],
+            ["Area of Shapes","Find the area of rectangles and irregular figures by decomposition."],
+            ["Data and Averages","Collect data and find the mean, mode and range."]
+        ],
+        science:[
+            ["Separation of Substances","Separate useful materials using filtration, evaporation and sorting."],
+            ["Changes in Materials","Explain physical changes and identify new substances."],
+            ["The Cell","Describe the basic parts shared by plant and animal cells."],
+            ["Nutrition and Digestion","Trace food through the digestive system and explain nutrition."],
+            ["Motion and Measurement","Measure distance and time to describe motion."],
+            ["Heat and Temperature","Compare heat and temperature and explain transfer of heat."],
+            ["Light and Reflection","Explain shadows, reflection and transparent materials."],
+            ["Electric Circuits","Build a simple circuit and identify conductors and insulators."]
+        ],
+        social:[
+            ["The Indian Constitution","Understand why a constitution gives a country common rules."],
+            ["Rural and Urban Administration","Compare services and responsibilities in villages and towns."],
+            ["Maps, Scale and Distance","Read a map using scale, directions and symbols."],
+            ["India's Physical Features","Study the major physical regions of India."],
+            ["Early Kingdoms","Explore how early kingdoms were organised and governed."],
+            ["Markets and Producers","Understand how goods move from producers to consumers."],
+            ["Diversity in India","Learn how language, food and culture create India's diversity."],
+            ["Water as a Resource","Explain water use, conservation and fair access."]
+        ],
+        language:[
+            ["Parts of Speech","Recognise nouns, pronouns, verbs, adjectives and adverbs."],
+            ["Subject and Predicate","Build complete sentences with clear subjects and predicates."],
+            ["Simple and Compound Sentences","Join ideas using conjunctions and correct punctuation."],
+            ["Tenses in Context","Choose present, past and future tense for the meaning."],
+            ["Summarising a Passage","Find key points and write a short accurate summary."],
+            ["Descriptive Writing","Use sensory details to describe a person, place or object."],
+            ["Dialogue Writing","Write natural dialogue with correct speaker punctuation."],
+            ["Reading for Inference","Use clues in a text to understand implied meaning."]
+        ],
+        computer:[
+            ["Operating Systems","Explain how an operating system helps users work with devices."],
+            ["File Organisation","Create folders and use clear names to organise files."],
+            ["Word Processing Tools","Use headings, lists, tables and alignment in documents."],
+            ["Presentation Design","Create clear slides with titles, images and short points."],
+            ["Spreadsheets","Enter data and use simple formulas in a spreadsheet."],
+            ["Internet Communication","Compare email, messaging and video calls responsibly."],
+            ["Cyber Safety","Recognise scams, unsafe links and respectful online behaviour."],
+            ["Algorithms in Everyday Life","Write step-by-step instructions and find missing steps."]
+        ]
+    },
+
+    7:{
+        math:[
+            ["Integers and Operations","Solve problems involving addition, subtraction, multiplication and division of integers."],
+            ["Fractions, Decimals and Percentages","Move between fractions, decimals and percentages."],
+            ["Simple Equations","Solve one-step and two-step equations with confidence."],
+            ["Lines and Angles","Use angle relationships to solve geometric problems."],
+            ["Triangles and Properties","Classify triangles and use their angle properties."],
+            ["Perimeter and Area","Find perimeter and area of compound figures."],
+            ["Proportion and Unitary Method","Solve real-life problems using unitary method."],
+            ["Statistics and Probability","Represent data and describe simple chances."]
+        ],
+        science:[
+            ["Nutrition in Plants","Explain photosynthesis and how plants make food."],
+            ["Nutrition in Animals","Compare ways animals obtain and digest food."],
+            ["Respiration in Organisms","Describe respiration and the role of oxygen in energy release."],
+            ["Transportation in Plants and Animals","Explain how water, minerals and blood are transported."],
+            ["Acids, Bases and Indicators","Use indicators to classify common acidic and basic substances."],
+            ["Physical and Chemical Changes","Distinguish changes by observing their results."],
+            ["Weather, Climate and Adaptation","Connect climate with adaptations of living organisms."],
+            ["Soil and Crop Production","Study soil types and practices that improve crops."]
+        ],
+        social:[
+            ["Medieval India","Identify important developments in medieval Indian history."],
+            ["The Mughal Empire","Explore administration, architecture and cultural exchange."],
+            ["The Delhi Sultanate","Understand rulers, cities and governance in the Sultanate period."],
+            ["State Government","Learn how state governments make decisions and deliver services."],
+            ["Markets Around Us","Examine trade, advertising and consumer choices."],
+            ["Equality and Dignity","Understand equality and challenge unfair treatment."],
+            ["Environment and Settlement","Explain how geography influences human settlements."],
+            ["Media and Democracy","Explore how media shares information in a democracy."]
+        ],
+        language:[
+            ["Active and Passive Voice","Change sentence voice while preserving the meaning."],
+            ["Clauses and Phrases","Identify groups of words and use them in sentences."],
+            ["Reported Speech","Report what someone said using correct tense and pronouns."],
+            ["Formal Letter Writing","Write a polite letter with a clear purpose and format."],
+            ["Article Writing","Plan an informative article with an engaging introduction."],
+            ["Drama and Dialogue","Read a scene and create dialogue that reveals character."],
+            ["Poetry and Figures of Speech","Recognise simile, metaphor, personification and imagery."],
+            ["Critical Reading","Separate facts, opinions and evidence in a passage."]
+        ],
+        computer:[
+            ["Computer Networks","Explain how devices share information across a network."],
+            ["Data and Information","Compare raw data with useful, organised information."],
+            ["HTML Basics","Create a simple webpage using headings, paragraphs and links."],
+            ["CSS Styling","Change colours, spacing and layout with basic CSS rules."],
+            ["Programming Variables","Store values in variables and use them in a program."],
+            ["Conditions and Decisions","Use if-else logic to make programs respond to choices."],
+            ["Digital Footprints","Understand how online actions create a lasting digital record."],
+            ["Evaluating Online Sources","Check authorship, evidence and date before trusting a source."]
+        ]
+    },
+
+    8:{
+        math:[
+            ["Rational Numbers","Compare, add and subtract rational numbers in different forms."],
+            ["Exponents and Powers","Use laws of exponents to simplify numerical expressions."],
+            ["Algebraic Expressions","Add, subtract and evaluate algebraic expressions."],
+            ["Factorisation","Factor common terms and use identities in simple examples."],
+            ["Comparing Quantities","Solve discount, profit, loss and tax problems."],
+            ["Direct and Inverse Proportion","Model relationships between changing quantities."],
+            ["Quadrilaterals","Use the properties and angle sums of quadrilaterals."],
+            ["Graphs and Data","Read graphs and draw conclusions from grouped data."]
+        ],
+        science:[
+            ["Crop Production","Explain agricultural practices from sowing to storage."],
+            ["Microorganisms","Classify useful and harmful microorganisms and their effects."],
+            ["Coal and Petroleum","Understand fossil fuels, their uses and conservation."],
+            ["Combustion and Flame","Describe combustion and the conditions needed for burning."],
+            ["Cell Structure and Functions","Compare cell parts and their specialised functions."],
+            ["Reproduction in Animals","Describe modes of reproduction and growth in animals."],
+            ["Force and Pressure","Relate force, pressure and area to daily situations."],
+            ["Sound and Human Health","Explain sound production, hearing and noise pollution."]
+        ],
+        social:[
+            ["The Modern Period","Describe major changes in India during the modern period."],
+            ["Colonial Rule","Examine how colonial policies changed administration and economy."],
+            ["The Revolt of 1857","Identify causes, events and effects of the 1857 revolt."],
+            ["Indian National Movement","Follow key ideas and events in the freedom struggle."],
+            ["The Indian Parliament","Understand representation, law-making and accountability."],
+            ["Judiciary and Rights","Learn how courts protect rights and resolve disputes."],
+            ["Resources and Development","Connect natural resources with planning and development."],
+            ["Industries and Human Resources","Study production, industries and the role of people."]
+        ],
+        language:[
+            ["Sentence Transformation","Combine, rearrange and transform sentences accurately."],
+            ["Modals and Meaning","Use modal verbs to express ability, advice, duty and possibility."],
+            ["Editing and Proofreading","Find and correct common grammar, spelling and punctuation errors."],
+            ["Argumentative Writing","Present a claim with reasons, examples and a conclusion."],
+            ["News Report Writing","Write a concise report using the five Ws and one H."],
+            ["Character and Theme","Analyse how characters and themes develop in a story."],
+            ["Comparing Poems","Compare tone, imagery and structure in two poems."],
+            ["Research and Citation","Collect information and acknowledge the sources used."]
+        ],
+        computer:[
+            ["Computer Hardware and Software","Compare physical components with programs and applications."],
+            ["Binary and Digital Data","Understand how computers represent numbers and text digitally."],
+            ["HTML Page Structure","Build a structured webpage with semantic HTML elements."],
+            ["CSS Layout and Design","Use selectors, box model and layout rules to style a page."],
+            ["JavaScript Basics","Use variables, expressions and functions to add behaviour."],
+            ["Loops and Repetition","Use loops to solve repeated tasks efficiently."],
+            ["Databases and Records","Understand tables, fields and records in a simple database."],
+            ["Responsible Technology Projects","Plan a useful digital project with privacy and accessibility in mind."]
+        ]
+    }
+};
+
+const lessonFocus = {
+    math:{
+        en:["Break a number into place-value parts and check the result.","Use repeated addition, arrays and multiplication facts to solve a problem.","Share a quantity into equal groups and verify the quotient.","Find factors and multiples using number patterns.","Measure an object and select the most suitable unit.","Read a timetable and calculate the time between two events.","Classify shapes by sides, angles and lines of symmetry.","Compare prices, calculate change and plan spending.","Represent an unknown quantity with a symbol and solve for it.","Read a table or graph and explain what the data shows."],
+        hi:["संख्या को स्थानीय मान के भागों में बांटकर उत्तर की जांच करें।","बार-बार जोड़, सरणियों और गुणन तथ्यों से प्रश्न हल करें।","किसी मात्रा को बराबर समूहों में बांटकर भागफल की जांच करें।","संख्या प्रतिरूपों से गुणनखंड और गुणज खोजें।","किसी वस्तु को मापकर सही माप की इकाई चुनें।","समय-सारणी पढ़कर दो घटनाओं के बीच का समय निकालें।","भुजाओं, कोणों और सममिति रेखाओं से आकृतियों को पहचानें।","कीमत, छुट और खर्च की योजना से बजट बनाएं।","अज्ञात मात्रा के लिए चिन्ह लगाकर उसका मान निकालें।","तालिका या ग्राफ पढ़कर आंकड़ों का अर्थ बताएं।"],
+        mr:["संख्येचे स्थानिक किंमतीनुसार भाग करून उत्तर तपासा.","वारंवार बेरीज, मांडणी आणि गुणाकाराच्या मदतीने उदाहरण सोडवा.","प्रमाण समान गटांत वाटून भागाकाराची पडताळणी करा.","संख्या नमुन्यांमधून विभाजक आणि गुणक शोधा.","वस्तू मोजून योग्य मापनाचे एकक निवडा.","वेळापत्रक वाचून दोन घटनांमधील वेळ काढा.","बाजू, कोन आणि सममितीच्या रेषांनुसार आकार ओळखा.","किंमत, सुट आणि खर्च यांचा वापर करून अंदाजपत्रक बनवा.","अज्ञात राशीसाठी चिन्ह वापरून तिची किंमत शोधा.","तक्ता किंवा आलेख वाचून माहितीचा अर्थ सांगा."]
+    },
+    science:{
+        en:["Observe a body system and connect its parts with its function.","Compare an animal with its habitat and identify useful adaptations.","Record the stages of a seed growing into a healthy plant.","Sort examples into solids, liquids and gases by their properties.","Test a change and decide whether the original material can be recovered.","Make a safe vibration experiment and describe the sound produced.","Use a model to show how Earth moves around the Sun.","Trace how clean water reaches homes and how it can be conserved.","Identify a food chain and explain the role of each organism.","Plan one action that reduces waste or protects a local resource."],
+        hi:["शरीर की किसी प्रणाली का निरीक्षण करके उसके भागों और कार्य को जोड़ें।","किसी जानवर और उसके आवास की तुलना करके अनुकूलन पहचानें।","बीज से पौधा बनने के चरणों का रिकॉर्ड बनाएं।","गुणों के आधार पर ठोस, द्रव और गैस के उदाहरण छांटें।","किसी परिवर्तन को जांचकर बताएं कि पदार्थ वापस मिल सकता है या नहीं।","सुरक्षित कंपन प्रयोग करके बनने वाली ध्वनि का वर्णन करें।","मॉडल से दिखाएं कि पृथ्वी सूर्य के चारों ओर कैसे घूमती है।","स्वच्छ पानी घर तक पहुंचने और बचाने के उपाय समझाएं।","खाद्य श्रृंखला में हर जीव की भूमिका बताएं।","कचरा घटाने या स्थानीय संसाधन बचाने की एक योजना बनाएं।"],
+        mr:["शरीरातील एखाद्या प्रणालीचे निरीक्षण करून भाग आणि कार्य यांची सांगड घाला.","प्राणी आणि त्याच्या अधिवासाची तुलना करून अनुकूलने ओळखा.","बीजापासून निरोगी रोप होण्याच्या टप्प्यांची नोंद करा.","गुणधर्मांनुसार घन, द्रव आणि वायूंची उदाहरणे वर्गीकृत करा.","बदल तपासून मूळ पदार्थ परत मिळतो का ते ठरवा.","सुरक्षित कंपनाचा प्रयोग करून निर्माण होणाऱ्या ध्वनीचे वर्णन करा.","पृथ्वी सूर्याभोवती कशी फिरते हे नमुन्याने दाखवा.","स्वच्छ पाणी घरापर्यंत कसे येते आणि ते कसे वाचवावे ते सांगा.","अन्नसाखळीतील प्रत्येक सजीवाची भूमिका स्पष्ट करा.","कचरा कमी करण्यासाठी किंवा स्थानिक साधनसंपत्ती वाचवण्यासाठी कृती ठरवा."]
+    },
+    social:{
+        en:["Map the people and services that make a community work.","Compare a village and a town by their services and responsibilities.","Use a scale and symbols to locate places on a map.","Relate landforms to farming, travel and settlement.","Compare two traditions and identify the values they share.","Follow how a local decision is made by a public body.","Trace a product from a natural resource to a household.","Use a timeline to arrange important events in the correct order.","Explain how a market connects producers, sellers and buyers.","Suggest a fair and sustainable solution to a community problem."],
+        hi:["समुदाय को चलाने वाले लोगों और सेवाओं का मानचित्र बनाएं।","गांव और शहर की सेवाओं तथा जिम्मेदारियों की तुलना करें।","मानचित्र पर स्थान खोजने के लिए पैमाना और संकेतों का उपयोग करें।","भौगोलिक स्थलरूपों को खेती, यात्रा और बसावट से जोड़ें।","दो परंपराओं की तुलना करके उनमें समान मूल्य खोजें।","समझें कि कोई स्थानीय निर्णय सार्वजनिक संस्था द्वारा कैसे लिया जाता है।","प्राकृतिक संसाधन से घर तक किसी वस्तु की यात्रा का पता लगाएं।","महत्वपूर्ण घटनाओं को समयरेखा पर सही क्रम में रखें।","समझें कि बाजार उत्पादक, विक्रेता और खरीदार को कैसे जोड़ता है।","समुदाय की समस्या का न्यायपूर्ण और टिकाऊ समाधान सुझाएं।"],
+        mr:["समुदाय चालवणाऱ्या लोकांचा आणि सेवांचा नकाशा तयार करा.","गाव आणि शहरातील सेवा व जबाबदाऱ्यांची तुलना करा.","नकाशावर ठिकाण शोधण्यासाठी प्रमाण आणि चिन्हे वापरा.","भूरूपांचा शेती, प्रवास आणि वस्तीशी संबंध जोडा.","दोन परंपरांची तुलना करून त्यांतील समान मूल्ये शोधा.","सार्वजनिक संस्था स्थानिक निर्णय कसा घेते ते समजून घ्या.","नैसर्गिक साधनापासून घरापर्यंत वस्तूचा प्रवास शोधा.","महत्त्वाच्या घटना कालरेषेवर योग्य क्रमाने मांडा.","बाजार उत्पादक, विक्रेता आणि ग्राहकांना कसा जोडतो ते स्पष्ट करा.","समुदायाच्या समस्येसाठी न्याय्य आणि टिकाऊ उपाय सुचवा."]
+    },
+    language:{
+        en:["Find the main idea and supporting details in a short passage.","Replace repeated words with accurate pronouns and check agreement.","Choose precise verbs to make a sentence active and clear.","Add sensory adjectives to create a vivid description.","Edit a paragraph for capitals, punctuation and spelling.","Plan a letter with a greeting, organised message and closing.","Identify rhythm and imagery in a poem and explain their effect.","Prepare a short speech and practise listening for key points.","Combine short sentences to make a smooth paragraph.","Use evidence from a text to explain an inference."],
+        hi:["छोटे अनुच्छेद में मुख्य विचार और सहायक विवरण खोजें।","दोहराए गए शब्दों को सही सर्वनाम से बदलकर वाक्य जांचें।","वाक्य को स्पष्ट बनाने के लिए उचित क्रिया चुनें।","जीवंत वर्णन के लिए इंद्रियों से जुड़े विशेषण जोड़ें।","अनुच्छेद में बड़े अक्षर, विराम चिह्न और वर्तनी सुधारें।","अभिवादन, व्यवस्थित संदेश और अंत के साथ पत्र की योजना बनाएं।","कविता की लय और चित्रात्मक भाषा पहचानकर उनका प्रभाव बताएं।","छोटा भाषण तैयार करें और मुख्य बातें सुनने का अभ्यास करें।","छोटे वाक्यों को जोड़कर अच्छा अनुच्छेद बनाएं।","पाठ के प्रमाण से अनुमान का कारण समझाएं।"],
+        mr:["लहान परिच्छेदातील मुख्य कल्पना आणि आधारभूत तपशील शोधा.","पुन्हा आलेले शब्द योग्य सर्वनामांनी बदलून वाक्य तपासा.","वाक्य स्पष्ट करण्यासाठी योग्य क्रियापद निवडा.","जिवंत वर्णनासाठी इंद्रियांशी संबंधित विशेषणे वापरा.","परिच्छेदातील मोठी अक्षरे, विरामचिन्हे आणि शब्दलेखन दुरुस्त करा.","अभिवादन, व्यवस्थित संदेश आणि शेवट असलेल्या पत्राची योजना करा.","कवितेतील लय आणि चित्रमय भाषा ओळखून त्यांचा परिणाम सांगा.","लहान भाषण तयार करून महत्त्वाचे मुद्दे ऐकण्याचा सराव करा.","लहान वाक्ये जोडून सलग परिच्छेद तयार करा.","मजकुरातील पुराव्याच्या आधारे अनुमान स्पष्ट करा."]
+    },
+    computer:{
+        en:["Identify a device as input, output, processing or storage hardware.","Organise files into folders and choose names that are easy to search.","Practise typing with correct spacing, punctuation and keyboard shortcuts.","Create a picture using shapes, layers and a limited colour palette.","Format a document with headings, lists and readable spacing.","Compare two search results and check which source is more reliable.","Create a strong password and identify information that must stay private.","Write an algorithm that gives clear steps for a daily task.","Build a webpage section using a heading, paragraph and link.","Test a small program, find an error and improve its instructions."],
+        hi:["किसी उपकरण को इनपुट, आउटपुट, प्रोसेसिंग या स्टोरेज हार्डवेयर पहचानें।","फाइलों को फोल्डर में व्यवस्थित करें और खोजने योग्य नाम चुनें।","सही स्पेस, विराम चिह्न और कीबोर्ड शॉर्टकट से टाइपिंग का अभ्यास करें।","आकृतियों, परतों और सीमित रंगों से चित्र बनाएं।","शीर्षक, सूची और उचित दूरी से दस्तावेज को व्यवस्थित करें।","दो खोज परिणामों की तुलना करके विश्वसनीय स्रोत चुनें।","मजबूत पासवर्ड बनाएं और निजी जानकारी पहचानें।","दैनिक कार्य के स्पष्ट चरणों वाला एल्गोरिदम लिखें।","शीर्षक, अनुच्छेद और लिंक से वेबपेज का भाग बनाएं।","छोटे प्रोग्राम की जांच करके गलती सुधारें।"],
+        mr:["एखादे उपकरणाचे इनपुट, आउटपुट, प्रक्रिया किंवा साठवण हार्डवेअर म्हणून वर्गीकरण करा.","फाइल फोल्डरमध्ये लावा आणि सहज शोधता येतील अशी नावे द्या.","योग्य अंतर, विरामचिन्हे आणि कीबोर्ड शॉर्टकट वापरून टाइपिंग करा.","आकार, स्तर आणि मर्यादित रंग वापरून चित्र तयार करा.","शीर्षक, यादी आणि योग्य अंतर वापरून दस्तऐवज मांडणी करा.","दोन शोध परिणामांची तुलना करून विश्वासार्ह स्रोत निवडा.","मजबूत पासवर्ड तयार करा आणि खाजगी माहिती ओळखा.","दैनंदिन कामासाठी स्पष्ट टप्प्यांचा अल्गोरिदम लिहा.","शीर्षक, परिच्छेद आणि दुव्याने वेबपेजचा भाग तयार करा.","लहान प्रोग्राम तपासून चूक शोधा आणि सूचना सुधारित करा."]
+    }
+};
+
+const lessonTasks = {
+    math:{
+        en:"Solve one new problem, show each step and check the answer using a second method.",
+        hi:"एक नया प्रश्न हल करें, हर चरण लिखें और दूसरी विधि से उत्तर की जांच करें।",
+        mr:"एक नवीन उदाहरण सोडवा, प्रत्येक टप्पा लिहा आणि दुसऱ्या पद्धतीने उत्तर तपासा."
+    },
+    science:{
+        en:"Draw an observation, label what you see and explain the result using one scientific reason.",
+        hi:"एक अवलोकन का चित्र बनाएं, उसे नाम दें और एक वैज्ञानिक कारण से परिणाम समझाएं।",
+        mr:"निरीक्षणाचे चित्र काढा, त्याला नावे द्या आणि एका वैज्ञानिक कारणाने परिणाम स्पष्ट करा."
+    },
+    social:{
+        en:"Connect the idea to your village, town or neighbourhood and write one responsible action.",
+        hi:"इस विचार को अपने गांव, शहर या मोहल्ले से जोड़कर एक जिम्मेदार कार्य लिखें।",
+        mr:"ही कल्पना तुमच्या गावाशी, शहराशी किंवा परिसराशी जोडा आणि एक जबाबदार कृती लिहा."
+    },
+    language:{
+        en:"Write a short response using the new language skill, then revise it for clarity and correctness.",
+        hi:"नई भाषा-कौशल का उपयोग करके छोटा उत्तर लिखें और उसे स्पष्टता तथा शुद्धता के लिए सुधारें।",
+        mr:"नवीन भाषिक कौशल्य वापरून छोटा प्रतिसाद लिहा आणि तो स्पष्ट व अचूक करण्यासाठी सुधारित करा."
+    },
+    computer:{
+        en:"Create or test a small digital solution and explain how it helps a learner or community.",
+        hi:"एक छोटा डिजिटल समाधान बनाएं या जांचें और बताएं कि यह विद्यार्थी या समुदाय की कैसे मदद करता है।",
+        mr:"एक छोटा डिजिटल उपाय तयार करा किंवा तपासा आणि तो विद्यार्थी किंवा समुदायाला कसा मदत करतो ते सांगा."
+    }
+};
+
+function createAdditionalLesson(classNumber, subjectId, item, index){
+
+    const title = item[0];
+    const description = item[1];
+    const subjectNames = {
+        math:{hi:"गणित",mr:"गणित"},
+        science:{hi:"विज्ञान",mr:"विज्ञान"},
+        social:{hi:"सामाजिक विज्ञान",mr:"सामाजिक विज्ञान"},
+        language:{hi:"भाषा",mr:"भाषा"},
+        computer:{hi:"कंप्यूटर अध्ययन",mr:"संगणक अभ्यास"}
+    }[subjectId];
+
+    const hindiTitle =
+        subjectId === "language"
+            ? `हिंदी भाषा - पाठ ${index + 1}`
+            : `कक्षा ${classNumber} ${subjectNames.hi} - पाठ ${index + 1}: ${title}`;
+
+    const marathiTitle =
+        subjectId === "language"
+            ? `मराठी भाषा - धडा ${index + 1}`
+            : `इयत्ता ${classNumber} ${subjectNames.mr} - धडा ${index + 1}: ${title}`;
+
+    const hindiDescription =
+        subjectId === "language"
+            ? `इस पाठ में कक्षा ${classNumber} के हिंदी भाषा विषय की महत्वपूर्ण संकल्पना को उदाहरणों और अभ्यास के साथ समझें।`
+            : `इस पाठ में कक्षा ${classNumber} के ${subjectNames.hi} विषय के "${title}" पाठ की महत्वपूर्ण संकल्पना को उदाहरणों और अभ्यास के साथ समझें।`;
+
+    const marathiDescription =
+        subjectId === "language"
+            ? `या धड्यात इयत्ता ${classNumber} च्या मराठी भाषा विषयातील महत्त्वाची संकल्पना उदाहरणे आणि सरावासह समजून घ्या.`
+            : `या धड्यात इयत्ता ${classNumber} च्या ${subjectNames.mr} विषयातील "${title}" ही संकल्पना उदाहरणे आणि सरावासह समजून घ्या.`;
+
+    const focus = lessonFocus[subjectId];
+    const task = lessonTasks[subjectId];
+    const lessonNumber = index % focus.en.length;
+
+    const content = `
+        <h1>${title}</h1>
+        <h2>Learning objective</h2>
+        <p>${description}</p>
+        <div class="info-box">
+            <strong>Class ${classNumber} focus:</strong>
+            <p>${focus.en[lessonNumber]}</p>
+        </div>
+        <h2>Try it</h2>
+        <p>${task.en}</p>
+        <h2>Quick review</h2>
+        <p>Write one thing you learned and one question you still want to explore.</p>
+    `;
+
+    const hindiContent = `
+        <h1>${hindiTitle}</h1>
+        <h2>सीखने का उद्देश्य</h2>
+        <p>${hindiDescription}</p>
+        <div class="info-box">
+            <strong>कक्षा ${classNumber} का अभ्यास:</strong>
+            <p>${focus.hi[lessonNumber]}</p>
+        </div>
+        <h2>अभ्यास करें</h2>
+        <p>${task.hi}</p>
+        <h2>त्वरित समीक्षा</h2>
+        <p>आपने क्या सीखा और इस विषय के बारे में अभी कौन सा प्रश्न पूछना चाहते हैं?</p>
+    `;
+
+    const marathiContent = `
+        <h1>${marathiTitle}</h1>
+        <h2>अध्ययनाचे उद्दिष्ट</h2>
+        <p>${marathiDescription}</p>
+        <div class="info-box">
+            <strong>इयत्ता ${classNumber} चा सराव:</strong>
+            <p>${focus.mr[lessonNumber]}</p>
+        </div>
+        <h2>सराव करा</h2>
+        <p>${task.mr}</p>
+        <h2>थोडक्यात उजळणी</h2>
+        <p>तुम्ही काय शिकलात आणि या विषयाबद्दल अजून कोणता प्रश्न विचारू इच्छिता?</p>
+    `;
+
+    return {
+        title:{en:title,hi:hindiTitle,mr:marathiTitle},
+        description:{en:description,hi:hindiDescription,mr:marathiDescription},
+        content:{en:content,hi:hindiContent,mr:marathiContent}
+    };
+}
+
+Object.keys(additionalLessons).forEach(classNumber => {
+
+    Object.keys(additionalLessons[classNumber]).forEach(subjectId => {
+
+        additionalLessons[classNumber][subjectId].forEach((item, index) => {
+            curriculum[classNumber][subjectId].push(
+                createAdditionalLesson(
+                    classNumber,
+                    subjectId,
+                    item,
+                    index
+                )
+            );
+        });
+
+        while(curriculum[classNumber][subjectId].length < 10){
+
+            const practiceNumber =
+                curriculum[classNumber][subjectId].length + 1;
+
+            curriculum[classNumber][subjectId].push(
+                createAdditionalLesson(
+                    classNumber,
+                    subjectId,
+                    [
+                        `${subjectId[0].toUpperCase()}${subjectId.slice(1)} Practice Workshop ${practiceNumber}`,
+                        `Apply your Class ${classNumber} ${subjectId} skills through a short guided practice activity.`
+                    ],
+                    practiceNumber
+                )
+            );
+
+        }
+
+    });
+
+});
+
+Object.keys(curriculum).forEach(classNumber => {
+
+    const languageLessons =
+        curriculum[classNumber].language || [];
+
+    curriculum[classNumber].englishLanguage =
+        languageLessons.map(lesson => ({
+            title:{
+                en:lesson.title.en,
+                hi:lesson.title.en,
+                mr:lesson.title.en
+            },
+            description:{
+                en:lesson.description.en,
+                hi:lesson.description.en,
+                mr:lesson.description.en
+            },
+            content:{
+                en:lesson.content.en,
+                hi:lesson.content.en,
+                mr:lesson.content.en
+            }
+        }));
+
+    curriculum[classNumber].hindiLanguage =
+        languageLessons.map(lesson => ({
+            title:{
+                en:lesson.title.hi,
+                hi:lesson.title.hi,
+                mr:lesson.title.hi
+            },
+            description:{
+                en:lesson.description.hi,
+                hi:lesson.description.hi,
+                mr:lesson.description.hi
+            },
+            content:{
+                en:lesson.content.hi,
+                hi:lesson.content.hi,
+                mr:lesson.content.hi
+            }
+        }));
+
+    curriculum[classNumber].marathiLanguage =
+        languageLessons.map(lesson => ({
+            title:{
+                en:lesson.title.mr,
+                hi:lesson.title.mr,
+                mr:lesson.title.mr
+            },
+            description:{
+                en:lesson.description.mr,
+                hi:lesson.description.mr,
+                mr:lesson.description.mr
+            },
+            content:{
+                en:lesson.content.mr,
+                hi:lesson.content.mr,
+                mr:lesson.content.mr
+            }
+        }));
+
+    delete curriculum[classNumber].language;
+
+});
+
+
+/* =====================================================
    COURSES
 ===================================================== */
 
@@ -3408,6 +4226,34 @@ lessons:7
 }
 
 ];
+
+
+const courseModules = {
+    digital:[
+        ["Devices and digital tools","Identify the devices used for learning and choose the right tool for a task."],
+        ["Files and folders","Create, name and organise files so school work is easy to find."],
+        ["Documents and presentations","Prepare a clear school assignment with headings, images and sources."],
+        ["Search and evaluate","Search safely and check whether online information is trustworthy."],
+        ["Privacy and digital citizenship","Protect personal information and communicate respectfully online."]
+    ],
+    communication:[
+        ["Listening with purpose","Listen for key ideas, questions and feelings in a classroom conversation."],
+        ["Speaking clearly","Organise a short explanation with an opening, key points and a conclusion."],
+        ["Reading for meaning","Find the main idea, supporting details and unfamiliar words in a passage."],
+        ["Writing with structure","Plan a paragraph using a topic sentence, evidence and a closing sentence."],
+        ["Everyday formal communication","Write a clear notice, email or application for a real school need."],
+        ["Presenting a community idea","Prepare a short presentation about a useful change for your school."]
+    ],
+    coding:[
+        ["Algorithms and instructions","Break a problem into ordered steps that another person can follow."],
+        ["Variables and data","Store changing information and choose suitable data for a small program."],
+        ["Decisions with conditions","Make a program respond differently when a condition is true or false."],
+        ["Loops and patterns","Use repetition to solve a task without writing the same instruction again."],
+        ["Web pages with HTML","Build a simple page with a heading, paragraph, list and link."],
+        ["Styling with CSS","Improve readability with colour, spacing, size and layout rules."],
+        ["Build and test a project","Plan, test, debug and explain a small digital solution for learners."]
+    ]
+};
 
 
 /* =====================================================
@@ -3505,6 +4351,10 @@ let currentLessonIndex = null;
 let historyReady = false;
 
 let toastTimer = null;
+
+let activeCourseId = null;
+
+let authSwitchTimer = null;
 
 
 /* =====================================================
@@ -3661,6 +4511,33 @@ function applyTranslations(){
     document.getElementById("showLogin").textContent =
         t("loginButton");
 
+    document
+        .querySelectorAll(".password-toggle")
+        .forEach(button => {
+
+            const input =
+                document.getElementById(
+                    button.dataset.target
+                );
+
+            const visible =
+                input && input.type === "text";
+
+            button.textContent =
+                visible
+                    ? currentLanguage === "hi"
+                        ? "छिपाएं"
+                        : currentLanguage === "mr"
+                            ? "लपवा"
+                            : "Hide"
+                    : currentLanguage === "hi"
+                        ? "दिखाएं"
+                        : currentLanguage === "mr"
+                            ? "दाखवा"
+                            : "Show";
+
+        });
+
 
     document.getElementById("completeLessonBtn").textContent =
         t("completeLesson");
@@ -3686,6 +4563,10 @@ function setupAuth(){
         .getElementById("showSignup")
         .addEventListener("click",() => {
 
+            clearTimeout(authSwitchTimer);
+
+            document.getElementById("loginMessage").textContent = "";
+
             document
                 .getElementById("loginBox")
                 .classList.add("hidden");
@@ -3700,6 +4581,10 @@ function setupAuth(){
     document
         .getElementById("showLogin")
         .addEventListener("click",() => {
+
+            clearTimeout(authSwitchTimer);
+
+            document.getElementById("signupMessage").textContent = "";
 
             document
                 .getElementById("signupBox")
@@ -3759,6 +4644,17 @@ function setupAuth(){
 
             currentUser =
                 users[storedUsername];
+
+            currentUser.completedLessons =
+                Array.isArray(currentUser.completedLessons)
+                    ? currentUser.completedLessons
+                    : [];
+
+            currentUser.quizScores =
+                currentUser.quizScores || {};
+
+            currentUser.courseProgress =
+                currentUser.courseProgress || {};
 
 
             currentLanguage =
@@ -3898,7 +4794,9 @@ function setupAuth(){
                 .reset();
 
 
-            setTimeout(() => {
+            clearTimeout(authSwitchTimer);
+
+            authSwitchTimer = setTimeout(() => {
 
                 document
                     .getElementById("signupBox")
@@ -5673,10 +6571,188 @@ function startCourse(courseId){
 
     }
 
+    openCourseModal(course);
+
+}
+
+
+function openCourseModal(course){
+
+    activeCourseId = course.id;
+
+    const modules =
+        courseModules[course.id] || [];
+
+    const progress =
+        currentUser.courseProgress[course.id] || 0;
+
+    document.getElementById(
+        "courseModalTitle"
+    ).textContent =
+        course.title[currentLanguage] || course.title.en;
+
+    document.getElementById(
+        "courseModalDescription"
+    ).textContent =
+        course.description[currentLanguage] || course.description.en;
+
+    document.getElementById(
+        "courseModules"
+    ).innerHTML =
+        modules.map((module, index) => `
+            <article class="course-module">
+                <div class="course-module-number">${index + 1}</div>
+                <div>
+                    <h3>${module[0]}</h3>
+                    <p>${module[1]}</p>
+                </div>
+            </article>
+        `).join("");
+
+    document.getElementById(
+        "courseProgressLabel"
+    ).textContent =
+        `${progress}% complete`;
+
+    document.getElementById(
+        "courseModuleCount"
+    ).textContent =
+        `${modules.length} modules`;
+
+    document.getElementById(
+        "courseProgressFill"
+    ).style.width =
+        `${progress}%`;
+
+    document.getElementById(
+        "completeCourseButton"
+    ).textContent =
+        progress >= 100
+            ? "Course completed"
+            : "Mark course complete";
+
+    document.getElementById(
+        "downloadCertificateButton"
+    ).classList.toggle(
+        "hidden",
+        progress < 100
+    );
+
+    document.getElementById(
+        "courseModal"
+    ).classList.remove("hidden");
+
+    document.body.classList.add("modal-open");
+
+}
+
+
+function closeCourseModal(){
+
+    document.getElementById(
+        "courseModal"
+    ).classList.add("hidden");
+
+    document.body.classList.remove("modal-open");
+
+    activeCourseId = null;
+
+}
+
+
+function completeActiveCourse(){
+
+    if(!currentUser || !activeCourseId) return;
+
+    currentUser.courseProgress[activeCourseId] = 100;
+
+    saveCurrentUser();
+
+    renderCourses();
+    renderDashboard();
+
+    openCourseModal(
+        courses.find(
+            course => course.id === activeCourseId
+        )
+    );
 
     showToast(
-        `${course.title[currentLanguage]} — ${t("startCourse")}`
+        currentLanguage === "hi"
+            ? "पाठ्यक्रम पूरा हुआ।"
+            : currentLanguage === "mr"
+                ? "अभ्यासक्रम पूर्ण झाला."
+                : "Course completed."
     );
+
+}
+
+
+function downloadCertificate(){
+
+    if(!currentUser || !activeCourseId) return;
+
+    const course =
+        courses.find(
+            item => item.id === activeCourseId
+        );
+
+    if(!course || currentUser.courseProgress[activeCourseId] < 100){
+        return;
+    }
+
+    const studentName =
+        escapeHTML(currentUser.username);
+
+    const courseTitle =
+        escapeHTML(course.title.en);
+
+    const className =
+        escapeHTML(`Class ${currentUser.classNo}`);
+
+    const completionDate =
+        new Date().toLocaleDateString("en-IN",{
+            day:"2-digit",
+            month:"long",
+            year:"numeric"
+        });
+
+    const certificateId =
+        `EDU-${currentUser.username.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,8)}-${activeCourseId.toUpperCase()}`;
+
+    const certificateHtml = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EduBridge Certificate - ${courseTitle}</title>
+<style>
+body{margin:0;background:#eef5f3;color:#173042;font-family:Georgia,serif;display:grid;place-items:center;min-height:100vh}
+.certificate{width:min(900px,calc(100% - 40px));padding:70px 55px;text-align:center;background:#fff;border:12px solid #0f5c8d;box-shadow:0 20px 60px rgba(16,55,70,.18)}
+.brand{font:800 20px Arial,sans-serif;letter-spacing:2px;color:#0f5c8d}.eyebrow{margin:36px 0 8px;font:700 13px Arial,sans-serif;letter-spacing:3px;color:#e08a2e;text-transform:uppercase}
+h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 24px}p{font-size:18px;line-height:1.6}.meta{margin:34px auto 0;display:flex;justify-content:space-between;gap:20px;font:14px Arial,sans-serif;color:#617482;border-top:1px solid #d9e4e7;padding-top:18px}@media(max-width:600px){.certificate{padding:45px 22px;border-width:7px}h1{font-size:36px}h2{font-size:24px}.meta{display:block;line-height:2}}
+</style></head><body><main class="certificate"><div class="brand">EDUBRIDGE LEARNING PORTAL</div><div class="eyebrow">Certificate of completion</div><h1>${studentName}</h1><p>has successfully completed the certificate course</p><h2>${courseTitle}</h2><p>${className} learner | Government school learning programme</p><div class="meta"><span>Issued: ${completionDate}</span><span>Certificate ID: ${certificateId}</span></div></main></body></html>`;
+
+    const blob =
+        new Blob(
+            [certificateHtml],
+            {type:"text/html"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+    link.download =
+        `EduBridge-${activeCourseId}-certificate.html`;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
 
 }
 
@@ -5806,6 +6882,52 @@ function logout(){
 }
 
 
+function setupCourseModal(){
+
+    document
+        .getElementById("closeCourseModal")
+        .addEventListener(
+            "click",
+            closeCourseModal
+        );
+
+    document
+        .getElementById("completeCourseButton")
+        .addEventListener(
+            "click",
+            completeActiveCourse
+        );
+
+    document
+        .getElementById("downloadCertificateButton")
+        .addEventListener(
+            "click",
+            downloadCertificate
+        );
+
+    document
+        .getElementById("courseModal")
+        .addEventListener(
+            "click",
+            event => {
+                if(event.target.id === "courseModal"){
+                    closeCourseModal();
+                }
+            }
+        );
+
+    document.addEventListener(
+        "keydown",
+        event => {
+            if(event.key === "Escape" && activeCourseId){
+                closeCourseModal();
+            }
+        }
+    );
+
+}
+
+
 /* =====================================================
    LESSON COMPLETE BUTTON
 ===================================================== */
@@ -5866,45 +6988,24 @@ function initialize(){
 
     setupNavigation();
 
+    setupCourseModal();
+
     applyTranslations();
 
 
-    /*
-     * AUTO LOGIN
-     *
-     * If a student has already logged in,
-     * restore the account automatically.
-     */
+    currentUser = null;
 
-    const savedUsername =
-        localStorage.getItem(
-            "edubridge_current_user"
-        );
+    localStorage.removeItem(
+        "edubridge_current_user"
+    );
 
+    document
+        .getElementById("authPage")
+        .classList.remove("hidden");
 
-    if(savedUsername){
-
-        const users =
-            getUsers();
-
-
-        if(users[savedUsername]){
-
-            currentUser =
-                users[savedUsername];
-
-
-            currentLanguage =
-                localStorage.getItem(
-                    `edubridge_language_${savedUsername}`
-                ) || currentLanguage;
-
-
-            openApp();
-
-        }
-
-    }
+    document
+        .getElementById("app")
+        .classList.add("hidden");
 
 }
 
