@@ -4020,43 +4020,109 @@ function createAdditionalLesson(classNumber, subjectId, item, index){
     const content = `
         <h1>${title}</h1>
         <h2>Learning objective</h2>
-        <p>${description}</p>
+        <p>${description} In this lesson, you will build the idea slowly, use it in a practical situation and explain your answer in your own words.</p>
         <div class="info-box">
             <strong>Class ${classNumber} focus:</strong>
             <p>${focus.en[lessonNumber]}</p>
         </div>
-        <h2>Try it</h2>
+        <h2>Understanding the idea</h2>
+        <p>Every new topic becomes easier when it is connected to something familiar. Read the title carefully, identify the important action in the description and ask what evidence would show that you understand it. Do not try to memorise the final answer first; notice the order of the steps and the reason behind each step.</p>
+        <h2>Key points</h2>
+        <ul>
+            <li>Identify the main words and explain what each one means.</li>
+            <li>Break the topic into smaller parts before solving or describing it.</li>
+            <li>Use a drawing, list, table or example whenever it makes your thinking clearer.</li>
+            <li>Check whether your conclusion agrees with the information in the question.</li>
+        </ul>
+        <h2>Worked example</h2>
+        <p>Start with a simple example related to <strong>${title}</strong>. First, write down what you already know. Next, choose the rule, observation or method that fits the situation. Work through one step at a time and explain why you made each choice. Finally, look back at the result and ask whether it is sensible.</p>
+        <div class="info-box">
+            <strong>Classroom connection:</strong>
+            <p>${focus.en[lessonNumber]} Think about where this could appear in your classroom, home or neighbourhood. Describe the situation and name the part of the lesson that helps you understand it.</p>
+        </div>
+        <h2>Try it yourself</h2>
         <p>${task.en}</p>
-        <h2>Quick review</h2>
-        <p>Write one thing you learned and one question you still want to explore.</p>
+        <p>Compare your work with a classmate or read it aloud. Find one step that is clear and one step that could be improved. If your first attempt is not correct, change one part at a time and try again.</p>
+        <h2>Reflect and review</h2>
+        <ol>
+            <li>What is the most important idea in this lesson?</li>
+            <li>Which example helped you understand it best?</li>
+            <li>What mistake should you avoid next time?</li>
+            <li>Where could you use this learning outside the classroom?</li>
+        </ol>
+        <p>Write one thing you learned, one question you still want to explore and one sentence that explains the topic to a younger student.</p>
     `;
 
     const hindiContent = `
         <h1>${hindiTitle}</h1>
         <h2>सीखने का उद्देश्य</h2>
-        <p>${hindiDescription}</p>
+        <p>${hindiDescription} इस पाठ में आप विषय को धीरे-धीरे समझेंगे, उसे दैनिक जीवन की स्थिति में लागू करेंगे और अपने शब्दों में उत्तर समझाएंगे।</p>
         <div class="info-box">
-            <strong>कक्षा ${classNumber} का अभ्यास:</strong>
+            <strong>कक्षा ${classNumber} का मुख्य अभ्यास:</strong>
             <p>${focus.hi[lessonNumber]}</p>
+        </div>
+        <h2>विषय को समझना</h2>
+        <p>नई बात तब आसानी से समझ आती है जब उसे किसी परिचित अनुभव से जोड़ा जाए। शीर्षक को ध्यान से पढ़ें, विवरण में दिए गए मुख्य कार्य को पहचानें और सोचें कि आपकी समझ को प्रमाणित करने वाला उदाहरण क्या होगा। केवल उत्तर याद करने के बजाय हर चरण का कारण समझने का प्रयास करें।</p>
+        <h2>मुख्य बातें</h2>
+        <ul>
+            <li>महत्वपूर्ण शब्दों को पहचानें और उनका अर्थ अपने शब्दों में बताएं।</li>
+            <li>प्रश्न या कार्य को हल करने से पहले उसे छोटे भागों में बांटें।</li>
+            <li>जरूरत पड़ने पर चित्र, सूची, तालिका या उदाहरण का उपयोग करें।</li>
+            <li>जांचें कि आपका निष्कर्ष प्रश्न में दी गई जानकारी से मेल खाता है।</li>
+        </ul>
+        <h2>उदाहरण के साथ सीखें</h2>
+        <p><strong>${hindiTitle}</strong> से जुड़ा एक सरल उदाहरण लें। पहले लिखें कि आपको क्या पता है। फिर सही नियम, निरीक्षण या विधि चुनें। हर चरण को क्रम से पूरा करें और बताएं कि आपने वह चुनाव क्यों किया। अंत में अपने उत्तर को दोबारा देखकर जांचें कि वह उचित है या नहीं।</p>
+        <div class="info-box">
+            <strong>कक्षा से संबंध:</strong>
+            <p>${focus.hi[lessonNumber]} सोचें कि यह बात आपकी कक्षा, घर या आसपास कहाँ दिखाई दे सकती है। उस स्थिति का वर्णन करें और बताएं कि पाठ का कौन सा भाग आपकी सहायता करता है।</p>
         </div>
         <h2>अभ्यास करें</h2>
         <p>${task.hi}</p>
-        <h2>त्वरित समीक्षा</h2>
-        <p>आपने क्या सीखा और इस विषय के बारे में अभी कौन सा प्रश्न पूछना चाहते हैं?</p>
+        <p>अपने उत्तर की तुलना किसी सहपाठी से करें या उसे जोर से पढ़ें। एक अच्छी तरह समझाए गए चरण और एक सुधार योग्य चरण को पहचानें। उत्तर गलत हो तो एक समय में एक बदलाव करके फिर प्रयास करें।</p>
+        <h2>सोचिए और दोहराइए</h2>
+        <ol>
+            <li>इस पाठ की सबसे महत्वपूर्ण बात क्या है?</li>
+            <li>कौन सा उदाहरण आपको सबसे अधिक समझ आया?</li>
+            <li>अगली बार आपको कौन सी गलती नहीं करनी चाहिए?</li>
+            <li>कक्षा के बाहर आप इस सीख का उपयोग कहाँ कर सकते हैं?</li>
+        </ol>
+        <p>एक सीखी हुई बात, एक नया प्रश्न और छोटे विद्यार्थी को समझाने वाला एक वाक्य लिखें।</p>
     `;
 
     const marathiContent = `
         <h1>${marathiTitle}</h1>
         <h2>अध्ययनाचे उद्दिष्ट</h2>
-        <p>${marathiDescription}</p>
+        <p>${marathiDescription} या धड्यात तुम्ही विषय टप्प्याटप्प्याने समजून घ्याल, तो दैनंदिन परिस्थितीत वापराल आणि स्वतःच्या शब्दांत उत्तर स्पष्ट कराल.</p>
         <div class="info-box">
-            <strong>इयत्ता ${classNumber} चा सराव:</strong>
+            <strong>इयत्ता ${classNumber} चा मुख्य सराव:</strong>
             <p>${focus.mr[lessonNumber]}</p>
+        </div>
+        <h2>कल्पना समजून घेणे</h2>
+        <p>नवीन गोष्ट परिचित अनुभवाशी जोडली की ती सहज समजते. शीर्षक काळजीपूर्वक वाचा, वर्णनातील मुख्य कृती ओळखा आणि तुमची समज दाखवणारा पुरावा कोणता असेल याचा विचार करा. फक्त उत्तर पाठ करण्याऐवजी प्रत्येक टप्प्यामागचे कारण समजून घेण्याचा प्रयत्न करा.</p>
+        <h2>महत्त्वाचे मुद्दे</h2>
+        <ul>
+            <li>महत्त्वाचे शब्द ओळखा आणि त्यांचा अर्थ स्वतःच्या शब्दांत सांगा.</li>
+            <li>प्रश्न किंवा कृती सोडवण्यापूर्वी ती लहान भागांत विभागा.</li>
+            <li>गरज असल्यास चित्र, यादी, तक्ता किंवा उदाहरण वापरा.</li>
+            <li>तुमचा निष्कर्ष प्रश्नातील माहितीशी जुळतो का ते तपासा.</li>
+        </ul>
+        <h2>उदाहरणातून शिका</h2>
+        <p><strong>${marathiTitle}</strong> शी संबंधित एक सोपे उदाहरण घ्या. आधी तुम्हाला काय माहीत आहे ते लिहा. त्यानंतर योग्य नियम, निरीक्षण किंवा पद्धत निवडा. प्रत्येक टप्पा क्रमाने पूर्ण करा आणि तो का निवडला हे स्पष्ट करा. शेवटी उत्तर योग्य आहे का ते पुन्हा तपासा.</p>
+        <div class="info-box">
+            <strong>वर्गाशी संबंध:</strong>
+            <p>${focus.mr[lessonNumber]} ही गोष्ट तुमच्या वर्गात, घरी किंवा परिसरात कुठे दिसते याचा विचार करा. त्या परिस्थितीचे वर्णन करा आणि धड्यातील कोणता भाग मदत करतो ते सांगा.</p>
         </div>
         <h2>सराव करा</h2>
         <p>${task.mr}</p>
-        <h2>थोडक्यात उजळणी</h2>
-        <p>तुम्ही काय शिकलात आणि या विषयाबद्दल अजून कोणता प्रश्न विचारू इच्छिता?</p>
+        <p>तुमच्या उत्तराची वर्गमित्राशी तुलना करा किंवा ते मोठ्याने वाचा. एक स्पष्ट टप्पा आणि सुधारता येणारा एक टप्पा शोधा. उत्तर चुकले असल्यास एका वेळी एक बदल करून पुन्हा प्रयत्न करा.</p>
+        <h2>विचार आणि उजळणी</h2>
+        <ol>
+            <li>या धड्यातील सर्वात महत्त्वाची कल्पना कोणती?</li>
+            <li>तुम्हाला कोणते उदाहरण सर्वात चांगले समजले?</li>
+            <li>पुढच्या वेळी कोणती चूक टाळली पाहिजे?</li>
+            <li>वर्गाबाहेर हे ज्ञान तुम्ही कुठे वापरू शकता?</li>
+        </ol>
+        <p>तुम्ही शिकलेली एक गोष्ट, अजून पडलेला एक प्रश्न आणि लहान विद्यार्थ्याला समजावणारे एक वाक्य लिहा.</p>
     `;
 
     return {
