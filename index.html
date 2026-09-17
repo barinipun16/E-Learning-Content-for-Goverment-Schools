@@ -4894,6 +4894,7 @@ let currentLanguage =
     localStorage.getItem("edubridge_guest_language") || "en";
 
 let currentPage = "dashboard";
+let courseModalHistoryOpen = false;
 
 let currentSubject = null;
 
@@ -5703,6 +5704,16 @@ function setupNavigation(){
                 document.getElementById(
                     "sidebar"
                 );
+
+            if(courseModalHistoryOpen){
+
+                closeCourseModal({
+                    fromHistory:true
+                });
+
+                return;
+
+            }
 
 
             /*
@@ -7181,6 +7192,25 @@ function startCourse(courseId){
 
 function openCourseModal(course){
 
+    const modal =
+        document.getElementById("courseModal");
+
+    if(modal.classList.contains("hidden")){
+
+        history.pushState(
+            {
+                app:true,
+                page:currentPage,
+                courseModal:true
+            },
+            "",
+            window.location.href
+        );
+
+        courseModalHistoryOpen = true;
+
+    }
+
     activeCourseId = course.id;
 
     const modules =
@@ -7413,9 +7443,7 @@ function openCourseModal(course){
         progress < 100 || examScore < 70
     );
 
-    document.getElementById(
-        "courseModal"
-    ).classList.remove("hidden");
+    modal.classList.remove("hidden");
 
     document.body.classList.add("modal-open");
 
@@ -7542,7 +7570,16 @@ function submitCourseExam(form){
 }
 
 
-function closeCourseModal(){
+function closeCourseModal(options = {}){
+
+    if(
+        !options.fromHistory &&
+        courseModalHistoryOpen
+    ){
+
+        history.back();
+
+    }
 
     document.getElementById(
         "courseModal"
@@ -7551,6 +7588,12 @@ function closeCourseModal(){
     document.body.classList.remove("modal-open");
 
     activeCourseId = null;
+
+    if(options.fromHistory){
+
+        courseModalHistoryOpen = false;
+
+    }
 
 }
 
