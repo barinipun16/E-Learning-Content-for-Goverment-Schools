@@ -1019,6 +1019,70 @@ body.dark .topbar{
     font-size:14px;
 }
 
+.course-module-toggle{
+    margin-left:auto;
+    flex:none;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:8px 10px;
+    background:transparent;
+    color:var(--text);
+    font-size:12px;
+    font-weight:800;
+}
+
+.course-module-toggle.completed{
+    background:#e0f1ee;
+    border-color:#86c9bd;
+    color:var(--primary-dark);
+}
+
+.course-exam-section{
+    margin:24px 0;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--bg);
+}
+
+.course-exam-section h3{
+    margin:4px 0 6px;
+}
+
+.course-exam-question{
+    padding:16px 0;
+    border-top:1px solid var(--border);
+}
+
+.course-exam-question h4{
+    margin-bottom:10px;
+}
+
+.course-exam-option{
+    display:block;
+    padding:8px 0;
+    color:var(--text);
+}
+
+.course-exam-option input{
+    margin-right:8px;
+}
+
+.course-exam-submit{
+    margin-top:10px;
+}
+
+.course-exam-result{
+    margin-top:12px;
+    font-weight:800;
+}
+
+.course-study-guide{
+    max-width:760px;
+    color:var(--muted);
+    line-height:1.7;
+}
+
 .course-modal-actions{
     display:flex;
     justify-content:flex-end;
@@ -2229,6 +2293,7 @@ body.modal-open{
                 <span class="eyebrow">CERTIFICATE COURSE</span>
                 <h2 id="courseModalTitle">Course</h2>
                 <p id="courseModalDescription"></p>
+                <p id="courseStudyGuide" class="course-study-guide"></p>
             </div>
 
             <button
@@ -2241,6 +2306,14 @@ body.modal-open{
         </div>
 
         <div id="courseModules"></div>
+
+        <section class="course-exam-section">
+            <div class="eyebrow">FINAL ASSESSMENT</div>
+            <h3>Course examination</h3>
+            <p id="courseExamIntro">Complete the course reading first. You need at least 70% to pass.</p>
+            <form id="courseExamForm"></form>
+            <div id="courseExamResult" class="course-exam-result"></div>
+        </section>
 
         <div class="course-overview">
             <div class="course-overview-top">
@@ -3981,6 +4054,41 @@ const lessonTasks = {
     }
 };
 
+const languageLessonTitles = {
+    "Nouns in Sentences": {hi:"वाक्यों में संज्ञा",mr:"वाक्यांतील नामे"},
+    "Pronouns and Agreement": {hi:"सर्वनाम और वचन-सामंजस्य",mr:"सर्वनाम आणि वचनसामंजस्य"},
+    "Action Words": {hi:"क्रिया शब्द",mr:"क्रियापदे"},
+    "Adjectives and Description": {hi:"विशेषण और वर्णन",mr:"विशेषणे आणि वर्णन"},
+    "Punctuation Practice": {hi:"विराम चिह्नों का अभ्यास",mr:"विरामचिन्हांचा सराव"},
+    "Writing a Friendly Letter": {hi:"मित्रवत पत्र लेखन",mr:"मैत्रीपूर्ण पत्रलेखन"},
+    "Poems and Rhyming Words": {hi:"कविताएँ और तुकांत शब्द",mr:"कविता आणि यमक शब्द"},
+    "Speaking and Listening": {hi:"बोलना और सुनना",mr:"बोलणे आणि ऐकणे"},
+    "Parts of Speech": {hi:"शब्द-भेद",mr:"शब्दांच्या जाती"},
+    "Subject and Predicate": {hi:"कर्ता और विधेय",mr:"कर्ता आणि विधेय"},
+    "Simple and Compound Sentences": {hi:"सरल और संयुक्त वाक्य",mr:"साधी आणि संयुक्त वाक्ये"},
+    "Tenses in Context": {hi:"संदर्भ में काल",mr:"संदर्भातील काळ"},
+    "Summarising a Passage": {hi:"अनुच्छेद का सार लिखना",mr:"उताऱ्याचा सारांश लिहिणे"},
+    "Descriptive Writing": {hi:"वर्णनात्मक लेखन",mr:"वर्णनात्मक लेखन"},
+    "Dialogue Writing": {hi:"संवाद लेखन",mr:"संवादलेखन"},
+    "Reading for Inference": {hi:"अनुमान के लिए पठन",mr:"अनुमानासाठी वाचन"},
+    "Active and Passive Voice": {hi:"कर्तृवाच्य और कर्मवाच्य",mr:"कर्तरी आणि कर्मणी प्रयोग"},
+    "Clauses and Phrases": {hi:"उपवाक्य और वाक्यांश",mr:"उपवाक्ये आणि वाक्यांश"},
+    "Reported Speech": {hi:"अप्रत्यक्ष कथन",mr:"अप्रत्यक्ष कथन"},
+    "Formal Letter Writing": {hi:"औपचारिक पत्र लेखन",mr:"औपचारिक पत्रलेखन"},
+    "Article Writing": {hi:"लेख लेखन",mr:"लेखलेखन"},
+    "Drama and Dialogue": {hi:"नाटक और संवाद",mr:"नाटक आणि संवाद"},
+    "Poetry and Figures of Speech": {hi:"कविता और अलंकार",mr:"कविता आणि अलंकार"},
+    "Critical Reading": {hi:"आलोचनात्मक पठन",mr:"चिकित्सक वाचन"},
+    "Sentence Transformation": {hi:"वाक्य रूपांतरण",mr:"वाक्यरूपांतर"},
+    "Modals and Meaning": {hi:"सहायक क्रियाएँ और अर्थ",mr:"सहाय्यकारी क्रियापदे आणि अर्थ"},
+    "Editing and Proofreading": {hi:"संपादन और शुद्धिपठन",mr:"संपादन आणि मुद्रितशोधन"},
+    "Argumentative Writing": {hi:"तर्कपूर्ण लेखन",mr:"तर्काधारित लेखन"},
+    "News Report Writing": {hi:"समाचार रिपोर्ट लेखन",mr:"बातमी अहवाल लेखन"},
+    "Character and Theme": {hi:"पात्र और विषय-वस्तु",mr:"पात्र आणि आशयसूत्र"},
+    "Comparing Poems": {hi:"कविताओं की तुलना",mr:"कवितांची तुलना"},
+    "Research and Citation": {hi:"अनुसंधान और संदर्भ लेखन",mr:"संशोधन आणि संदर्भलेखन"}
+};
+
 function createAdditionalLesson(classNumber, subjectId, item, index){
 
     const title = item[0];
@@ -3993,14 +4101,18 @@ function createAdditionalLesson(classNumber, subjectId, item, index){
         computer:{hi:"कंप्यूटर अध्ययन",mr:"संगणक अभ्यास"}
     }[subjectId];
 
+    const localizedLanguageTitle =
+        languageLessonTitles[title]
+        || {hi:title,mr:title};
+
     const hindiTitle =
         subjectId === "language"
-            ? `हिंदी भाषा - पाठ ${index + 1}`
+            ? `हिंदी भाषा - ${localizedLanguageTitle.hi} - पाठ ${index + 1}`
             : `कक्षा ${classNumber} ${subjectNames.hi} - पाठ ${index + 1}: ${title}`;
 
     const marathiTitle =
         subjectId === "language"
-            ? `मराठी भाषा - धडा ${index + 1}`
+            ? `मराठी भाषा - ${localizedLanguageTitle.mr} - धडा ${index + 1}`
             : `इयत्ता ${classNumber} ${subjectNames.mr} - धडा ${index + 1}: ${title}`;
 
     const hindiDescription =
@@ -4057,6 +4169,8 @@ function createAdditionalLesson(classNumber, subjectId, item, index){
         <h1>${hindiTitle}</h1>
         <h2>सीखने का उद्देश्य</h2>
         <p>${hindiDescription} इस पाठ में आप विषय को धीरे-धीरे समझेंगे, उसे दैनिक जीवन की स्थिति में लागू करेंगे और अपने शब्दों में उत्तर समझाएंगे।</p>
+        <h2>इस पाठ का भाषा अभ्यास</h2>
+        <p>इस पाठ में <strong>${localizedLanguageTitle.hi}</strong> से जुड़े शब्दों और वाक्य-रचना पर ध्यान दें। दिए गए विचार को पहले पढ़ें, फिर अपनी भाषा में दो स्पष्ट वाक्य लिखें। नए शब्द का अर्थ समझकर उसका एक अपना उदाहरण बनाएं।</p>
         <div class="info-box">
             <strong>कक्षा ${classNumber} का मुख्य अभ्यास:</strong>
             <p>${focus.hi[lessonNumber]}</p>
@@ -4093,6 +4207,8 @@ function createAdditionalLesson(classNumber, subjectId, item, index){
         <h1>${marathiTitle}</h1>
         <h2>अध्ययनाचे उद्दिष्ट</h2>
         <p>${marathiDescription} या धड्यात तुम्ही विषय टप्प्याटप्प्याने समजून घ्याल, तो दैनंदिन परिस्थितीत वापराल आणि स्वतःच्या शब्दांत उत्तर स्पष्ट कराल.</p>
+        <h2>या धड्यातील भाषिक सराव</h2>
+        <p>या धड्यात <strong>${localizedLanguageTitle.mr}</strong> शी संबंधित शब्दसंग्रह आणि वाक्यरचनेवर लक्ष द्या. दिलेला विचार आधी वाचा, नंतर तो स्वतःच्या भाषेत दोन स्पष्ट वाक्यांत लिहा. नवीन शब्दाचा अर्थ समजून घेऊन त्याचे स्वतःचे उदाहरण तयार करा.</p>
         <div class="info-box">
             <strong>इयत्ता ${classNumber} चा मुख्य सराव:</strong>
             <p>${focus.mr[lessonNumber]}</p>
@@ -4321,6 +4437,197 @@ const courseModules = {
     ]
 };
 
+const courseExams = {
+    digital:[
+        {q:"Which action best protects a student account?",options:["Sharing a password with a friend","Using a strong private password","Using the same password everywhere","Writing the password on a public notice"],answer:1},
+        {q:"What is the best reason to organise files into folders?",options:["To make the screen brighter","To find related work quickly","To use more storage","To remove file names"],answer:1},
+        {q:"Which source deserves the most trust for a school project?",options:["An unnamed post","A source with evidence and a clear author","A random advertisement","An old message without a date"],answer:1},
+        {q:"What should a respectful digital citizen do?",options:["Post private information","Check before sharing and communicate politely","Copy every image without checking","Reply angrily to disagreement"],answer:1},
+        {q:"Why should a presentation use short points?",options:["They help the audience scan and understand ideas","They hide the topic","They replace all explanations","They make sources unnecessary"],answer:0}
+    ],
+    communication:[
+        {q:"What is active listening?",options:["Planning your reply while ignoring the speaker","Focusing on meaning and asking useful questions","Interrupting often","Repeating every word without understanding"],answer:1},
+        {q:"What makes a spoken explanation clear?",options:["A random order","A beginning, organised points and a conclusion","Only difficult words","Speaking as quickly as possible"],answer:1},
+        {q:"What is the main idea of a passage?",options:["A minor example","The central message","The longest word","The final punctuation mark"],answer:1},
+        {q:"What should a formal email include?",options:["A clear subject and polite message","Only emojis","No greeting","Unrelated personal stories"],answer:0},
+        {q:"What improves a presentation?",options:["Reading every slide silently","Practising and making eye contact","Avoiding structure","Using facts without explanation"],answer:1}
+    ],
+    coding:[
+        {q:"What is an algorithm?",options:["A random collection of words","A sequence of steps for solving a problem","A computer screen","A colour scheme"],answer:1},
+        {q:"Why are variables useful?",options:["They store values that a program can use or change","They turn off a computer","They only add colour","They remove all decisions"],answer:0},
+        {q:"What does a condition help a program do?",options:["Choose an action based on whether something is true","Print every line twice","Delete all data","Change the keyboard"],answer:0},
+        {q:"When is a loop useful?",options:["When an action must repeat","When no instructions are needed","Only when drawing a picture","When avoiding testing"],answer:0},
+        {q:"Why should a program be tested?",options:["To find and improve errors","To make code longer","To remove the goal","To avoid explaining it"],answer:0}
+    ]
+};
+
+const courseLocalizedModules = {
+    digital:{
+        hi:[
+            ["डिजिटल उपकरण", "सीखने के लिए उपयोग होने वाले उपकरण पहचानें और सही कार्य के लिए सही उपकरण चुनें।"],
+            ["फाइल और फोल्डर", "फाइल बनाएं, नाम दें और उन्हें व्यवस्थित करें ताकि स्कूल का काम जल्दी मिल सके।"],
+            ["दस्तावेज और प्रस्तुतियाँ", "शीर्षक, चित्र और स्रोतों के साथ स्पष्ट स्कूल कार्य तैयार करें।"],
+            ["खोजना और जांचना", "सुरक्षित खोज करें और ऑनलाइन जानकारी की विश्वसनीयता जांचें।"],
+            ["गोपनीयता और डिजिटल नागरिकता", "निजी जानकारी की रक्षा करें और ऑनलाइन सम्मानपूर्वक संवाद करें।"]
+        ],
+        mr:[
+            ["डिजिटल साधने", "शिकण्यासाठी वापरली जाणारी साधने ओळखा आणि योग्य कामासाठी योग्य साधन निवडा."],
+            ["फाइल आणि फोल्डर", "फाइल तयार करा, नाव द्या आणि शालेय काम सहज सापडेल अशा प्रकारे मांडणी करा."],
+            ["दस्तऐवज आणि सादरीकरणे", "शीर्षके, चित्रे आणि संदर्भांसह स्पष्ट शालेय काम तयार करा."],
+            ["शोध आणि पडताळणी", "सुरक्षित शोध घ्या आणि ऑनलाइन माहिती विश्वासार्ह आहे का ते तपासा."],
+            ["गोपनीयता आणि डिजिटल नागरिकत्व", "खाजगी माहितीचे संरक्षण करा आणि ऑनलाइन आदराने संवाद साधा."]
+        ]
+    },
+    communication:{
+        hi:[
+            ["उद्देश्यपूर्ण सुनना", "कक्षा की बातचीत में मुख्य विचार, प्रश्न और भावनाएं सुनें।"],
+            ["स्पष्ट बोलना", "आरंभ, मुख्य बिंदुओं और निष्कर्ष के साथ छोटी व्याख्या व्यवस्थित करें।"],
+            ["अर्थ के लिए पढ़ना", "अनुच्छेद में मुख्य विचार, सहायक विवरण और नए शब्द खोजें।"],
+            ["संरचित लेखन", "विषय वाक्य, प्रमाण और समापन वाक्य के साथ अनुच्छेद की योजना बनाएं।"],
+            ["औपचारिक संवाद", "स्कूल की वास्तविक जरूरत के लिए सूचना, ईमेल या आवेदन लिखें।"],
+            ["सामुदायिक विचार प्रस्तुत करना", "स्कूल के लिए उपयोगी बदलाव पर छोटी प्रस्तुति तैयार करें।"]
+        ],
+        mr:[
+            ["उद्देशपूर्ण ऐकणे", "वर्गातील संभाषणातील मुख्य कल्पना, प्रश्न आणि भावना ऐका."],
+            ["स्पष्ट बोलणे", "प्रारंभ, मुख्य मुद्दे आणि निष्कर्ष असलेले छोटे स्पष्टीकरण मांडणी करा."],
+            ["अर्थासाठी वाचन", "परिच्छेदातील मुख्य कल्पना, आधारभूत तपशील आणि नवीन शब्द शोधा."],
+            ["रचनेसह लेखन", "विषय वाक्य, पुरावा आणि शेवटचे वाक्य असलेल्या परिच्छेदाची योजना करा."],
+            ["दैनंदिन औपचारिक संवाद", "शाळेच्या गरजेसाठी स्पष्ट सूचना, ईमेल किंवा अर्ज लिहा."],
+            ["समुदायातील कल्पना मांडणे", "शाळेसाठी उपयुक्त बदलावर छोटे सादरीकरण तयार करा."]
+        ]
+    },
+    coding:{
+        hi:[
+            ["एल्गोरिदम और निर्देश", "समस्या को ऐसे क्रमबद्ध चरणों में बांटें जिन्हें दूसरा व्यक्ति अपना सके।"],
+            ["चर और डेटा", "बदलती जानकारी सुरक्षित रखें और छोटे प्रोग्राम के लिए सही डेटा चुनें।"],
+            ["शर्तों से निर्णय", "सही या गलत स्थिति के अनुसार प्रोग्राम की अलग प्रतिक्रिया बनाएं।"],
+            ["लूप और प्रतिरूप", "एक ही निर्देश बार-बार लिखे बिना दोहराव से कार्य हल करें।"],
+            ["HTML से वेब पेज", "शीर्षक, अनुच्छेद, सूची और लिंक वाला सरल पेज बनाएं।"],
+            ["CSS से सज्जा", "रंग, दूरी, आकार और लेआउट नियमों से पठनीयता सुधारें।"],
+            ["प्रोजेक्ट बनाना और जांचना", "विद्यार्थियों के लिए डिजिटल समाधान की योजना बनाएं, जांचें और समझाएं।"]
+        ],
+        mr:[
+            ["अल्गोरिदम आणि सूचना", "दुसरी व्यक्ती पाळू शकेल अशा क्रमबद्ध टप्प्यांत समस्या विभागा."],
+            ["चल आणि माहिती", "बदलणारी माहिती साठवा आणि छोट्या प्रोग्रामसाठी योग्य माहिती निवडा."],
+            ["अटींमधून निर्णय", "अट खरी किंवा खोटी असल्यावर प्रोग्रामची वेगळी प्रतिक्रिया ठरवा."],
+            ["पुनरावृत्ती आणि नमुने", "तीच सूचना पुन्हा न लिहिता पुनरावृत्तीचा वापर करून काम सोडवा."],
+            ["HTML वेबपेज", "शीर्षक, परिच्छेद, यादी आणि दुवा असलेले साधे पेज तयार करा."],
+            ["CSS मांडणी", "रंग, अंतर, आकार आणि मांडणीच्या नियमांनी वाचनीयता सुधारा."],
+            ["प्रकल्प तयार करणे आणि तपासणे", "विद्यार्थ्यांसाठी डिजिटल उपायाची योजना करा, तपासा आणि स्पष्ट करा."]
+        ]
+    }
+};
+
+const courseLocalizedExams = {
+    digital:{
+        hi:[
+            {q:"विद्यार्थी खाते की सबसे अच्छी सुरक्षा कौन सी है?",options:["पासवर्ड साझा करना","मजबूत निजी पासवर्ड रखना","हर जगह एक ही पासवर्ड रखना","पासवर्ड सार्वजनिक लिखना"]},
+            {q:"फाइलों को फोल्डर में रखने का मुख्य लाभ क्या है?",options:["स्क्रीन चमकाना","संबंधित काम जल्दी खोजना","अधिक स्टोरेज उपयोग करना","फाइल नाम हटाना"]},
+            {q:"स्कूल प्रोजेक्ट के लिए कौन सा स्रोत सबसे विश्वसनीय है?",options:["बिना नाम की पोस्ट","लेखक और प्रमाण वाला स्रोत","यादृच्छिक विज्ञापन","बिना तारीख का संदेश"]},
+            {q:"जिम्मेदार डिजिटल नागरिक क्या करता है?",options:["निजी जानकारी पोस्ट करता है","साझा करने से पहले जांचता और सम्मान से बोलता है","हर चित्र कॉपी करता है","गुस्से में जवाब देता है"]},
+            {q:"प्रस्तुति में छोटे बिंदु क्यों उपयोगी हैं?",options:["दर्शक विचार जल्दी समझते हैं","वे विषय छिपाते हैं","वे सभी व्याख्या हटाते हैं","स्रोत अनावश्यक हो जाते हैं"]}
+        ],
+        mr:[
+            {q:"विद्यार्थी खात्याचे सर्वोत्तम संरक्षण कोणते?",options:["पासवर्ड वाटणे","मजबूत खाजगी पासवर्ड वापरणे","सर्वत्र एकच पासवर्ड वापरणे","पासवर्ड सार्वजनिक लिहिणे"]},
+            {q:"फाइल फोल्डरमध्ये ठेवण्याचा मुख्य फायदा कोणता?",options:["स्क्रीन उजळणे","संबंधित काम पटकन शोधणे","जास्त स्टोरेज वापरणे","फाइलची नावे काढणे"]},
+            {q:"शालेय प्रकल्पासाठी कोणता स्रोत अधिक विश्वासार्ह आहे?",options:["नाव नसलेली पोस्ट","लेखक आणि पुरावा असलेला स्रोत","यादृच्छिक जाहिरात","तारीख नसलेला संदेश"]},
+            {q:"जबाबदार डिजिटल नागरिक काय करतो?",options:["खाजगी माहिती पोस्ट करतो","शेअर करण्यापूर्वी तपासतो आणि आदराने बोलतो","प्रत्येक चित्र कॉपी करतो","रागाने उत्तर देतो"]},
+            {q:"सादरीकरणातील छोटे मुद्दे का उपयुक्त असतात?",options:["प्रेक्षकांना कल्पना पटकन समजतात","ते विषय लपवतात","ते सर्व स्पष्टीकरण काढतात","संदर्भ अनावश्यक होतात"]}
+        ]
+    },
+    communication:{
+        hi:[
+            {q:"सक्रिय सुनना क्या है?",options:["वक्ता को अनदेखा करना","अर्थ पर ध्यान देना और उपयोगी प्रश्न पूछना","बार-बार बीच में बोलना","बिना समझे शब्द दोहराना"]},
+            {q:"स्पष्ट मौखिक व्याख्या में क्या होना चाहिए?",options:["बिना क्रम की बातें","आरंभ, व्यवस्थित बिंदु और निष्कर्ष","केवल कठिन शब्द","बहुत तेज बोलना"]},
+            {q:"अनुच्छेद का मुख्य विचार क्या होता है?",options:["छोटा उदाहरण","केंद्रीय संदेश","सबसे लंबा शब्द","अंतिम विराम चिह्न"]},
+            {q:"औपचारिक ईमेल में क्या होना चाहिए?",options:["स्पष्ट विषय और विनम्र संदेश","केवल इमोजी","कोई अभिवादन नहीं","असंबंधित कहानी"]},
+            {q:"प्रस्तुति को क्या बेहतर बनाता है?",options:["स्लाइड चुपचाप पढ़ना","अभ्यास और आंखों का संपर्क","कोई संरचना नहीं","बिना समझाए तथ्य"]}
+        ],
+        mr:[
+            {q:"सक्रिय ऐकणे म्हणजे काय?",options:["वक्त्याकडे दुर्लक्ष करणे","अर्थावर लक्ष देऊन उपयुक्त प्रश्न विचारणे","वारंवार मध्ये बोलणे","न समजता शब्द दोहरावणे"]},
+            {q:"स्पष्ट मौखिक स्पष्टीकरणात काय असावे?",options:["अक्रमित माहिती","प्रारंभ, मांडलेले मुद्दे आणि निष्कर्ष","फक्त कठीण शब्द","अतिशय वेगाने बोलणे"]},
+            {q:"परिच्छेदाची मुख्य कल्पना काय असते?",options:["लहान उदाहरण","केंद्रीय संदेश","सर्वात मोठा शब्द","शेवटचे विरामचिन्ह"]},
+            {q:"औपचारिक ईमेलमध्ये काय असावे?",options:["स्पष्ट विषय आणि नम्र संदेश","फक्त इमोजी","अभिवादन नाही","असंबंधित कथा"]},
+            {q:"सादरीकरण कशामुळे चांगले होते?",options:["स्लाइड शांतपणे वाचणे","सराव आणि डोळ्यांचा संपर्क","रचना टाळणे","स्पष्टीकरणाशिवाय तथ्य"]}
+        ]
+    },
+    coding:{
+        hi:[
+            {q:"एल्गोरिदम क्या है?",options:["शब्दों का यादृच्छिक समूह","समस्या हल करने के क्रमबद्ध चरण","कंप्यूटर स्क्रीन","रंगों की योजना"]},
+            {q:"चर क्यों उपयोगी होते हैं?",options:["वे प्रोग्राम में उपयोग या बदलने योग्य मान रखते हैं","वे कंप्यूटर बंद करते हैं","वे केवल रंग जोड़ते हैं","वे सभी निर्णय हटाते हैं"]},
+            {q:"शर्त प्रोग्राम की कैसे मदद करती है?",options:["सत्यता के आधार पर कार्रवाई चुनने में","हर पंक्ति दो बार छापने में","सारा डेटा मिटाने में","कीबोर्ड बदलने में"]},
+            {q:"लूप कब उपयोगी होता है?",options:["जब कोई कार्य दोहराना हो","जब निर्देश न चाहिए","केवल चित्र बनाने में","जांच से बचने में"]},
+            {q:"प्रोग्राम की जांच क्यों करनी चाहिए?",options:["त्रुटियां खोजकर सुधारने के लिए","कोड लंबा करने के लिए","लक्ष्य हटाने के लिए","समझाने से बचने के लिए"]}
+        ],
+        mr:[
+            {q:"अल्गोरिदम म्हणजे काय?",options:["शब्दांचा यादृच्छिक समूह","समस्या सोडवण्याचे क्रमबद्ध टप्पे","संगणकाची स्क्रीन","रंगांची योजना"]},
+            {q:"चल का उपयुक्त असतात?",options:["प्रोग्राम वापरू किंवा बदलू शकतो अशी मूल्ये ते साठवतात","ते संगणक बंद करतात","ते फक्त रंग जोडतात","ते सर्व निर्णय काढतात"]},
+            {q:"अट प्रोग्रामला कशी मदत करते?",options:["सत्यतेनुसार कृती निवडण्यासाठी","प्रत्येक ओळ दोनदा छापण्यासाठी","सर्व माहिती पुसण्यासाठी","कीबोर्ड बदलण्यासाठी"]},
+            {q:"लूप कधी उपयुक्त असतो?",options:["एखादी कृती पुन्हा करायची असेल तेव्हा","सूचना नको असताना","फक्त चित्र काढताना","तपासणी टाळताना"]},
+            {q:"प्रोग्राम तपासणे का आवश्यक आहे?",options:["चुका शोधून सुधारण्यासाठी","कोड मोठा करण्यासाठी","उद्दिष्ट काढण्यासाठी","स्पष्टीकरण टाळण्यासाठी"]}
+        ]
+    }
+};
+
+function getCourseModules(courseId){
+
+    const modules = courseLocalizedModules[courseId]?.[currentLanguage]
+        || courseModules[courseId]
+        || [];
+
+    return modules.map(module => [
+        module[0],
+        `${module[1]} ${
+            currentLanguage === "hi"
+                ? `इस विषय में ${module[0]} की मुख्य प्रक्रिया और उसका सही उपयोग समझें। अपने स्कूल या घर से एक उदाहरण जोड़ें और अंत में अपने शब्दों में इसका महत्व लिखें।`
+                : currentLanguage === "mr"
+                    ? `${module[0]} मधील मुख्य प्रक्रिया आणि तिचा योग्य वापर समजून घ्या. शाळा किंवा घरातील एक उदाहरण जोडा आणि शेवटी त्याचे महत्त्व स्वतःच्या शब्दांत लिहा.`
+                    : `Study the main process in ${module[0]} and understand when it should be used. Connect it to one example from school or home, then explain its importance in your own words.`
+        }`
+    ]);
+
+}
+
+function getCourseExam(courseId){
+
+    const translated =
+        courseLocalizedExams[courseId]?.[currentLanguage];
+
+    return translated
+        ? translated.map((question,index) => ({
+            ...question,
+            answer:courseExams[courseId][index].answer
+        }))
+        : courseExams[courseId] || [];
+
+}
+
+function getCourseStudyGuide(courseId){
+
+    const guides = {
+        digital:{
+            en:"Study how devices, files, documents, online research and privacy work together. Read every module, connect it to your own school work, and practise making responsible decisions before taking the final exam.",
+            hi:"इस पाठ्यक्रम में उपकरण, फाइल, दस्तावेज, ऑनलाइन खोज और गोपनीयता एक साथ कैसे काम करते हैं, यह सीखें। हर मॉड्यूल पढ़ें, उसे अपने स्कूल के काम से जोड़ें और अंतिम परीक्षा से पहले जिम्मेदार निर्णयों का अभ्यास करें।",
+            mr:"या अभ्यासक्रमात साधने, फाइल, दस्तऐवज, ऑनलाइन शोध आणि गोपनीयता एकत्र कशी काम करतात ते शिका. प्रत्येक मॉड्यूल वाचा, ते तुमच्या शालेय कामाशी जोडा आणि अंतिम परीक्षेपूर्वी जबाबदार निर्णयांचा सराव करा."
+        },
+        communication:{
+            en:"Build communication from listening to speaking, reading, writing and presenting. Notice how purpose and audience change your message, then use the modules to prepare for the final exam.",
+            hi:"सुनने से लेकर बोलने, पढ़ने, लिखने और प्रस्तुत करने तक संचार कौशल विकसित करें। समझें कि उद्देश्य और श्रोता आपके संदेश को कैसे बदलते हैं, फिर मॉड्यूल पढ़कर अंतिम परीक्षा की तैयारी करें।",
+            mr:"ऐकण्यापासून बोलणे, वाचन, लेखन आणि सादरीकरणापर्यंत संवादकौशल्य विकसित करा. उद्देश आणि श्रोते तुमचा संदेश कसा बदलतात ते समजा आणि मॉड्यूल वाचून अंतिम परीक्षेची तयारी करा."
+        },
+        coding:{
+            en:"Learn to think like a programmer: break problems into algorithms, store data, make decisions, repeat actions and test results. Read the explanations carefully and apply each idea before the final exam.",
+            hi:"प्रोग्रामर की तरह सोचना सीखें: समस्याओं को एल्गोरिदम में बांटें, डेटा रखें, निर्णय लें, कार्य दोहराएं और परिणाम जांचें। अंतिम परीक्षा से पहले हर विचार को ध्यान से पढ़कर लागू करें।",
+            mr:"प्रोग्रामरसारखा विचार करायला शिका: समस्या अल्गोरिदममध्ये विभागा, माहिती साठवा, निर्णय घ्या, कृती पुन्हा करा आणि परिणाम तपासा. अंतिम परीक्षेपूर्वी प्रत्येक कल्पना काळजीपूर्वक वाचून वापरा."
+        }
+    };
+
+    return guides[courseId]?.[currentLanguage]
+        || guides[courseId]?.en
+        || "";
+
+}
+
 
 /* =====================================================
    QUIZZES
@@ -4356,6 +4663,46 @@ mr:"10 चा अर्धा किती?"
 },
 options:["2","4","5","8"],
 answer:2
+},
+
+{
+q:{en:"Which number is even?",hi:"इनमें से कौन सी संख्या सम है?",mr:"यापैकी कोणती संख्या सम आहे?"},
+options:["13","21","34","45"],answer:2
+},
+
+{
+q:{en:"What is 9 × 6?",hi:"9 × 6 कितना है?",mr:"9 × 6 किती?"},
+options:["45","54","63","72"],answer:1
+},
+
+{
+q:{en:"Which fraction is equal to one half?",hi:"कौन सा भिन्न एक बटा दो के बराबर है?",mr:"कोणता अपूर्णांक एक छेद दोनच्या बरोबर आहे?"},
+options:["1/3","2/4","3/5","4/6"],answer:1
+},
+
+{
+q:{en:"What is the perimeter of a square with side 4 cm?",hi:"4 सेमी भुजा वाले वर्ग का परिमाप कितना है?",mr:"4 सेमी बाजू असलेल्या चौरसाची परिमिती किती?"},
+options:["8 cm","12 cm","16 cm","20 cm"],answer:2
+},
+
+{
+q:{en:"What is 100 divided by 5?",hi:"100 को 5 से भाग देने पर क्या मिलेगा?",mr:"100 ला 5 ने भागल्यावर किती मिळेल?"},
+options:["10","15","20","25"],answer:2
+},
+
+{
+q:{en:"Which shape has three sides?",hi:"किस आकृति की तीन भुजाएँ होती हैं?",mr:"कोणत्या आकृतीला तीन बाजू असतात?"},
+options:["Circle","Triangle","Square","Rectangle"],answer:1
+},
+
+{
+q:{en:"What is 3.5 + 1.5?",hi:"3.5 + 1.5 कितना है?",mr:"3.5 + 1.5 किती?"},
+options:["4","5","5.5","6"],answer:1
+},
+
+{
+q:{en:"If one pencil costs 7 rupees, how much do two pencils cost?",hi:"एक पेंसिल 7 रुपये की है, तो दो पेंसिलों की कीमत कितनी होगी?",mr:"एक पेन्सिल 7 रुपयांची असेल तर दोन पेन्सिलींची किंमत किती?"},
+options:["9 rupees","12 rupees","14 rupees","21 rupees"],answer:2
 }
 
 ]
@@ -4390,6 +4737,46 @@ mr:"मानवांना श्वसनासाठी कोणत्य�
 },
 options:["Oxygen","Carbon dioxide","Nitrogen","Helium"],
 answer:0
+},
+
+{
+q:{en:"Which part of a plant absorbs water?",hi:"पौधे का कौन सा भाग पानी सोखता है?",mr:"वनस्पतीचा कोणता भाग पाणी शोषतो?"},
+options:["Flower","Root","Fruit","Leaf"],answer:1
+},
+
+{
+q:{en:"Which state of matter keeps its own shape?",hi:"पदार्थ की कौन सी अवस्था अपना आकार बनाए रखती है?",mr:"पदार्थाची कोणती अवस्था स्वतःचा आकार टिकवते?"},
+options:["Solid","Liquid","Gas","Steam"],answer:0
+},
+
+{
+q:{en:"What force pulls objects toward Earth?",hi:"कौन सा बल वस्तुओं को पृथ्वी की ओर खींचता है?",mr:"कोणते बल वस्तूंना पृथ्वीच्या दिशेने ओढते?"},
+options:["Magnetism","Gravity","Friction","Light"],answer:1
+},
+
+{
+q:{en:"Which organ pumps blood around the body?",hi:"कौन सा अंग पूरे शरीर में रक्त पंप करता है?",mr:"कोणता अवयव संपूर्ण शरीरात रक्त पंप करतो?"},
+options:["Lung","Brain","Heart","Stomach"],answer:2
+},
+
+{
+q:{en:"What do we need from the Sun for daylight?",hi:"दिन के प्रकाश के लिए हमें सूर्य से क्या मिलता है?",mr:"दिवसाच्या प्रकाशासाठी आपल्याला सूर्यापासून काय मिळते?"},
+options:["Sound","Heat and light","Rain","Soil"],answer:1
+},
+
+{
+q:{en:"Which material is attracted by a magnet?",hi:"किस पदार्थ को चुंबक आकर्षित करता है?",mr:"चुंबक कोणत्या पदार्थाला आकर्षित करतो?"},
+options:["Wood","Plastic","Iron","Glass"],answer:2
+},
+
+{
+q:{en:"What is water vapour changing into water droplets called?",hi:"जलवाष्प के पानी की बूंदों में बदलने को क्या कहते हैं?",mr:"जलवाष्पाचे पाण्याच्या थेंबांत रूपांतर होण्याला काय म्हणतात?"},
+options:["Melting","Freezing","Condensation","Burning"],answer:2
+},
+
+{
+q:{en:"Which action helps save clean water?",hi:"स्वच्छ पानी बचाने में कौन सा कार्य मदद करता है?",mr:"स्वच्छ पाणी वाचवण्यासाठी कोणती कृती मदत करते?"},
+options:["Leaving taps open","Fixing leaking taps","Throwing waste in rivers","Using more water than needed"],answer:1
 }
 
 ]
@@ -4722,6 +5109,12 @@ function setupAuth(){
             currentUser.courseProgress =
                 currentUser.courseProgress || {};
 
+            currentUser.courseModuleProgress =
+                currentUser.courseModuleProgress || {};
+
+            currentUser.courseExamScores =
+                currentUser.courseExamScores || {};
+
 
             currentLanguage =
                 localStorage.getItem(
@@ -4840,7 +5233,11 @@ function setupAuth(){
 
                 quizScores:{},
 
-                courseProgress:{}
+                courseProgress:{},
+
+                courseModuleProgress:{},
+
+                courseExamScores:{}
 
             };
 
@@ -5425,6 +5822,19 @@ function changeLanguage(language){
 
     }
 
+    if(activeCourseId && currentUser){
+
+        const activeCourse =
+            courses.find(course => course.id === activeCourseId);
+
+        if(activeCourse){
+
+            openCourseModal(activeCourse);
+
+        }
+
+    }
+
 
     showToast(
         language === "hi"
@@ -5442,7 +5852,6 @@ function changeLanguage(language){
 ===================================================== */
 
 function getClassCurriculum(){
-
     if(!currentUser) return {};
 
     return (
@@ -5450,6 +5859,17 @@ function getClassCurriculum(){
             currentUser.classNo
         ] || {}
     );
+
+}
+
+
+function getLessonTitle(lesson){
+
+    return lesson.title[currentLanguage]
+        || lesson.title.en
+        || lesson.title.hi
+        || lesson.title.mr
+        || "Lesson";
 
 }
 
@@ -5766,7 +6186,7 @@ function renderLessonList(subjectId){
                         <div class="lesson-info">
 
                             <h3>
-                                ${lesson.title[currentLanguage]}
+                                ${getLessonTitle(lesson)}
                             </h3>
 
                             <p>
@@ -5851,6 +6271,11 @@ function openLesson(
         currentUser.completedLessons
             .includes(lessonKey);
 
+    const lessonContent =
+        lesson.content[currentLanguage]
+        || lesson.content.en
+        || "";
+
 
     document.getElementById(
         "lessonContent"
@@ -5860,7 +6285,10 @@ function openLesson(
             ${getSubjectName(subjectId)}
         </div>
 
-        ${lesson.content[currentLanguage]}
+        <h1 class="lesson-title">
+            ${getLessonTitle(lesson)}
+        </h1>
+        ${lessonContent.replace(/<h1[\s\S]*?<\/h1>/i, "")}
 
     `;
 
@@ -6558,7 +6986,10 @@ function attachDynamicButtons(){
         .querySelectorAll(".open-subject")
         .forEach(button => {
 
-            button.onclick = () => {
+            button.onclick = event => {
+
+                event.preventDefault();
+                event.stopPropagation();
 
                 renderLessonList(
                     button.dataset.subject
@@ -6647,10 +7078,19 @@ function openCourseModal(course){
     activeCourseId = course.id;
 
     const modules =
-        courseModules[course.id] || [];
+        getCourseModules(course.id);
 
-    const progress =
-        currentUser.courseProgress[course.id] || 0;
+    const completedModules =
+        getCompletedCourseModules(course.id);
+
+    const progress = modules.length
+        ? Math.round(
+            completedModules.length /
+            modules.length * 100
+        )
+        : 0;
+
+    currentUser.courseProgress[course.id] = progress;
 
     document.getElementById(
         "courseModalTitle"
@@ -6663,45 +7103,208 @@ function openCourseModal(course){
         course.description[currentLanguage] || course.description.en;
 
     document.getElementById(
+        "courseStudyGuide"
+    ).textContent =
+        getCourseStudyGuide(course.id);
+
+    document.querySelector(
+        "#courseModal .course-modal-header .eyebrow"
+    ).textContent =
+        currentLanguage === "hi"
+            ? "प्रमाणपत्र पाठ्यक्रम"
+            : currentLanguage === "mr"
+                ? "प्रमाणपत्र अभ्यासक्रम"
+                : "CERTIFICATE COURSE";
+
+    document.getElementById(
         "courseModules"
     ).innerHTML =
-        modules.map((module, index) => `
-            <article class="course-module">
+        modules.map((module, index) => {
+
+            const completed =
+                completedModules.includes(index);
+
+            const moduleAction =
+                completed
+                    ? currentLanguage === "hi"
+                        ? "पूर्ण"
+                        : currentLanguage === "mr"
+                            ? "पूर्ण"
+                            : "Completed"
+                    : currentLanguage === "hi"
+                        ? "पूरा करें"
+                        : currentLanguage === "mr"
+                            ? "पूर्ण करा"
+                            : "Complete";
+
+            return `
+            <article class="course-module ${completed ? "completed" : ""}">
                 <div class="course-module-number">${index + 1}</div>
                 <div>
                     <h3>${module[0]}</h3>
                     <p>${module[1]}</p>
                 </div>
+                <button
+                    class="course-module-toggle ${completed ? "completed" : ""}"
+                    onclick="toggleCourseModule(${index})">
+                    ${moduleAction}
+                </button>
             </article>
-        `).join("");
+            `;
+
+        }).join("");
 
     document.getElementById(
         "courseProgressLabel"
     ).textContent =
-        `${progress}% complete`;
+        `${progress}% ${
+            currentLanguage === "hi"
+                ? "पूर्ण"
+                : currentLanguage === "mr"
+                    ? "पूर्ण"
+                    : "complete"
+        }`;
 
     document.getElementById(
         "courseModuleCount"
     ).textContent =
-        `${modules.length} modules`;
+        `${modules.length} ${
+            currentLanguage === "hi"
+                ? "मॉड्यूल"
+                : currentLanguage === "mr"
+                    ? "मॉड्यूल"
+                    : "modules"
+        }`;
 
     document.getElementById(
         "courseProgressFill"
     ).style.width =
         `${progress}%`;
 
+    const examScore =
+        currentUser.courseExamScores?.[course.id] || 0;
+
+    const examForm =
+        document.getElementById("courseExamForm");
+
+    const examQuestions =
+        getCourseExam(course.id);
+
+    examForm.innerHTML =
+        examQuestions.map((question,index) => `
+            <div class="course-exam-question">
+                <h4>${index + 1}. ${question.q}</h4>
+                ${question.options.map((option,optionIndex) => `
+                    <label class="course-exam-option">
+                        <input type="radio" name="courseExam${index}" value="${optionIndex}" required ${progress < 100 ? "disabled" : ""}>
+                        ${option}
+                    </label>
+                `).join("")}
+            </div>
+        `).join("") + `
+            <button class="primary-btn course-exam-submit" type="submit" ${progress < 100 ? "disabled" : ""}>
+                ${examScore >= 70
+                    ? currentLanguage === "hi"
+                        ? "अंतिम परीक्षा फिर दें"
+                        : currentLanguage === "mr"
+                            ? "अंतिम परीक्षा पुन्हा द्या"
+                            : "Retake final exam"
+                    : currentLanguage === "hi"
+                        ? "अंतिम परीक्षा जमा करें"
+                        : currentLanguage === "mr"
+                            ? "अंतिम परीक्षा सादर करा"
+                            : "Submit final exam"}
+            </button>
+        `;
+
+    document.getElementById("courseExamResult").textContent =
+        examScore
+            ? `${currentLanguage === "hi" ? "सर्वश्रेष्ठ परीक्षा अंक" : currentLanguage === "mr" ? "सर्वोत्तम परीक्षा गुण" : "Best exam score"}: ${examScore}%${examScore >= 70 ? currentLanguage === "hi" ? " - उत्तीर्ण" : currentLanguage === "mr" ? " - उत्तीर्ण" : " - Passed" : currentLanguage === "hi" ? " - उत्तीर्ण होने के लिए 70% आवश्यक है" : currentLanguage === "mr" ? " - उत्तीर्ण होण्यासाठी 70% आवश्यक" : " - 70% is required to pass"}`
+            : progress < 100
+                ? currentLanguage === "hi"
+                    ? "परीक्षा खोलने के लिए विस्तृत पाठ्यक्रम मॉड्यूल पूरे करें।"
+                    : currentLanguage === "mr"
+                        ? "परीक्षा सुरू करण्यासाठी विस्तृत अभ्यासक्रम मॉड्यूल पूर्ण करा."
+                        : "Complete the detailed course modules to unlock the exam."
+                : currentLanguage === "hi"
+                    ? "उत्तीर्ण अंक: 70%। हर प्रश्न ध्यान से पढ़ें।"
+                    : currentLanguage === "mr"
+                        ? "उत्तीर्ण गुण: 70%. प्रत्येक प्रश्न काळजीपूर्वक वाचा."
+                        : "Pass mark: 70%. Read each question carefully.";
+
+    examForm.onsubmit = event => {
+
+        event.preventDefault();
+        submitCourseExam(examForm);
+
+    };
+
     document.getElementById(
         "completeCourseButton"
     ).textContent =
-        progress >= 100
-            ? "Course completed"
-            : "Mark course complete";
+        progress >= 100 && examScore >= 70
+            ? currentLanguage === "hi"
+                ? "पाठ्यक्रम पूरा हुआ"
+                : currentLanguage === "mr"
+                    ? "अभ्यासक्रम पूर्ण झाला"
+                    : "Course completed"
+            : examScore >= 70
+                ? currentLanguage === "hi"
+                    ? "पाठ्यक्रम पूरा हुआ"
+                    : currentLanguage === "mr"
+                        ? "अभ्यासक्रम पूर्ण झाला"
+                        : "Course completed"
+                : currentLanguage === "hi"
+                    ? "पहले अंतिम परीक्षा उत्तीर्ण करें"
+                    : currentLanguage === "mr"
+                        ? "आधी अंतिम परीक्षा उत्तीर्ण करा"
+                        : "Pass the final exam first";
+
+    document.getElementById(
+        "courseExamIntro"
+    ).textContent =
+        currentLanguage === "hi"
+            ? "पहले पाठ्यक्रम पढ़ें। उत्तीर्ण होने के लिए कम से कम 70% अंक चाहिए।"
+            : currentLanguage === "mr"
+                ? "आधी अभ्यासक्रम वाचा. उत्तीर्ण होण्यासाठी किमान 70% गुण आवश्यक आहेत."
+                : "Complete the course reading first. You need at least 70% to pass.";
+
+    document.querySelector(
+        "#courseModal .course-exam-section .eyebrow"
+    ).textContent =
+        currentLanguage === "hi"
+            ? "अंतिम मूल्यांकन"
+            : currentLanguage === "mr"
+                ? "अंतिम मूल्यमापन"
+                : "FINAL ASSESSMENT";
+
+    document.querySelector(
+        "#courseModal .course-exam-section h3"
+    ).textContent =
+        currentLanguage === "hi"
+            ? "पाठ्यक्रम परीक्षा"
+            : currentLanguage === "mr"
+                ? "अभ्यासक्रम परीक्षा"
+                : "Course examination";
+
+    document.getElementById(
+        "completeCourseButton"
+    ).disabled = progress < 100 || examScore < 70;
+
+    document.getElementById(
+        "downloadCertificateButton"
+    ).textContent =
+        currentLanguage === "hi"
+            ? "प्रमाणपत्र डाउनलोड करें"
+            : currentLanguage === "mr"
+                ? "प्रमाणपत्र डाउनलोड करा"
+                : "Download certificate";
 
     document.getElementById(
         "downloadCertificateButton"
     ).classList.toggle(
         "hidden",
-        progress < 100
+        progress < 100 || examScore < 70
     );
 
     document.getElementById(
@@ -6709,6 +7312,126 @@ function openCourseModal(course){
     ).classList.remove("hidden");
 
     document.body.classList.add("modal-open");
+
+}
+
+
+function getCompletedCourseModules(courseId){
+
+    if(!currentUser.courseModuleProgress){
+
+        currentUser.courseModuleProgress = {};
+
+    }
+
+    const completed =
+        currentUser.courseModuleProgress[courseId];
+
+    return Array.isArray(completed)
+        ? completed
+        : [];
+
+}
+
+
+function toggleCourseModule(moduleIndex){
+
+    if(!currentUser || !activeCourseId) return;
+
+    const completedModules =
+        getCompletedCourseModules(activeCourseId);
+
+    const existingIndex =
+        completedModules.indexOf(moduleIndex);
+
+    if(existingIndex >= 0){
+
+        completedModules.splice(existingIndex,1);
+
+    }else{
+
+        completedModules.push(moduleIndex);
+
+    }
+
+    currentUser.courseModuleProgress[activeCourseId] =
+        completedModules.sort((left,right) => left - right);
+
+    saveCurrentUser();
+
+    const course =
+        courses.find(item => item.id === activeCourseId);
+
+    if(course){
+
+        openCourseModal(course);
+
+    }
+
+}
+
+
+function submitCourseExam(form){
+
+    if(!currentUser || !activeCourseId) return;
+
+    const questions =
+        courseExams[activeCourseId] || [];
+
+    let score = 0;
+
+    questions.forEach((question,index) => {
+
+        const selected =
+            form.querySelector(
+                `input[name="courseExam${index}"]:checked`
+            );
+
+        if(selected && Number(selected.value) === question.answer){
+
+            score++;
+
+        }
+
+    });
+
+    const percent = Math.round(
+        score / questions.length * 100
+    );
+
+    const bestScore = Math.max(
+        currentUser.courseExamScores[activeCourseId] || 0,
+        percent
+    );
+
+    currentUser.courseExamScores[activeCourseId] = bestScore;
+
+    const course =
+        courses.find(item => item.id === activeCourseId);
+
+    if(
+        course &&
+        getCompletedCourseModules(activeCourseId).length >= course.lessons &&
+        bestScore >= 70
+    ){
+
+        currentUser.courseProgress[activeCourseId] = 100;
+
+    }
+
+    saveCurrentUser();
+
+    if(course){
+
+        openCourseModal(course);
+
+    }
+
+    showToast(
+        percent >= 70
+            ? `Exam passed: ${score}/${questions.length} (${percent}%)`
+            : `Exam score: ${score}/${questions.length} (${percent}%). 70% is required.`
+    );
 
 }
 
@@ -6729,6 +7452,25 @@ function closeCourseModal(){
 function completeActiveCourse(){
 
     if(!currentUser || !activeCourseId) return;
+
+    const course =
+        courses.find(item => item.id === activeCourseId);
+
+    if(!course || getCompletedCourseModules(activeCourseId).length < course.lessons){
+
+        showToast("Complete every course module first.");
+
+        return;
+
+    }
+
+    if((currentUser.courseExamScores?.[activeCourseId] || 0) < 70){
+
+        showToast("Pass the final exam with at least 70% first.");
+
+        return;
+
+    }
 
     currentUser.courseProgress[activeCourseId] = 100;
 
@@ -6763,7 +7505,11 @@ function downloadCertificate(){
             item => item.id === activeCourseId
         );
 
-    if(!course || currentUser.courseProgress[activeCourseId] < 100){
+    if(
+        !course ||
+        currentUser.courseProgress[activeCourseId] < 100 ||
+        (currentUser.courseExamScores?.[activeCourseId] || 0) < 70
+    ){
         return;
     }
 
@@ -6771,10 +7517,46 @@ function downloadCertificate(){
         escapeHTML(currentUser.username);
 
     const courseTitle =
-        escapeHTML(course.title.en);
+        escapeHTML(
+            course.title[currentLanguage] || course.title.en
+        );
 
     const className =
-        escapeHTML(`Class ${currentUser.classNo}`);
+        escapeHTML(
+            currentLanguage === "hi"
+                ? `कक्षा ${currentUser.classNo}`
+                : currentLanguage === "mr"
+                    ? `इयत्ता ${currentUser.classNo}`
+                    : `Class ${currentUser.classNo}`
+        );
+
+    const certificateLabels =
+        currentLanguage === "hi"
+            ? {
+                brand:"EDUBRIDGE शिक्षण पोर्टल",
+                eyebrow:"पूर्णता प्रमाणपत्र",
+                completed:"ने सफलतापूर्वक प्रमाणपत्र पाठ्यक्रम पूरा किया है",
+                learner:"सरकारी विद्यालय शिक्षण कार्यक्रम का विद्यार्थी",
+                issued:"जारी किया गया",
+                id:"प्रमाणपत्र आईडी"
+            }
+            : currentLanguage === "mr"
+                ? {
+                    brand:"EDUBRIDGE शिक्षण पोर्टल",
+                    eyebrow:"पूर्णत्वाचे प्रमाणपत्र",
+                    completed:"यांनी प्रमाणपत्र अभ्यासक्रम यशस्वीपणे पूर्ण केला आहे",
+                    learner:"शासकीय शाळा शिक्षण कार्यक्रमातील विद्यार्थी",
+                    issued:"जारी दिनांक",
+                    id:"प्रमाणपत्र क्रमांक"
+                }
+                : {
+                    brand:"EDUBRIDGE LEARNING PORTAL",
+                    eyebrow:"Certificate of completion",
+                    completed:"has successfully completed the certificate course",
+                    learner:"Government school learning programme learner",
+                    issued:"Issued",
+                    id:"Certificate ID"
+                };
 
     const completionDate =
         new Date().toLocaleDateString("en-IN",{
@@ -6796,7 +7578,7 @@ body{margin:0;background:#eef5f3;color:#173042;font-family:Georgia,serif;display
 .certificate{width:min(900px,calc(100% - 40px));padding:70px 55px;text-align:center;background:#fff;border:12px solid #0f5c8d;box-shadow:0 20px 60px rgba(16,55,70,.18)}
 .brand{font:800 20px Arial,sans-serif;letter-spacing:2px;color:#0f5c8d}.eyebrow{margin:36px 0 8px;font:700 13px Arial,sans-serif;letter-spacing:3px;color:#e08a2e;text-transform:uppercase}
 h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 24px}p{font-size:18px;line-height:1.6}.meta{margin:34px auto 0;display:flex;justify-content:space-between;gap:20px;font:14px Arial,sans-serif;color:#617482;border-top:1px solid #d9e4e7;padding-top:18px}@media(max-width:600px){.certificate{padding:45px 22px;border-width:7px}h1{font-size:36px}h2{font-size:24px}.meta{display:block;line-height:2}}
-</style></head><body><main class="certificate"><div class="brand">EDUBRIDGE LEARNING PORTAL</div><div class="eyebrow">Certificate of completion</div><h1>${studentName}</h1><p>has successfully completed the certificate course</p><h2>${courseTitle}</h2><p>${className} learner | Government school learning programme</p><div class="meta"><span>Issued: ${completionDate}</span><span>Certificate ID: ${certificateId}</span></div></main></body></html>`;
+</style></head><body><main class="certificate"><div class="brand">${certificateLabels.brand}</div><div class="eyebrow">${certificateLabels.eyebrow}</div><h1>${studentName}</h1><p>${certificateLabels.completed}</p><h2>${courseTitle}</h2><p>${className} | ${certificateLabels.learner}</p><div class="meta"><span>${certificateLabels.issued}: ${completionDate}</span><span>${certificateLabels.id}: ${certificateId}</span></div></main></body></html>`;
 
     const blob =
         new Blob(
