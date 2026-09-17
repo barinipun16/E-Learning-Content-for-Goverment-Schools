@@ -7606,15 +7606,17 @@ h1{font-size:48px;margin:0 0 18px}h2{font-size:30px;color:#0f5c8d;margin:12px 0 
     link.download =
         `EduBridge-${activeCourseId}-certificate.html`;
 
+    link.style.display = "none";
+
     document.body.appendChild(link);
     link.click();
-    link.remove();
 
     setTimeout(() => {
 
+        link.remove();
         URL.revokeObjectURL(url);
 
-    },1000);
+    },2000);
 
     showToast(
         currentLanguage === "hi"
