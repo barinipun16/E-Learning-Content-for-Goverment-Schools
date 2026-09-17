@@ -1176,12 +1176,18 @@ body.modal-open{
 @media(max-width:900px){
 
     .auth-wrapper{
+        width:100%;
         grid-template-columns:1fr;
         max-width:550px;
     }
 
     .auth-brand{
         display:none;
+    }
+
+    .auth-card{
+        min-width:0;
+        width:100%;
     }
 
     .stats-grid{
@@ -1258,8 +1264,12 @@ body.modal-open{
 
 @media(max-width:500px){
 
+    #authPage{
+        padding:12px;
+    }
+
     .auth-card{
-        padding:25px 20px;
+        padding:24px 20px 28px;
     }
 
     .auth-card h2{
@@ -8045,14 +8055,30 @@ function initialize(){
 
     setupCourseModal();
 
+    const savedUsername =
+        localStorage.getItem("edubridge_current_user");
+
+    const users = getUsers();
+
+    if(savedUsername && users[savedUsername]){
+
+        currentUser = users[savedUsername];
+
+        currentLanguage =
+            localStorage.getItem(
+                `edubridge_language_${currentUser.username}`
+            ) || currentLanguage;
+
+        applyTranslations();
+        openApp();
+
+        return;
+
+    }
+
+    localStorage.removeItem("edubridge_current_user");
+
     applyTranslations();
-
-
-    currentUser = null;
-
-    localStorage.removeItem(
-        "edubridge_current_user"
-    );
 
     document
         .getElementById("authPage")
